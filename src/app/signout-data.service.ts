@@ -9,7 +9,9 @@ export class SignoutDataService {
   constructor(private db:AngularFireDatabase, private auth: AngularFireAuth) { }
 
   getSignouts(vehicle:string):FirebaseListObservable<any[]>{
-    return this.db.list(`/vehicles/${vehicle}/`);
+    return this.db.list(`/vehicles/${vehicle}/`, {query:{
+      orderByChild: 'departing'
+    }});
   }
 
   getVehicleNames():FirebaseListObservable<any[]>{
@@ -26,7 +28,7 @@ export class SignoutDataService {
   }
 
   getAuth(){
-    return this.auth.auth.currentUser;
+    return this.auth.authState;
   }
 
   login(){

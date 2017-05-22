@@ -27,7 +27,7 @@ export class AddSignoutDialogComponent {
  constructor(@Inject(MD_DIALOG_DATA) public data: any,
              private sds: SignoutDataService,
              private fb: FormBuilder) {
-   this.vehicleNames = data.vehicleNames;
+   this.vehicleNames = this.sds.getVehicleNames();
    this.tabIndex = 0;
    this.canSave = false;
    this.currentDate = new Date();

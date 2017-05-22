@@ -1,14 +1,10 @@
-md-card{
-    margin: 2.5em;
-}
+h3.mat-subheader{
+      padding: 16px 0;
+  }
 
 @media(max-width:600px){
   md-card{
     margin: 0;
-  }
-
-  h3.mat-subheader{
-      padding: 16px 0;
   }
 
   md-list-item span{

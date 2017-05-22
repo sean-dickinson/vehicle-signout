@@ -1,3 +1,19 @@
-<h1>
-  {{title}}
-</h1>
+<md-sidenav-container>
+  <md-sidenav #sidenav [mode]="mode" [opened]="opened">
+    <md-nav-list>
+      <h3 md-subheader>Vehicles</h3>
+      <md-list-item *ngFor="let name of vehicleNames | async">
+        <a [routerLink]="['/vehicle',getEncoded(name.$key)]">{{name.$key}}</a>
+      </md-list-item>
+    </md-nav-list>
+  </md-sidenav>
+  <section class="main-content">
+    <md-toolbar color="primary">
+      <button (click)="sidenav.toggle()" md-icon-button><md-icon>menu</md-icon></button>
+      <span>Vehicle Signouts</span>
+    </md-toolbar>
+    <router-outlet>
+    </router-outlet>
+    <button mdTooltip="New Signout" [mdTooltipPosition]="'above'" (click)="openDialog()" class="fab" md-fab><md-icon>directions_car</md-icon></button>
+  </section>
+</md-sidenav-container>

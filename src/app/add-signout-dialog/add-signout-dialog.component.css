@@ -1,0 +1,8 @@
+.spacing{
+    margin: 2em 0;
+}
+
+md-error{
+    font-size: .75em;
+    padding: 0 4px 0 46px;
+}

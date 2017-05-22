@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body, material-app, md-sidenav-container {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.main-content{
+  height: 100%;
+  width: 100%;
+}
+
+md-sidenav{
+    width: 200px;
+}
+
+.mat-list-item-content{
+  width: 100%;
+}
+
+.fab{
+  position:fixed !important;
+  bottom: 3em;
+  right: 5em;
+}
+
+.mat-nav-list a{
+  height:inherit;
+  width: inherit;
+  line-height: 3;
+}
+
+@media(max-width:600px){
+  md-card{
+    margin: 0;
+  }
+}

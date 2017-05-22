@@ -1,0 +1,23 @@
+<md-card>
+  <md-card-title>{{name}}</md-card-title>
+  <md-card-subtitle></md-card-subtitle>
+  <md-card-content>
+    <md-list>
+      <md-list-item>
+        <h3 md-subheader style="width: 100%" fxLayout="row">
+          <span fxFlex="25">Name</span>
+          <span fxFlex="25">Purpose</span>
+          <span fxFlex="25">Departing</span>
+          <span fxFlex="25">Returning</span>
+        </h3>
+      </md-list-item>
+      <md-list-item fxLayout="row" *ngFor="let signout of signouts | async">
+        <span fxFlex="25">{{signout?.name}}</span>
+        <span fxFlex="25">{{signout?.purpose}}</span>
+        <span fxFlex="25">{{signout?.departing | date :'short'}}</span>
+        <span fxFlex="25">{{signout?.returning | date :'short'}}</span>
+      </md-list-item>
+      <md-divider></md-divider>
+    </md-list>
+  </md-card-content>
+</md-card>

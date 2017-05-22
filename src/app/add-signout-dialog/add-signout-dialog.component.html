@@ -1,0 +1,54 @@
+<h1 md-line md-dialog-title>Sign Out</h1>
+  <md-dialog-content>
+    <form [formGroup]="signOutForm">
+      <md-tab-group [dynamicHeight]="true" [selectedIndex]="tabIndex">
+        <md-tab label="General">
+          <div fxLayout="row" fxLayoutAlign="center" class="spacing">
+            <md-select fxFlex="50" fxFlex.lt-sm="60" placeholder="Which Vehicle?" formControlName="vehicle" required>
+              <md-option *ngFor="let vehicle of vehicleNames | async" [value]="vehicle.$key">{{vehicle.$key}}</md-option>
+            </md-select>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center">
+            <md-input-container fxFlex="50" fxFlex.lt-sm="60">
+              <input mdInput placeholder="Purpose" formControlName="purpose">
+            </md-input-container>
+          </div>
+        </md-tab>
+        <md-tab label="When">
+          <div fxLayout="column" fxLayoutAlign="center center" class="spacing">
+              <md2-datepicker formControlName="departing"
+                              #departing
+                              id="departing"
+                              [type]="'datetime'"
+                              [container]="'dialog'"
+                              [format]="'M/d/y H:mm'"
+                              placeholder="departing"
+                              [min]="currentDate"
+                              required
+                              >
+              </md2-datepicker>
+              <md-error>{{getErrMessage('departing')}}</md-error>
+          </div>
+            
+          <div fxLayout="column" fxLayoutAlign="center center" class="spacing">
+            <md2-datepicker formControlName="returning"
+                            #returning
+                            id="returning"
+                            [type]="'datetime'"
+                            [container]="'dialog'"
+                            [format]="'M/d/y H:mm'"
+                            placeholder="returning"
+                            [min]="currentDate"
+                            required
+                            >
+            </md2-datepicker>
+            <md-error>{{getErrMessage('returning')}}</md-error>
+          </div>
+        </md-tab>
+      </md-tab-group>
+      </form>
+  </md-dialog-content>
+  <md-dialog-actions fxLayout="row" fxLayoutAlign="end">
+    <button fxFlex md-button md-dialog-close>Cancel</button>
+    <button (click)="save()" fxFlex [disabled]="signOutForm.errors || getErrMessage('departing') || getErrMessage('returning')" md-button md-dialog-close>Save</button>
+  </md-dialog-actions>

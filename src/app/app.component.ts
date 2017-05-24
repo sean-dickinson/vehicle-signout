@@ -41,6 +41,15 @@ export class AppComponent {
     return path.replace('-', ' ');
   }
 
+  getIcon(key:string):number{
+    if(key.indexOf('Bus') == 0){
+      return 0
+    }
+    if(key.indexOf('Van') > 0){
+      return 1;
+    }
+    return 2;
+  }
    
 
 }

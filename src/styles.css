@@ -35,8 +35,33 @@ md-card{
   line-height: 3;
 }
 
+.mat-list .mat-subheader, .mat-nav-list .mat-subheader{
+  font-size: 16px !important;
+}
+
+.md2-datepicker-header, .md2-calendar-day.selected, .md2-calendar-day.selected:hover{
+  background:#009688 !important;
+}
+
+.md2-datepicker-actions .md2-button, .md2-datepicker-input-focused .md2-datepicker-arrow{
+  color: #009688 !important;
+}
+
+.md2-datepicker-input.md2-datepicker-input-focused {
+    color: #009688 !important;
+    border-color: #009688 !important;
+}
+
+.md2-clock-hour.active, .md2-clock-minute.active, .md2-clock-hand, .md2-clock-center, .md2-clock-hand::before {
+  background: #4db6ac !important;
+}
+
 @media(max-width:600px){
   md-card{
     margin: 0;
+  }
+
+  .md2-datepicker-header-date-time {
+    font-size: 28px !important;
   }
 }

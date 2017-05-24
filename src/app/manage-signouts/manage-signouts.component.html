@@ -1,0 +1,44 @@
+<md-card>
+  <md-card-title>Manage Signouts</md-card-title>
+  <md-card-subtitle>Delete or edit your signouts below</md-card-subtitle>
+  <md-card-content>
+    <md-list>
+      <md-list-item>
+        <h3 md-subheader style="width: 100%" fxLayout="row">
+           <span fxFlex="10">Vehicle</span>
+          <span fxFlex="20">Purpose</span>
+          <span fxFlex="25">Departing</span>
+          <span fxFlex="25">Returning</span>
+          <span fxFlex="10">Edit</span>
+          <span fxFlex="10">Delete</span> 
+        </h3>
+      </md-list-item>
+      <ng-container *ngIf="(userSignouts | async)?.length > 0; else noBlock">
+        <ng-container *ngFor="let signout of userSignouts | async">
+          <md-list-item fxLayout="row">
+            <span fxFlex="10">{{signout?.vehicle}}</span>
+            <span fxFlex="20">{{signout?.purpose}}</span>
+            <span fxFlex="25">{{signout?.departing | date :'short'}}</span>
+            <span fxFlex="25">{{signout?.returning | date :'short'}}</span>
+            <span fxFlex="10">
+              <button md-icon-button (click)="edit(signout)">
+                <md-icon>edit</md-icon>
+              </button>
+            </span>
+            <span fxFlex="10">
+              <button md-icon-button (click)="delete(signout)">
+                <md-icon>delete</md-icon>
+              </button>
+            </span>
+          </md-list-item>
+          <md-divider></md-divider>
+        </ng-container>
+      </ng-container>
+      <ng-template #noBlock>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <h3 style="text-align: center" fxFlex="50">You have no scheduled signouts</h3>
+        </div>
+      </ng-template>
+    </md-list>
+  </md-card-content>
+</md-card>

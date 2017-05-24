@@ -1,9 +1,26 @@
 <md-sidenav-container>
   <md-sidenav #sidenav [mode]="mode" [opened]="opened">
     <md-nav-list>
-      <h3 md-subheader>Vehicles</h3>
-      <md-list-item *ngFor="let name of vehicleNames | async">
-        <a [routerLink]="['/vehicle',getEncoded(name.$key)]">{{name.$key}}</a>
+      <h3 md-subheader>Choose a vehicle</h3>
+      <md-divider></md-divider>
+      <ng-container *ngFor="let name of vehicleNames | async">
+        <md-list-item fxLayout="row" fxLayoutAlign="start center">
+          <ng-container [ngSwitch]="getIcon(name.$key)">
+            <md-icon *ngSwitchCase="0">directions_bus</md-icon>
+            <md-icon *ngSwitchCase="1">airport_shuttle</md-icon>
+            <md-icon *ngSwitchCase="2">directions_car</md-icon>
+          </ng-container>
+          <a fxFlex fxFlexOffset="2px" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/vehicle',getEncoded(name.$key)]">
+          {{name.$key}}
+          </a>
+        </md-list-item>
+      </ng-container>
+      <md-divider></md-divider>
+      <md-list-item fxLayout="row" fxLayoutAlign="start center">
+        <md-icon>event_note</md-icon>
+        <a fxFlex fxFlexOffset="2px" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/mysignouts']">
+          My Signouts
+        </a>
       </md-list-item>
     </md-nav-list>
   </md-sidenav>

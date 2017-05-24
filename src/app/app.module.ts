@@ -21,6 +21,8 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth-guard.service';
 import { WindowRefService } from './window-ref.service';
 import 'hammerjs';
+import { SelectVehicleComponent } from './select-vehicle/select-vehicle.component';
+import { ManageSignoutsComponent } from './manage-signouts/manage-signouts.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import 'hammerjs';
     SignoutListComponent,
     AddSignoutDialogComponent,
     VehicleInUseDirective,
-    LoginComponent
+    LoginComponent,
+    SelectVehicleComponent,
+    ManageSignoutsComponent
   ],
   imports: [
     BrowserModule,

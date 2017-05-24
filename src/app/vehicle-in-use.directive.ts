@@ -1,5 +1,5 @@
 import { Directive, forwardRef, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { NG_VALIDATORS, AbstractControl, ValidatorFn, Validators, Validator, FormGroup } from '@angular/forms';
+import { NG_VALIDATORS, AbstractControl, AsyncValidatorFn, Validators, Validator, FormGroup } from '@angular/forms';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 
 
@@ -16,7 +16,7 @@ export function timeTravelCheck(departingKey:string, returningKey:string){
   }
 };
 
-export function vehicleInUse(signoutList:FirebaseListObservable<any[]>):ValidatorFn {
+export function vehicleInUse(signoutList:FirebaseListObservable<any[]>):AsyncValidatorFn {
   return (control: AbstractControl)=> {
     const dateTime = new Date(control.value);
     return signoutList.map(val=>{

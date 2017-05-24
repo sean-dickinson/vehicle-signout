@@ -8,11 +8,13 @@ export class DialogService {
 
     constructor(private dialog: MdDialog) { }
 
-    public alert(config: MdDialogConfig): Observable<boolean> {
+    public newSignout(config: MdDialogConfig): Observable<boolean> {
 
         let dialogRef: MdDialogRef<AddSignoutDialogComponent>;
 
         dialogRef = this.dialog.open(AddSignoutDialogComponent, config);
         return dialogRef.afterClosed();
-    }
+    };
+
+    
 }

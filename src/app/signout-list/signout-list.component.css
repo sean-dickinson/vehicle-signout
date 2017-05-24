@@ -2,6 +2,10 @@ h3.mat-subheader{
       padding: 16px 0;
   }
 
+.warn{
+  color:#FFC107;
+}
+
 @media(max-width:600px){
   md-card{
     margin: 0;

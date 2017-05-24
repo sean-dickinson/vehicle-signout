@@ -15,13 +15,13 @@ user: any;
 
   ngOnInit() {
     if(this.user){
-        this.router.navigateByUrl('vehicle/Civic');
+        this.router.navigateByUrl('');
       }
   }
 
   login(){
     this.sds.login().then((success)=>{
-      this.router.navigateByUrl('vehicle/Civic');
+      this.router.navigateByUrl('');
     })
   }
 }

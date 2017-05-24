@@ -14,6 +14,14 @@ export class SignoutDataService {
     }});
   }
 
+  getUserSignouts():FirebaseListObservable<any[]>{
+    let name = this.auth.auth.currentUser.displayName;
+    return this.db.list(`/users/${name}/`, {query:{
+      orderByChild: 'departing'
+    }
+  });
+  }
+
   getVehicleNames():FirebaseListObservable<any[]>{
     return this.db.list('/vehicleNames/');
   }
@@ -24,7 +32,16 @@ export class SignoutDataService {
     obj.returning = returning.toISOString();
     obj.purpose = purpose;
     obj.name = this.auth.auth.currentUser.displayName;
-    this.getSignouts(vehicle).push(obj);
+    let test = this.getSignouts(vehicle).push(obj);
+    obj.vehicle = vehicle;
+    this.db.object(`/users/${obj.name}/${test.key}`).update(obj);
+  }
+
+  deleteSignout(key:string, vehicle:string, name:string){
+    let updates:any = {};
+    updates[`/vehicles/${vehicle}/${key}/`] = null;
+    updates[`/users/${name}/${key}/`] = null;
+    this.db.object('/').update(updates);
   }
 
   getAuth(){

@@ -31,13 +31,12 @@ export class AddSignoutDialogComponent {
    this.tabIndex = 0;
    this.canSave = false;
    this.currentDate = new Date();
-   let now = new Date();
-   let later = new Date();
-   later.setHours(later.getHours() + 1);
+   let now = data.departTime
+   let later = data.returnTime
    this.signOuts = this.sds.getSignouts(data.currentVehicle);
     this.signOutForm = this.fb.group({
       vehicle: [data.currentVehicle, Validators.required],
-      purpose: '',
+      purpose: data.purpose,
       departing: [now, [Validators.required], [vehicleInUse(this.signOuts)]],
       returning: [later, [Validators.required], [vehicleInUse(this.signOuts)]]
     }, {validator: timeTravelCheck('departing', 'returning')});
@@ -47,7 +46,14 @@ export class AddSignoutDialogComponent {
       outBeforeIn: 'Time travel is not allowed'
     };
     this.signOutForm.controls['vehicle'].valueChanges.subscribe((val)=>{
-      this.signOuts = this.sds.getSignouts(data.currentVehicle);
+      this.signOuts = this.sds.getSignouts(val);
+      this.signOutForm.controls['departing'].setAsyncValidators(vehicleInUse(this.signOuts));
+      this.signOutForm.controls['returning'].setAsyncValidators(vehicleInUse(this.signOuts));
+      this.signOutForm.controls['departing'].markAsPristine();
+      this.signOutForm.controls['returning'].markAsPristine();
+      this.signOutForm.controls['departing'].updateValueAndValidity();
+      this.signOutForm.controls['returning'].updateValueAndValidity();
+
     });
   
   }

@@ -4,12 +4,12 @@
       <md-tab-group [dynamicHeight]="true" [selectedIndex]="tabIndex">
         <md-tab label="General">
           <div fxLayout="row" fxLayoutAlign="center" class="spacing">
-            <md-select fxFlex="50" fxFlex.lt-sm="60" placeholder="Which Vehicle?" formControlName="vehicle" required>
+            <md-select fxFlex="50" fxFlex.lt-sm="75" placeholder="Which Vehicle?" formControlName="vehicle" required>
               <md-option *ngFor="let vehicle of vehicleNames | async" [value]="vehicle.$key">{{vehicle.$key}}</md-option>
             </md-select>
           </div>
           <div fxLayout="row" fxLayoutAlign="center">
-            <md-input-container fxFlex="50" fxFlex.lt-sm="60">
+            <md-input-container fxFlex="50" fxFlex.lt-sm="75">
               <input mdInput placeholder="Purpose" formControlName="purpose">
             </md-input-container>
           </div>

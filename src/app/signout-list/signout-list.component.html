@@ -1,6 +1,19 @@
 <md-card>
-  <md-card-title>{{name}}</md-card-title>
-  <md-card-subtitle></md-card-subtitle>
+  <md-card-title fxLayout="row" fxLayoutAlign="start center">
+    <md-icon color="accent" *ngIf="(lastSignout | async)?.returning > currentTime.toISOString()">warning</md-icon>
+    <span fxFlexFill fxFlexOffset="2px">{{name}}</span>
+  </md-card-title>
+  <md-card-subtitle *ngIf="(lastSignout | async)?.name" >
+    <span *ngIf="(lastSignout | async)?.returning > currentTime.toISOString(); else lastBlock" class="warn">
+       Currently signed out by {{(lastSignout | async)?.name}} 
+      <ng-container *ngIf="(lastSignout | async)?.purpose"> for {{(lastSignout | async)?.purpose | lowercase}}</ng-container>
+      and will be returned at {{(lastSignout | async)?.returning | date: 'short'}}
+      </span>
+    <ng-template #lastBlock>Last signed out by {{(lastSignout | async)?.name}} 
+      <ng-container *ngIf="(lastSignout | async)?.purpose"> for {{(lastSignout | async)?.purpose | lowercase}}</ng-container>
+      and returned at {{(lastSignout | async)?.returning | date: 'short'}}
+    </ng-template>
+  </md-card-subtitle>
   <md-card-content>
     <md-list>
       <md-list-item>
@@ -11,13 +24,22 @@
           <span fxFlex="25">Returning</span>
         </h3>
       </md-list-item>
-      <md-list-item fxLayout="row" *ngFor="let signout of signouts | async">
-        <span fxFlex="25">{{signout?.name}}</span>
-        <span fxFlex="25">{{signout?.purpose}}</span>
-        <span fxFlex="25">{{signout?.departing | date :'short'}}</span>
-        <span fxFlex="25">{{signout?.returning | date :'short'}}</span>
-      </md-list-item>
-      <md-divider></md-divider>
+      <ng-container *ngIf="(signouts | async)?.length > 0; else noBlock">
+        <ng-container *ngFor="let signout of signouts | async">
+          <md-list-item fxLayout="row">
+            <span fxFlex="25">{{signout?.name}}</span>
+            <span fxFlex="25">{{signout?.purpose}}</span>
+            <span fxFlex="25">{{signout?.departing | date :'short'}}</span>
+            <span fxFlex="25">{{signout?.returning | date :'short'}}</span>
+          </md-list-item>
+          <md-divider></md-divider>
+        </ng-container>
+      </ng-container>
+      <ng-template #noBlock>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <h3 style="text-align: center" fxFlex="50">No Upcoming Signouts</h3>
+        </div>
+      </ng-template>
     </md-list>
   </md-card-content>
 </md-card>

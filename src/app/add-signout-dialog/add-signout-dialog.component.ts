@@ -14,7 +14,6 @@ export class AddSignoutDialogComponent {
  vehicleNames: FirebaseListObservable<any[]>;
  signOuts: FirebaseListObservable<any[]>;
  signList: any[];
-// signOuts: any[];
  tabIndex: number;
  canSave: boolean;
  departingDate: Date;
@@ -23,6 +22,7 @@ export class AddSignoutDialogComponent {
  purpose: string;
  currentDate: Date;
  errorDict: any;
+ key: string;
 //  vehicleCtrl: FormControl;
  constructor(@Inject(MD_DIALOG_DATA) public data: any,
              private sds: SignoutDataService,
@@ -31,8 +31,8 @@ export class AddSignoutDialogComponent {
    this.tabIndex = 0;
    this.canSave = false;
    this.currentDate = new Date();
-   let now = data.departTime
-   let later = data.returnTime
+   let now = data.departTime;
+   let later = data.returnTime;
    this.signOuts = this.sds.getSignouts(data.currentVehicle);
     this.signOutForm = this.fb.group({
       vehicle: [data.currentVehicle, Validators.required],
@@ -63,8 +63,20 @@ export class AddSignoutDialogComponent {
     this.sds.saveSignout(this.signOutForm.controls['vehicle'].value, 
                          this.signOutForm.controls['purpose'].value,
                          this.signOutForm.controls['departing'].value,
-                         this.signOutForm.controls['returning'].value );
+                         this.signOutForm.controls['returning'].value,
+                         this.data.key );
   }
+
+  cancel(){
+    if(this.data.key){
+      this.sds.saveSignout(this.data.currentVehicle,
+                           this.data.purpose,
+                           this.data.departTime,
+                           this.data.returnTime,
+                           this.data.key
+                           );
+      }
+    }
 
   getErrMessage(key:string){
     let errObj = this.signOutForm.controls[key].errors;

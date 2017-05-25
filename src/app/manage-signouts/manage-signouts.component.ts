@@ -18,12 +18,14 @@ export class ManageSignoutsComponent implements OnInit {
   }
 
   edit(signout:any){
+    this.sds.tempRemove(signout.vehicle, signout.$key);
     let config = { 
       data: {
         departTime: new Date(signout.departing),
         returnTime: new Date(signout.returning),
         currentVehicle: signout.vehicle,
-        purpose: signout.purpose
+        purpose: signout.purpose,
+        key: signout.$key
        }
     };
     this.ds.newSignout(config);

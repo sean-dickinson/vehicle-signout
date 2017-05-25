@@ -49,6 +49,6 @@
       </form>
   </md-dialog-content>
   <md-dialog-actions fxLayout="row" fxLayoutAlign="end">
-    <button fxFlex md-button md-dialog-close>Cancel</button>
+    <button (click)="cancel()" fxFlex md-button md-dialog-close>Cancel</button>
     <button (click)="save()" fxFlex [disabled]="signOutForm.errors || getErrMessage('departing') || getErrMessage('returning')" md-button md-dialog-close>Save</button>
   </md-dialog-actions>

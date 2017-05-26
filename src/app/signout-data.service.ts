@@ -23,6 +23,13 @@ export class SignoutDataService {
       limitToLast: 1
     }}).map((val)=>{return val[0]});
   }
+
+  getAllSignouts(vehicle:string, datestring:string):FirebaseListObservable<any[]>{
+    return this.db.list(`/vehicles/${vehicle}/`, {query:{
+      orderByChild: 'returning',
+      startAt: datestring
+    }});
+  }
   getUserSignouts():FirebaseListObservable<any[]>{
     let date = new Date();
     date.setTime(date.getTime() - 1000*60*10);
@@ -68,8 +75,13 @@ export class SignoutDataService {
     return this.auth.authState;
   }
 
+
   login(){
-    return this.auth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    return this.auth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
+
+  logout(){
+    return this.auth.auth.signOut();
   }
 
   tempRemove(vehicle:string, key:string){

@@ -1,6 +1,8 @@
-<md-toolbar color="primary">
+<md-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-around center">
   <button (click)="sidenav.toggle()" md-icon-button><md-icon>menu</md-icon></button>
-  <span>Vehicle Signouts</span>
+  <span fxFlexOffset="5px" fxFlex="85">Vehicle Signouts</span>
+  <button (click)="logout()" fxFlex="10" md-button *ngIf="(user | async)">Logout</button>
+  <button (click)="login()" fxFlex="10" md-button *ngIf="!(user | async)">Login</button>
 </md-toolbar>
 <md-sidenav-container>
   <md-sidenav #sidenav [mode]="mode" [opened]="opened">

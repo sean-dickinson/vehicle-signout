@@ -19,6 +19,10 @@ md-card{
     margin: 2.5em;
 }
 
+.mat-toolbar-layout{
+  width:100%;
+}
+
 .mat-list-item-content{
   width: 100%;
 }

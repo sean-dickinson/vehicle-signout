@@ -33,7 +33,7 @@ export class AddSignoutDialogComponent {
    this.currentDate = new Date();
    let now = data.departTime;
    let later = data.returnTime;
-   this.signOuts = this.sds.getSignouts(data.currentVehicle, this.currentDate.toISOString());
+   this.signOuts = this.sds.getAllSignouts(data.currentVehicle, this.currentDate.toISOString());
     this.signOutForm = this.fb.group({
       vehicle: [data.currentVehicle, Validators.required],
       purpose: data.purpose,
@@ -46,7 +46,7 @@ export class AddSignoutDialogComponent {
       outBeforeIn: 'Time travel is not allowed'
     };
     this.signOutForm.controls['vehicle'].valueChanges.subscribe((val)=>{
-      this.signOuts = this.sds.getSignouts(val, this.currentDate.toISOString());
+      this.signOuts = this.sds.getAllSignouts(val, this.currentDate.toISOString());
       this.signOutForm.controls['departing'].setAsyncValidators(vehicleInUse(this.signOuts));
       this.signOutForm.controls['returning'].setAsyncValidators(vehicleInUse(this.signOuts));
       this.signOutForm.controls['departing'].markAsPristine();

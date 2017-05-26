@@ -13,11 +13,12 @@ export class AppComponent {
   private _window: Window;
   mode: string;
   opened: boolean;
+  user: any;
   constructor(public sds:SignoutDataService,
   private router: Router,
   private route: ActivatedRoute,
   private windowRef:WindowRefService){
-
+    this.user = sds.getAuth();
     this.vehicleNames = sds.getVehicleNames();
     this._window = windowRef.nativeWindow;
     
@@ -49,6 +50,18 @@ export class AppComponent {
       return 1;
     }
     return 2;
+  }
+
+  login(){
+    this.sds.login().then((success)=>{
+      this.router.navigateByUrl('');
+    });
+  }
+
+  logout(){
+    this.sds.logout().then((success)=>{
+      this.router.navigateByUrl('login');
+    });
   }
    
 

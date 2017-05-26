@@ -18,10 +18,4 @@ user: any;
         this.router.navigateByUrl('');
       }
   }
-
-  login(){
-    this.sds.login().then((success)=>{
-      this.router.navigateByUrl('');
-    })
-  }
 }

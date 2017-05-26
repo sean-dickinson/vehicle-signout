@@ -23,6 +23,7 @@ export class SignoutListComponent implements OnInit {
   name: string;
   currentTime: Date;
   timeSubscription;
+  $timer: Observable<any>;
   constructor(
   private route: ActivatedRoute,
   private router: Router,
@@ -35,40 +36,18 @@ export class SignoutListComponent implements OnInit {
 
   ngOnInit() {
     this.currentTime = new Date();
-    let source = Observable
-          .interval(1000)
+    this.$timer = Observable
+          .interval(60*1000)
           .timeInterval();
-    this.timeSubscription = source.subscribe((val)=>{
-      this.currentTime = new Date();
-    });
     this.route.paramMap.subscribe(
       (map) => {
         this.name = map.get('name').replace('-', ' ');
-        this.allSignouts = this.sds.getSignouts(this.name);
-        this.signouts = this.allSignouts.map(
-        (list)=>{
-          return list.filter(signOut=>{
-              let departing = new Date(signOut.departing);
-              return departing > this.currentTime;
-            });
-          }
-          ) as FirebaseListObservable<any[]>;
-
-        this.lastSignout = this.allSignouts.map((list)=>{
-          let obj:any = null;
-          for(let i=list.length -1; i>=0; i--){
-            let departing = new Date(list[i].departing);
-            let returning = new Date(list[i].returning);
-            if(departing <= this.currentTime && returning >= this.currentTime){
-              obj = list[i];
-              break;
-            }
-            if(returning <= this.currentTime){
-              obj = list[i];
-              break;
-            }
-          }
-          return obj;
+        this.signouts = this.sds.getSignouts(this.name, this.currentTime.toISOString());
+        this.lastSignout = this.sds.getLastSignout(this.name, this.currentTime.toISOString());
+        this.timeSubscription = this.$timer.subscribe((val)=>{
+          this.currentTime = new Date();
+          this.signouts = this.sds.getSignouts(this.name, this.currentTime.toISOString());
+          this.lastSignout = this.sds.getLastSignout(this.name, this.currentTime.toISOString());
         });
       }
     );
@@ -84,7 +63,8 @@ export class SignoutListComponent implements OnInit {
               returnTime: later,
               currentVehicle: this.name,
               purpose: ''
-             }
+             },
+       width: "400px"
      }
     this.ds.newSignout(config);
   }

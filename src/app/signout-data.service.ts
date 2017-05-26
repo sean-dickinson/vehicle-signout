@@ -2,25 +2,34 @@ import { Injectable } from '@angular/core';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import { Observable } from "rxjs";
 
 @Injectable()
 export class SignoutDataService {
 
   constructor(private db:AngularFireDatabase, private auth: AngularFireAuth) { }
 
-  getSignouts(vehicle:string):FirebaseListObservable<any[]>{
+  getSignouts(vehicle:string, dateString:string):FirebaseListObservable<any[]>{
     return this.db.list(`/vehicles/${vehicle}/`, {query:{
-      orderByChild: 'departing'
+      orderByChild: 'departing',
+      startAt: dateString
     }});
   }
 
+  getLastSignout(vehicle:string, dateString:string):Observable<any>{
+    return this.db.list(`/vehicles/${vehicle}/`, {query:{
+      orderByChild: 'departing',
+      endAt: dateString,
+      limitToLast: 1
+    }}).map((val)=>{return val[0]});
+  }
   getUserSignouts():FirebaseListObservable<any[]>{
     let date = new Date();
     date.setTime(date.getTime() - 1000*60*10);
     let dayString = date.toISOString();
     let name = this.auth.auth.currentUser.displayName;
     return this.db.list(`/users/${name}/`, {query:{
-      orderByChild: 'departing',
+      orderByChild: 'returning',
       startAt: dayString
     }
   });
@@ -31,6 +40,7 @@ export class SignoutDataService {
   }
 
   saveSignout(vehicle:string, purpose:string, departing:Date, returning:Date, key:string){
+    let now = new Date();
     let obj:any = {};
     obj.departing = departing.toISOString();
     obj.returning = returning.toISOString();
@@ -41,7 +51,7 @@ export class SignoutDataService {
       this.db.object(`/users/${obj.name}/${key}`).update(obj);
     }
     else{
-       let test = this.getSignouts(vehicle).push(obj);
+       let test = this.getSignouts(vehicle, now.toISOString()).push(obj);
        obj.vehicle = vehicle;
        this.db.object(`/users/${obj.name}/${test.key}`).update(obj);
     }

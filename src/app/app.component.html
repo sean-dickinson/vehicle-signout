@@ -1,3 +1,7 @@
+<md-toolbar color="primary">
+  <button (click)="sidenav.toggle()" md-icon-button><md-icon>menu</md-icon></button>
+  <span>Vehicle Signouts</span>
+</md-toolbar>
 <md-sidenav-container>
   <md-sidenav #sidenav [mode]="mode" [opened]="opened">
     <md-nav-list>
@@ -10,7 +14,7 @@
             <md-icon *ngSwitchCase="1">airport_shuttle</md-icon>
             <md-icon *ngSwitchCase="2">directions_car</md-icon>
           </ng-container>
-          <a fxFlex fxFlexOffset="2px" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/vehicle',getEncoded(name.$key)]">
+          <a fxFlex fxFlexOffset="10px" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/vehicle',getEncoded(name.$key)]">
           {{name.$key}}
           </a>
         </md-list-item>
@@ -18,17 +22,13 @@
       <md-divider></md-divider>
       <md-list-item fxLayout="row" fxLayoutAlign="start center">
         <md-icon>event_note</md-icon>
-        <a fxFlex fxFlexOffset="2px" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/mysignouts']">
+        <a fxFlex fxFlexOffset="10px" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/mysignouts']">
           My Signouts
         </a>
       </md-list-item>
     </md-nav-list>
   </md-sidenav>
   <section class="main-content">
-    <md-toolbar color="primary">
-      <button (click)="sidenav.toggle()" md-icon-button><md-icon>menu</md-icon></button>
-      <span>Vehicle Signouts</span>
-    </md-toolbar>
     <router-outlet>
     </router-outlet>
   </section>

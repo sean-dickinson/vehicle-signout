@@ -1,15 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body, material-app, md-sidenav-container {
+html, body {
   margin: 0;
   width: 100vw;
   height: 100vh;
 }
 
-.main-content{
-  height: 100%;
-  width: 100%;
+md-sidenav-container{
+  height: calc(100vh - 64px)
 }
+
 
 md-sidenav{
     width: 200px;
@@ -33,6 +33,10 @@ md-card{
   height:inherit;
   width: inherit;
   line-height: 3;
+}
+
+.mat-nav-list a:focus{
+  outline:none;
 }
 
 .mat-list .mat-subheader, .mat-nav-list .mat-subheader{
@@ -61,7 +65,19 @@ md-card{
     margin: 0;
   }
 
+  md-dialog-container{
+    margin: 0 auto;
+  }
+
   .md2-datepicker-header-date-time {
     font-size: 28px !important;
+  }
+
+  md-sidenav-container{
+  height: calc(100vh - 54px)
+  }
+
+  .fab{
+    bottom: 5em;
   }
 }

@@ -19,6 +19,7 @@ md-card{
     margin: 2.5em;
     max-height: 80vh;
     overflow-y: auto;
+    overflow-x:hidden;
 }
 
 .mat-toolbar-layout{

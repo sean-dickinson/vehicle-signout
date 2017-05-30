@@ -7,10 +7,11 @@
         <h3 md-subheader style="width: 100%" fxLayout="row">
            <span fxFlex="10" fxFlex.lt-sm="20">Vehicle</span>
           <span fxFlex="20" fxHide.lt-sm>Purpose</span>
-          <span fxFlex="25">Departing</span>
-          <span fxFlex="25">Returning</span>
-          <span fxFlex="10" >Edit</span>
-          <span fxFlex="10" >Delete</span>
+          <span fxFlex="25" fxFlex.lt-sm="30">Departing</span>
+          <span fxFlex="25" fxFlex.lt-sm="30">Returning</span>
+          <span fxHide.lt-sm fxFlex="10" >Edit</span>
+          <span fxHide.lt-sm fxFlex="10" >Delete</span>
+          <span fxHide fxShow.lt-sm fxFlex="20">Actions</span>
         </h3>
       </md-list-item>
       <ng-container *ngIf="(userSignouts | async)?.length > 0; else noBlock">
@@ -18,15 +19,18 @@
           <md-list-item fxLayout="row">
             <span fxFlex="10" fxFlex.lt-sm="20">{{signout?.vehicle}}</span>
             <span fxFlex="20" fxHide.lt-sm>{{signout?.purpose}}</span>
-            <span fxFlex="25">{{signout?.departing | date :'short'}}</span>
-            <span fxFlex="25">{{signout?.returning | date :'short'}}</span>
-            <span fxFlex="10">
+            <span fxFlex="25" fxFlex.lt-sm="30">{{signout?.departing | date :'short'}}</span>
+            <span fxFlex="25" fxFlex.lt-sm="30">{{signout?.returning | date :'short'}}</span>
+            <span fxHide.lt-sm fxFlex="10" fxFlex="10">
               <button md-icon-button (click)="edit(signout)">
                 <md-icon>edit</md-icon>
               </button>
             </span>
-            <span fxFlex="10">
-              <button md-icon-button (click)="delete(signout)">
+            <span fxFlex.lt-sm="20" fxFlex="10" fxLayout="row">
+               <button fxFlex fxHide fxShow.lt-sm md-icon-button (click)="edit(signout)">
+                <md-icon>edit</md-icon>
+              </button>
+              <button fxFlex md-icon-button (click)="delete(signout)">
                 <md-icon>delete</md-icon>
               </button>
             </span>

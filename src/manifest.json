@@ -1,0 +1,24 @@
+{
+  "name": "Oakwood Vehicle Signout",
+  "short_name": "Vehicle Signout",
+  "theme_color": "#009688",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "./assets/icons/icon-72x72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "./assets/icons/icon-96x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./assets/icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}

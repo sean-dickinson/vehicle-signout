@@ -46,7 +46,7 @@ import { ManageSignoutsComponent } from './manage-signouts/manage-signouts.compo
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    Md2Module.forRoot()
+    Md2Module
   ],
   providers: [DialogService, SignoutDataService, AuthGuard, WindowRefService],
   entryComponents: [AddSignoutDialogComponent],

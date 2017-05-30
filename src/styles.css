@@ -50,7 +50,11 @@ md-card{
   font-size: 16px !important;
 }
 
-.md2-datepicker-header, .md2-calendar-day.selected, .md2-calendar-day.selected:hover{
+.md2-calendar-date.md2-calendar-date-today{
+  border-color:#009688 !important;
+}
+
+.md2-datepicker-header, .md2-calendar-date.md2-calendar-date-selected, .md2-calendar-date.md2-calendar-date-selected:hover{
   background:#009688 !important;
 }
 
@@ -63,7 +67,7 @@ md-card{
     border-color: #009688 !important;
 }
 
-.md2-clock-hour.active, .md2-clock-minute.active, .md2-clock-hand, .md2-clock-center, .md2-clock-hand::before {
+.md2-clock-hour.active, .md2-clock-minute.active, .md2-clock-hand, .md2-clock-center, .md2-clock-hand::before, .md2-clock-cell.md2-clock-cell-selected {
   background: #4db6ac !important;
 }
 

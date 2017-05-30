@@ -17,6 +17,8 @@ md-sidenav{
 
 md-card{
     margin: 2.5em;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .mat-toolbar-layout{

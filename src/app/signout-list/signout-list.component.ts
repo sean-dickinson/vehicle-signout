@@ -19,6 +19,7 @@ import 'rxjs/add/operator/map';
 export class SignoutListComponent implements OnInit {
   allSignouts: FirebaseListObservable<any[]>;
   lastSignout: Observable<any>;
+  updatedLastSignout: Observable<any>;
   signouts: FirebaseListObservable<any[]>;
   name: string;
   currentTime: Date;
@@ -36,19 +37,12 @@ export class SignoutListComponent implements OnInit {
 
   ngOnInit() {
     this.currentTime = new Date();
-    this.$timer = Observable
-          .interval(60*1000)
-          .timeInterval();
     this.route.paramMap.subscribe(
       (map) => {
         this.name = map.get('name').replace('-', ' ');
-        this.signouts = this.sds.getSignouts(this.name, this.currentTime.toISOString());
-        this.lastSignout = this.sds.getLastSignout(this.name, this.currentTime.toISOString());
-        this.timeSubscription = this.$timer.subscribe((val)=>{
-          this.currentTime = new Date();
-          this.signouts = this.sds.getSignouts(this.name, this.currentTime.toISOString());
-          this.lastSignout = this.sds.getLastSignout(this.name, this.currentTime.toISOString());
-        });
+        this.signouts = this.sds.getSignouts(this.name);
+        this.lastSignout = this.sds.getLastSignout(this.name);
+       
       }
     );
   }
@@ -66,7 +60,10 @@ export class SignoutListComponent implements OnInit {
              },
        width: "400px"
      }
-    this.ds.newSignout(config);
+    this.ds.newSignout(config).subscribe((val)=>{
+      this.signouts = this.sds.getSignouts(this.name);
+      this.lastSignout = this.sds.getLastSignout(this.name);
+    })
   }
 
 

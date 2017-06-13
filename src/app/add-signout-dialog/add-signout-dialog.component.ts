@@ -1,16 +1,17 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MdDialogRef } from '@angular/material';
 import {MD_DIALOG_DATA} from '@angular/material';
 import { FirebaseListObservable } from 'angularfire2/database';
 import { vehicleInUse, timeTravelCheck } from '../vehicle-in-use.directive';
 import { SignoutDataService } from '../signout-data.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'add-signout-dialog',
   templateUrl: './add-signout-dialog.component.html',
   styleUrls: ['./add-signout-dialog.component.css']
 })
-export class AddSignoutDialogComponent {
+export class AddSignoutDialogComponent implements OnDestroy {
  vehicleNames: FirebaseListObservable<any[]>;
  signOuts: FirebaseListObservable<any[]>;
  signList: any[];
@@ -23,6 +24,7 @@ export class AddSignoutDialogComponent {
  currentDate: Date;
  errorDict: any;
  key: string;
+ subscriptions: Subscription[];
 //  vehicleCtrl: FormControl;
  constructor(@Inject(MD_DIALOG_DATA) public data: any,
              private sds: SignoutDataService,
@@ -45,7 +47,7 @@ export class AddSignoutDialogComponent {
       required: 'This field is required',
       outBeforeIn: 'Time travel is not allowed'
     };
-    this.signOutForm.controls['vehicle'].valueChanges.subscribe((val)=>{
+    this.subscriptions.push(this.signOutForm.controls['vehicle'].valueChanges.subscribe((val)=>{
       this.signOuts = this.sds.getAllSignouts(val, this.currentDate.toISOString());
       this.signOutForm.controls['departing'].setAsyncValidators(vehicleInUse(this.signOuts));
       this.signOutForm.controls['returning'].setAsyncValidators(vehicleInUse(this.signOuts));
@@ -53,9 +55,20 @@ export class AddSignoutDialogComponent {
       this.signOutForm.controls['returning'].markAsPristine();
       this.signOutForm.controls['departing'].updateValueAndValidity();
       this.signOutForm.controls['returning'].updateValueAndValidity();
+    }));
 
-    });
+    this.subscriptions.push(this.signOutForm.controls['departing'].valueChanges.subscribe((val)=>{
+      let date = new Date(val);
+      date.setHours(date.getHours() + 1);
+      this.signOutForm.controls['returning'].setValue(date);
+    }));
   
+  }
+
+  ngOnDestroy(){
+    for(let sub in this.subscriptions){
+      this.subscriptions[sub].unsubscribe();
+    }
   }
 
   

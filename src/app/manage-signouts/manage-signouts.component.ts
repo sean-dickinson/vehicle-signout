@@ -11,6 +11,7 @@ import { DialogService } from '../dialog.service';
 export class ManageSignoutsComponent implements OnInit {
   userSignouts: FirebaseListObservable<any[]>;
   constructor(public sds:SignoutDataService, public ds:DialogService) {
+   
     this.userSignouts = this.sds.getUserSignouts();
    }
 

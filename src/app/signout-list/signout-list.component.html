@@ -1,19 +1,21 @@
 <md-card>
+   <ng-container *ngFor="let last of lastSignout | async"> 
   <md-card-title fxLayout="row" fxLayoutAlign="start center">
-    <md-icon color="accent" *ngIf="(lastSignout | async)?.returning > currentTime.toISOString()">warning</md-icon>
+    <md-icon color="accent" *ngIf="last?.returning > currentTime.value">warning</md-icon>
     <span fxFlexFill fxFlexOffset="2px">{{name}}</span>
   </md-card-title>
-  <md-card-subtitle *ngIf="(lastSignout | async)?.name" >
-    <span *ngIf="(lastSignout | async)?.returning > currentTime.toISOString(); else lastBlock" class="warn">
-       Currently signed out by {{(lastSignout | async)?.name}} 
-      <ng-container *ngIf="(lastSignout | async)?.purpose"> for {{(lastSignout | async)?.purpose | lowercase}}</ng-container>
-      and will be returned at {{(lastSignout | async)?.returning | date: 'short'}}
+  <md-card-subtitle *ngIf="last?.name" >
+    <span *ngIf="last?.returning > currentTime.value; else lastBlock" class="warn">
+       Currently signed out by {{last?.name}} 
+      <ng-container *ngIf="last?.purpose"> for {{last?.purpose | lowercase}}</ng-container>
+      and will be returned at {{last?.returning | date: 'short'}}
       </span>
-    <ng-template #lastBlock>Last signed out by {{(lastSignout | async)?.name}} 
-      <ng-container *ngIf="(lastSignout | async)?.purpose"> for {{(lastSignout | async)?.purpose | lowercase}}</ng-container>
-      and returned at {{(lastSignout | async)?.returning | date: 'short'}}
+    <ng-template #lastBlock>Last signed out by {{last?.name}} 
+      <ng-container *ngIf="last?.purpose"> for {{last?.purpose | lowercase}}</ng-container>
+      and returned at {{last?.returning | date: 'short'}}
     </ng-template>
   </md-card-subtitle>
+</ng-container>
   <md-card-content>
     <md-list>
       <md-list-item>

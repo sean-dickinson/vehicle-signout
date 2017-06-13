@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { FirebaseListObservable } from 'angularfire2/database';
@@ -6,7 +6,7 @@ import { SignoutDataService } from '../signout-data.service';
 import { MdDialog } from '@angular/material';
 import { AddSignoutDialogComponent } from '../add-signout-dialog/add-signout-dialog.component';
 import { DialogService } from '../dialog.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 
@@ -16,14 +16,14 @@ import 'rxjs/add/operator/map';
   templateUrl: './signout-list.component.html',
   styleUrls: ['./signout-list.component.css']
 })
-export class SignoutListComponent implements OnInit {
+export class SignoutListComponent implements OnInit, OnDestroy {
   allSignouts: FirebaseListObservable<any[]>;
-  lastSignout: Observable<any>;
+  lastSignout: FirebaseListObservable<any[]>;
   updatedLastSignout: Observable<any>;
   signouts: FirebaseListObservable<any[]>;
   name: string;
-  currentTime: Date;
-  timeSubscription;
+  currentTime: BehaviorSubject<string>;
+  timeSubscription: Subscription;
   $timer: Observable<any>;
   constructor(
   private route: ActivatedRoute,
@@ -36,15 +36,26 @@ export class SignoutListComponent implements OnInit {
 }
 
   ngOnInit() {
-    this.currentTime = new Date();
     this.route.paramMap.subscribe(
       (map) => {
         this.name = map.get('name').replace('-', ' ');
-        this.signouts = this.sds.getSignouts(this.name);
-        this.lastSignout = this.sds.getLastSignout(this.name);
-       
+        let date = new Date();
+        let dateString = date.toISOString();
+        this.currentTime = new BehaviorSubject(dateString);
+        this.signouts = this.sds.getSignouts(this.name, this.currentTime);
+        this.lastSignout = this.sds.getLastSignout(this.name, this.currentTime);
+        this.$timer = Observable.timer(1000*60);
+        this.timeSubscription = this.$timer.subscribe((val)=>{
+          date = new Date();
+          dateString = date.toISOString();
+          this.currentTime.next(dateString);
+        });
       }
     );
+  }
+
+  ngOnDestroy(){
+    this.timeSubscription.unsubscribe();
   }
 
   openDialog(){
@@ -61,8 +72,9 @@ export class SignoutListComponent implements OnInit {
        width: "400px"
      }
     this.ds.newSignout(config).subscribe((val)=>{
-      this.signouts = this.sds.getSignouts(this.name);
-      this.lastSignout = this.sds.getLastSignout(this.name);
+        let date = new Date();
+        let dateString = date.toISOString();
+        this.currentTime.next(dateString);
     })
   }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { Observable } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switch';
 import 'rxjs/add/operator/distinctUntilChanged'
@@ -12,52 +12,23 @@ export class SignoutDataService {
 
   constructor(private db:AngularFireDatabase, private auth: AngularFireAuth) { }
 
-  getSignouts(vehicle:string):FirebaseListObservable<any[]>{
-    let initDate = new Date(); 
-    let initDateString = initDate.toISOString();
-    let $signouts = Observable.create((observer)=>{
-      let initialValue = this.db.list(`/vehicles/${vehicle}/`, {query:{
-                                        orderByChild: 'departing',
-                                        startAt: initDateString
-                                      }});
-      observer.next(initialValue);
-      const interval = setInterval(()=>{
-        let date = new Date();
-        let dateString = date.toISOString();
-        let signouts = this.db.list(`/vehicles/${vehicle}/`, {query:{
-                                        orderByChild: 'departing',
-                                        startAt: dateString
-                                      }});
-        observer.next(signouts);
-      }, 60*1000);
-      return () => clearInterval(interval);
-    });
-    return $signouts.switch() as FirebaseListObservable<any[]>;
+  getSignouts(vehicle:string, currentTime:BehaviorSubject<string>):FirebaseListObservable<any[]>{
+   return this.db.list(`/vehicles/${vehicle}/`, {
+     query:{
+              orderByChild: 'departing',
+              startAt: currentTime
+            }});
+
   }
 
-  getLastSignout(vehicle:string):Observable<any>{
-    let initDate = new Date(); 
-    let initDateString = initDate.toISOString();
-    let $last = Observable.create((observer)=>{
-      let initialValue = this.db.list(`/vehicles/${vehicle}/`, {query:{
-                                      orderByChild: 'departing',
-                                      endAt: initDateString,
-                                      limitToLast: 1
-                                    }}).map((val)=> val[0]);
-      observer.next(initialValue);
-      const interval = setInterval(()=>{
-        let date = new Date();
-        let dateString = date.toISOString();
-        let signout = this.db.list(`/vehicles/${vehicle}/`, {query:{
-                                    orderByChild: 'departing',
-                                    endAt: dateString,
-                                    limitToLast: 1
-                                  }}).map((val)=>{return val[0]});
-        observer.next(signout);
-      }, 60*1000);
-      return () => clearInterval(interval);
-    });
-      return $last.switch();
+  getLastSignout(vehicle:string, currentTime:BehaviorSubject<string>):FirebaseListObservable<any[]>{
+   return this.db.list(`/vehicles/${vehicle}/`, {
+     query:{
+              orderByChild: 'departing',
+              endAt: currentTime,
+              limitToLast: 1
+            }});
+        
   }
 
   getAllSignouts(vehicle:string, datestring:string):FirebaseListObservable<any[]>{

@@ -33,10 +33,12 @@ export class ManageSignoutsComponent implements OnInit {
   }
 
   delete(signout:any){
-    let key = signout.$key;
-    let vehicle = signout.vehicle;
-    let name = signout.name;
-    this.sds.deleteSignout(key, vehicle, name);
+    let config:any = {};
+    config.data = {};
+    config.data.key = signout.$key;
+    config.data.vehicle = signout.vehicle;
+    config.data.name = signout.name;
+    this.ds.warnDialog(config);
   }
 
 }

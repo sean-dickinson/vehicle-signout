@@ -23,6 +23,7 @@ import { WindowRefService } from './window-ref.service';
 import 'hammerjs';
 import { SelectVehicleComponent } from './select-vehicle/select-vehicle.component';
 import { ManageSignoutsComponent } from './manage-signouts/manage-signouts.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ManageSignoutsComponent } from './manage-signouts/manage-signouts.compo
     VehicleInUseDirective,
     LoginComponent,
     SelectVehicleComponent,
-    ManageSignoutsComponent
+    ManageSignoutsComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,7 @@ import { ManageSignoutsComponent } from './manage-signouts/manage-signouts.compo
     Md2Module
   ],
   providers: [DialogService, SignoutDataService, AuthGuard, WindowRefService],
-  entryComponents: [AddSignoutDialogComponent],
+  entryComponents: [AddSignoutDialogComponent, ConfirmDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

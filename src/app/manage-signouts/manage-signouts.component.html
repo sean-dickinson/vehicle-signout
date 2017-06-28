@@ -21,7 +21,7 @@
             <span fxFlex="20" fxHide.lt-sm>{{signout?.purpose}}</span>
             <span fxFlex="25" fxFlex.lt-sm="30">{{signout?.departing | date :'short'}}</span>
             <span fxFlex="25" fxFlex.lt-sm="30">{{signout?.returning | date :'short'}}</span>
-            <span fxHide.lt-sm fxFlex="10" fxFlex="10">
+            <span fxHide.lt-sm fxFlex="10">
               <button md-icon-button (click)="edit(signout)">
                 <md-icon>edit</md-icon>
               </button>
@@ -30,7 +30,7 @@
                <button fxFlex fxHide fxShow.lt-sm md-icon-button (click)="edit(signout)">
                 <md-icon>edit</md-icon>
               </button>
-              <button fxFlex.lt-sm="20" fxFlex="10" md-icon-button (click)="delete(signout)">
+              <button md-icon-button (click)="delete(signout)">
                 <md-icon>delete</md-icon>
               </button>
             </span>

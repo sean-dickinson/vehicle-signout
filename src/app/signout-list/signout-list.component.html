@@ -1,9 +1,11 @@
 <md-card>
-   <ng-container *ngFor="let last of lastSignout | async"> 
   <md-card-title fxLayout="row" fxLayoutAlign="start center">
+    <ng-container *ngFor="let last of lastSignout | async">
     <md-icon color="accent" *ngIf="last?.returning > currentTime.value">warning</md-icon>
+    </ng-container>
     <span fxFlexFill fxFlexOffset="2px">{{name}}</span>
   </md-card-title>
+   <ng-container *ngFor="let last of lastSignout | async"> 
   <md-card-subtitle *ngIf="last?.name" >
     <span *ngIf="last?.returning > currentTime.value; else lastBlock" class="warn">
        Currently signed out by {{last?.name}} 

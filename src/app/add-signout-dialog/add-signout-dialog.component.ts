@@ -50,11 +50,6 @@ export class AddSignoutDialogComponent {
     returning: new FormControl(this.returnGroup)
     });
     
-    this.errorDict = {
-      vehicleInUse: 'Vehicle is in use at that time',
-      required: 'This field is required',
-      outBeforeIn: 'Time travel is not allowed'
-    };
     this.signOutForm.controls['vehicle'].valueChanges.subscribe((val)=>{
       this.signOuts = this.sds.getAllSignouts(val, this.currentDate.toISOString());
       this.departGroup.setAsyncValidators(vehicleInUse(this.signOuts));

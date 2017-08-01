@@ -10,24 +10,20 @@
       <h3 md-subheader>Choose a vehicle</h3>
       <md-divider></md-divider>
       <ng-container *ngFor="let name of vehicleNames | async">
-        <md-list-item fxLayout="row" fxLayoutAlign="start center">
+        <a md-list-item fxLayout="row" fxLayoutAlign="start center" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/vehicle',getEncoded(name.$key)]" routerLinkActive="active-list-link">
           <ng-container [ngSwitch]="getIcon(name.$key)">
             <md-icon *ngSwitchCase="0">directions_bus</md-icon>
             <md-icon *ngSwitchCase="1">airport_shuttle</md-icon>
             <md-icon *ngSwitchCase="2">directions_car</md-icon>
           </ng-container>
-          <a fxFlex fxFlexOffset="10px" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/vehicle',getEncoded(name.$key)]">
-          {{name.$key}}
-          </a>
-        </md-list-item>
+          <span fxFlex fxFlexOffset="10px">{{name.$key}}</span>
+        </a>
       </ng-container>
       <md-divider></md-divider>
-      <md-list-item fxLayout="row" fxLayoutAlign="start center">
+      <a md-list-item fxLayout="row" fxLayoutAlign="start center" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/mysignouts']" routerLinkActive="active-list-link">
         <md-icon>event_note</md-icon>
-        <a fxFlex fxFlexOffset="10px" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/mysignouts']">
-          My Signouts
-        </a>
-      </md-list-item>
+        <span fxFlex fxFlexOffset="10px">My Signouts</span>
+      </a>
     </md-nav-list>
   </md-sidenav>
   <section class="main-content">

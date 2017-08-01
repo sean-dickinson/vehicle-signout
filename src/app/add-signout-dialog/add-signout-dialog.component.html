@@ -11,6 +11,7 @@
           <div fxLayout="row" fxLayoutAlign="center">
             <md-input-container fxFlex="50" fxFlex.lt-sm="75">
               <input mdInput placeholder="Purpose" formControlName="purpose">
+              <md-hint>Ex. Movie Run</md-hint>
             </md-input-container>
           </div>
         </md-tab>
@@ -72,4 +73,4 @@
   </md-dialog-content>
   <md-dialog-actions fxLayout="row" fxLayoutAlign="end">
     <button (click)="cancel()" fxFlex md-button md-dialog-close>Cancel</button>
-    <button (click)="save()" fxFlex [disabled]="!(signOutForm.valid && returnGroup.valid && departGroup.valid && canSave)" md-button md-dialog-close>Save</button>  </md-dialog-actions>
+    <button color="primary" (click)="save()" fxFlex [disabled]="!(signOutForm.valid && returnGroup.valid && departGroup.valid && canSave)" md-button md-dialog-close>Save</button>  </md-dialog-actions>

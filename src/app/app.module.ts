@@ -15,7 +15,6 @@ import { AppComponent } from './app.component';
 import { SignoutListComponent } from './signout-list/signout-list.component';
 import { AddSignoutDialogComponent } from './add-signout-dialog/add-signout-dialog.component';
 import { DialogService } from './dialog.service';
-import { VehicleInUseDirective } from './vehicle-in-use.directive';
 import { SignoutDataService } from './signout-data.service';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth-guard.service';
@@ -30,7 +29,6 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     AppComponent,
     SignoutListComponent,
     AddSignoutDialogComponent,
-    VehicleInUseDirective,
     LoginComponent,
     SelectVehicleComponent,
     ManageSignoutsComponent,

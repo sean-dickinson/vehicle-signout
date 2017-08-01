@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { AddSignoutDialogComponent } from './add-signout-dialog/add-signout-dialog.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { MdDialogRef, MdDialog, MdDialogConfig } from '@angular/material';
@@ -15,7 +15,7 @@ export class DialogService {
 
         dialogRef = this.dialog.open(AddSignoutDialogComponent, config);
         return dialogRef.afterClosed();
-    };
+    }
 
     public warnDialog(config: MdDialog): Observable<boolean> {
         let dialogRef: MdDialogRef<ConfirmDialogComponent>;

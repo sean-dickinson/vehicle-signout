@@ -1,7 +1,7 @@
 <h1 md-line md-dialog-title>Sign Out</h1>
   <md-dialog-content>
     <form [formGroup]="signOutForm">
-      <md-tab-group [dynamicHeight]="true" [selectedIndex]="tabIndex">
+      <md-tab-group [dynamicHeight]="true" (selectedIndexChange)="enableSave($event)">
         <md-tab label="General">
           <div fxLayout="row" fxLayoutAlign="center" class="spacing">
             <md-select fxFlex="50" fxFlex.lt-sm="75" placeholder="Which Vehicle?" formControlName="vehicle" required>
@@ -15,37 +15,56 @@
           </div>
         </md-tab>
         <md-tab label="When">
-          <div fxLayout="column" fxLayoutAlign="center center" class="spacing">
-              <md2-datepicker formControlName="departing"
-                              #departing
-                              id="departing"
-                              [type]="'datetime'"
-                              [format]="'M/d/y H:mm A'"
-                              placeholder="departing"
-                              [min]="currentDate"
-                              [openOnFocus]="true"
-                              
-                              required
-                              >
-              </md2-datepicker>
-              <md-error>{{getErrMessage('departing')}}</md-error>
+          <div [formGroup]="departGroup" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1em" class="spacing">
+              <md-input-container fxFlex="60">
+                <input mdInput
+                required
+                [mdDatepicker]="departDatepicker"
+                [min]="currentDate"
+                placeholder="Date Leaving"
+                formControlName="date"
+                >
+                <button mdSuffix [mdDatepickerToggle]="departDatepicker"></button>
+                <md-error *ngIf="departGroup.controls['date'].hasError('mdDatepickerMin')">Time Travel is not allowed</md-error>
+              </md-input-container>
+              <md-datepicker #departDatepicker></md-datepicker>
+              <md-input-container fxFlex="30">
+                <input mdInput
+                required
+                type="time"
+                placeholder="Time Leaving"
+                formControlName="time"
+                [errorStateMatcher]="errorGroupMatcher"
+                >
+                <md-error *ngIf="departGroup.hasError('vehicleInUse')">Vehicle is in use at this time</md-error>
+                <md-error *ngIf="departGroup.hasError('outBeforeIn')">Time travel is not allowed</md-error>
+              </md-input-container>
           </div>
             
-          <div fxLayout="column" fxLayoutAlign="center center" class="spacing">
-            <md2-datepicker formControlName="returning"
-                            #returning
-                            id="returning"
-                            [type]="'datetime'"
-                            
-                            [format]="'M/d/y H:mm A'"
-                            placeholder="returning"
-                            [min]="currentDate"
-                            [openOnFocus]="true"
-                            
-                            required
-                            >
-            </md2-datepicker>
-            <md-error>{{getErrMessage('returning')}}</md-error>
+          <div [formGroup]="returnGroup" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1em" class="spacing">
+            <md-input-container fxFlex="60">
+                <input mdInput
+                required
+                [mdDatepicker]="returnDatepicker"
+                [min]="currentDate"
+                placeholder="Date Returning"
+                formControlName="date"
+                >
+                <button mdSuffix [mdDatepickerToggle]="returnDatepicker"></button>
+              </md-input-container>
+              <md-datepicker #returnDatepicker></md-datepicker>
+              <md-input-container fxFlex="30">
+                <input mdInput
+                required
+                type="time"
+                placeholder="Time Returning"
+                formControlName="time"
+                [errorStateMatcher]="errorGroupMatcher"
+                >
+                <md-error *ngIf="returnGroup.hasError('vehicleInUse')">Vehicle is in use at this time</md-error>
+                <md-error *ngIf="returnGroup.hasError('outBeforeIn')">Time travel is not allowed</md-error>
+                
+              </md-input-container>
           </div>
         </md-tab>
       </md-tab-group>
@@ -53,5 +72,4 @@
   </md-dialog-content>
   <md-dialog-actions fxLayout="row" fxLayoutAlign="end">
     <button (click)="cancel()" fxFlex md-button md-dialog-close>Cancel</button>
-    <button (click)="save()" fxFlex [disabled]="signOutForm.errors || getErrMessage('departing') || getErrMessage('returning')" md-button md-dialog-close>Save</button>
-  </md-dialog-actions>
+    <button (click)="save()" fxFlex [disabled]="!(signOutForm.valid && returnGroup.valid && departGroup.valid && canSave)" md-button md-dialog-close>Save</button>  </md-dialog-actions>

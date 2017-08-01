@@ -53,11 +53,11 @@ export class SignoutDataService {
     return this.db.list('/vehicleNames/');
   }
 
-  saveSignout(vehicle:string, purpose:string, departing:Date, returning:Date, key:string){
+  saveSignout(vehicle:string, purpose:string, departing:string, returning:string, key:string){
     let now = new Date();
     let obj:any = {};
-    obj.departing = departing.toISOString();
-    obj.returning = returning.toISOString();
+    obj.departing = departing;
+    obj.returning = returning;
     obj.purpose = purpose;
     obj.name = this.auth.auth.currentUser.displayName;
     if(key){

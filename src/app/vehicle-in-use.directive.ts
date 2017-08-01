@@ -3,9 +3,11 @@ import { NG_VALIDATORS, AbstractControl, AsyncValidatorFn, Validators, Validator
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 
 
-export function timeTravelCheck(departingKey:string, returningKey:string){
-  return (group: FormGroup): {[key: string]: any} => {
-    if (group.controls[departingKey].value >= group.controls[returningKey].value){
+export function timeTravelCheck(departGroup: FormGroup){
+  return (returnGroup: FormGroup): {[key: string]: any} => {
+    let departDate = getDate(departGroup.get('date').value, departGroup.get('time').value);
+    let returnDate =  getDate(returnGroup.get('date').value, returnGroup.get('time').value);
+    if (departDate >= returnDate){
       return {
         outBeforeIn:true
       }
@@ -17,8 +19,16 @@ export function timeTravelCheck(departingKey:string, returningKey:string){
 };
 
 export function vehicleInUse(signoutList:FirebaseListObservable<any[]>):AsyncValidatorFn {
-  return (control: AbstractControl)=> {
-    const dateTime = new Date(control.value);
+  return (g: FormGroup)=> {
+    let dateTime = g.get('date').value;
+    if(!dateTime){
+      return null;
+    }
+    let timeString = g.get('time').value;
+    let hours:number = parseInt(timeString.substr(0, 2));
+    let minutes:number = parseInt(timeString.substr(3, 2));
+    dateTime.setHours(hours);
+    dateTime.setMinutes(minutes);
     return signoutList.map(val=>{
       let obj = null;
       val.forEach(signOut=>{
@@ -41,30 +51,14 @@ export function vehicleInUse(signoutList:FirebaseListObservable<any[]>):AsyncVal
   }
 }
 
-@Directive({
-  selector: '[vehicleInUse]',
-  providers: [{provide: NG_VALIDATORS, useExisting: forwardRef(() => VehicleInUseDirective), multi: true}]
-})
-
-export class VehicleInUseDirective implements Validator, OnChanges{
-  @Input('vehicleInUse') signOuts: FirebaseListObservable<any[]>;
-  private valFn = Validators.nullValidator;
-
-  ngOnInit(){
-    
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.signOuts){
-      this.valFn = vehicleInUse(this.signOuts)
-    }
-    else{
-      this.valFn = Validators.nullValidator;
-    }
-  }
- 
-  validate(control: AbstractControl): {[key: string]: any} {
-    return this.valFn(control);
-  }
+function getDate(date:Date, timeString:string){
+  let dateTime = new Date(date);
+  let hours:number = parseInt(timeString.substr(0, 2));
+  let minutes:number = parseInt(timeString.substr(3, 2));
+  dateTime.setHours(hours);
+  dateTime.setMinutes(minutes);
+  return dateTime;
 }
+
 
 

@@ -7,7 +7,7 @@
   </md-card-title>
    <ng-container *ngFor="let last of lastSignout | async"> 
   <md-card-subtitle *ngIf="last?.name" >
-    <span *ngIf="last?.returning > currentTime.value; else lastBlock" class="warn">
+    <span *ngIf="last?.returning > currentTime.value; else lastBlock">
        Currently signed out by {{last?.name}} 
       <ng-container *ngIf="last?.purpose"> for {{last?.purpose | lowercase}}</ng-container>
       and will be returned at {{last?.returning | date: 'short'}}

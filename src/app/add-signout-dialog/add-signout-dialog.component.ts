@@ -59,6 +59,10 @@ export class AddSignoutDialogComponent {
       this.departGroup.controls['time'].updateValueAndValidity();
       this.returnGroup.controls['time'].updateValueAndValidity();
     });
+
+    this.departGroup.valueChanges.subscribe((val)=>{
+      this.returnGroup.updateValueAndValidity();
+    });
     
   }
 

@@ -8,7 +8,7 @@
               <md-option *ngFor="let vehicle of vehicleNames | async" [value]="vehicle.$key">{{vehicle.$key}}</md-option>
             </md-select>
           </div>
-          <div fxLayout="row" fxLayoutAlign="center">
+          <div fxLayout="row" fxLayoutAlign="center" class="spacing">
             <md-input-container fxFlex="50" fxFlex.lt-sm="75">
               <input mdInput placeholder="Purpose" formControlName="purpose">
               <md-hint>Ex. Movie Run</md-hint>
@@ -47,11 +47,12 @@
                 <input mdInput
                 required
                 [mdDatepicker]="returnDatepicker"
-                [min]="currentDate"
+                [min]="departGroup.controls['date'].value"
                 placeholder="Date Returning"
                 formControlName="date"
                 >
                 <button mdSuffix [mdDatepickerToggle]="returnDatepicker"></button>
+                <md-error *ngIf="returnGroup.controls['date'].hasError('mdDatepickerMin')">Time Travel is not allowed</md-error>
               </md-input-container>
               <md-datepicker #returnDatepicker></md-datepicker>
               <md-input-container fxFlex="30">

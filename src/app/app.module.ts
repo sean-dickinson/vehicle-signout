@@ -10,7 +10,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
-import { Md2Module } from 'md2';
 import { AppComponent } from './app.component';
 import { SignoutListComponent } from './signout-list/signout-list.component';
 import { AddSignoutDialogComponent } from './add-signout-dialog/add-signout-dialog.component';
@@ -45,8 +44,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     VehicleMaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    Md2Module
+    AngularFireAuthModule
   ],
   providers: [DialogService, SignoutDataService, AuthGuard, WindowRefService],
   entryComponents: [AddSignoutDialogComponent, ConfirmDialogComponent],

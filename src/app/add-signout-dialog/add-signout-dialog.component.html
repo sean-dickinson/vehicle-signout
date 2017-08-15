@@ -24,6 +24,7 @@
                 [min]="currentDate"
                 placeholder="Date Leaving"
                 formControlName="date"
+                style="height:24px"
                 >
                 <button mdSuffix [mdDatepickerToggle]="departDatepicker"></button>
                 <md-error *ngIf="departGroup.controls['date'].hasError('mdDatepickerMin')">Time Travel is not allowed</md-error>
@@ -50,6 +51,7 @@
                 [min]="departGroup.controls['date'].value"
                 placeholder="Date Returning"
                 formControlName="date"
+                style="height:24px"
                 >
                 <button mdSuffix [mdDatepickerToggle]="returnDatepicker"></button>
                 <md-error *ngIf="returnGroup.controls['date'].hasError('mdDatepickerMin')">Time Travel is not allowed</md-error>

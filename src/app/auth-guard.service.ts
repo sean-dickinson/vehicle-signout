@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, CanActivate } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/take';
+import { take, map } from 'rxjs/operators';
+
 @Injectable()
 export class AuthGuard implements CanActivate {
 
@@ -14,13 +14,16 @@ export class AuthGuard implements CanActivate {
 
 
   canActivate(route: ActivatedRouteSnapshot) {
-        return this.afAuth.authState.map((user)=>{
-          if(!user){
-            this.router.navigateByUrl('login');
-            return false;
-            }
-          return true;
-        }).take(1);
+        return this.afAuth.authState.pipe(
+          map((user)=>{
+            if(!user){
+              this.router.navigateByUrl('login');
+              return false;
+              }
+            return true;
+        }),
+        take(1)
+      )
        
   }
 

@@ -1,56 +1,68 @@
 import { Injectable } from '@angular/core';
-import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { Observable, BehaviorSubject } from "rxjs";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switch';
-import 'rxjs/add/operator/distinctUntilChanged'
+import { Observable, BehaviorSubject} from "rxjs";
+import { map, switchMap, tap } from 'rxjs/operators'
 
 @Injectable()
 export class SignoutDataService {
 
   constructor(private db:AngularFireDatabase, private auth: AngularFireAuth) { }
 
-  getSignouts(vehicle:string, currentTime:BehaviorSubject<string>):FirebaseListObservable<any[]>{
-   return this.db.list(`/vehicles/${vehicle}/`, {
-     query:{
-              orderByChild: 'departing',
-              startAt: currentTime
-            }});
+  getSignouts(vehicle:string, currentTime:BehaviorSubject<string>): Observable<any[]>{
+   return this.db.list(`/vehicles/${vehicle}/`, ref => ref.orderByChild('departing').startAt(currentTime.value))
+    .snapshotChanges()
+      .pipe(
+        map(actions => actions.map(action=>
+          ({$key: action.payload.key, ...action.payload.val()})
+         )
+        )
+      );
 
   }
 
-  getLastSignout(vehicle:string, currentTime:BehaviorSubject<string>):FirebaseListObservable<any[]>{
-   return this.db.list(`/vehicles/${vehicle}/`, {
-     query:{
-              orderByChild: 'departing',
-              endAt: currentTime,
-              limitToLast: 1
-            }});
+  getLastSignout(vehicle:string, $currentTime:BehaviorSubject<string>):Observable<any[]>{
+   return $currentTime.pipe(
+     switchMap(
+      currentTime =>  this.db.list(`/vehicles/${vehicle}/`, ref => ref.orderByChild('departing').endAt(currentTime).limitToLast(1)).valueChanges()
+     )
+    )
         
   }
 
-  getAllSignouts(vehicle:string, datestring:string):FirebaseListObservable<any[]>{
-    return this.db.list(`/vehicles/${vehicle}/`, {query:{
-      orderByChild: 'returning',
-      startAt: datestring
-    }});
+  getAllSignouts(vehicle:string, datestring:string):Observable<any[]>{
+    return this.db.list(`/vehicles/${vehicle}/`, ref => ref.orderByChild('returning').startAt(datestring)).snapshotChanges()
+    .pipe(
+      map(actions => actions.map(action=>
+        ({$key: action.payload.key, ...action.payload.val()})
+       )
+      )
+    );
   }
-  getUserSignouts():FirebaseListObservable<any[]>{
+  getUserSignouts():Observable<any[]>{
     let date = new Date();
     date.setTime(date.getTime() - 1000*60*10);
     let dayString = date.toISOString();
     let name = this.auth.auth.currentUser.displayName;
-    return this.db.list(`/users/${name}/`, {query:{
-      orderByChild: 'returning',
-      startAt: dayString
-    }
-  });
+    return this.db.list(`/users/${name}/`, ref => ref.orderByChild('returning').startAt(dayString)).snapshotChanges()
+    .pipe(
+      map(actions => actions.map(action=>
+        ({$key: action.payload.key, ...action.payload.val()})
+       )
+      ),
+      tap(list => console.log(list))
+    );
   }
 
-  getVehicleNames():FirebaseListObservable<any[]>{
-    return this.db.list('/vehicleNames/');
+  getVehicleNames():Observable<any[]>{
+    return this.db.list('/vehicleNames/').snapshotChanges()
+    .pipe(
+      map(actions => actions.map(action=>
+        ({$key: action.payload.key, ...action.payload.val()})
+       )
+      )
+    );
   }
 
   saveSignout(vehicle:string, purpose:string, departing:string, returning:string, key:string){

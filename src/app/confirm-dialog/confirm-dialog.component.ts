@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MD_DIALOG_DATA } from "@angular/material";
+import { MAT_DIALOG_DATA } from "@angular/material";
 import { SignoutDataService } from "../signout-data.service";
 
 
@@ -10,7 +10,7 @@ import { SignoutDataService } from "../signout-data.service";
 })
 export class ConfirmDialogComponent implements OnInit {
 
-  constructor(@Inject(MD_DIALOG_DATA) public data: any,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
              private sds: SignoutDataService) { }
 
   ngOnInit() {

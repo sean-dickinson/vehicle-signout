@@ -1,14 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
-import { FirebaseListObservable } from 'angularfire2/database';
 import { SignoutDataService } from '../signout-data.service';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { AddSignoutDialogComponent } from '../add-signout-dialog/add-signout-dialog.component';
 import { DialogService } from '../dialog.service';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-import 'rxjs/add/operator/map';
-
+import { Observable, BehaviorSubject, Subscription, timer } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 
 @Component({
@@ -17,10 +14,10 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./signout-list.component.css']
 })
 export class SignoutListComponent implements OnInit, OnDestroy {
-  allSignouts: FirebaseListObservable<any[]>;
-  lastSignout: FirebaseListObservable<any[]>;
+  allSignouts: Observable<any[]>;
+  lastSignout: Observable<any[]>;
   updatedLastSignout: Observable<any>;
-  signouts: FirebaseListObservable<any[]>;
+  signouts: Observable<any[]>;
   name: string;
   currentTime: BehaviorSubject<string>;
   timeSubscription: Subscription;
@@ -30,7 +27,7 @@ export class SignoutListComponent implements OnInit, OnDestroy {
   private router: Router,
   private sds: SignoutDataService,
   public ds:DialogService,
-  public dialog: MdDialog,
+  public dialog: MatDialog,
 ) {
    
 }
@@ -44,7 +41,7 @@ export class SignoutListComponent implements OnInit, OnDestroy {
         this.currentTime = new BehaviorSubject(dateString);
         this.signouts = this.sds.getSignouts(this.name, this.currentTime);
         this.lastSignout = this.sds.getLastSignout(this.name, this.currentTime);
-        this.$timer = Observable.timer(1000*60);
+        this.$timer = timer(1000*60);
         this.timeSubscription = this.$timer.subscribe((val)=>{
           date = new Date();
           dateString = date.toISOString();

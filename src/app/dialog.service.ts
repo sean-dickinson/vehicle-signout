@@ -1,24 +1,24 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AddSignoutDialogComponent } from './add-signout-dialog/add-signout-dialog.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { MdDialogRef, MdDialog, MdDialogConfig } from '@angular/material';
+import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class DialogService {
 
-    constructor(private dialog: MdDialog) { }
+    constructor(private dialog: MatDialog) { }
 
-    public newSignout(config: MdDialogConfig): Observable<boolean> {
+    public newSignout(config: MatDialogConfig): Observable<boolean> {
 
-        let dialogRef: MdDialogRef<AddSignoutDialogComponent>;
+        let dialogRef: MatDialogRef<AddSignoutDialogComponent>;
 
         dialogRef = this.dialog.open(AddSignoutDialogComponent, config);
         return dialogRef.afterClosed();
     }
 
-    public warnDialog(config: MdDialog): Observable<boolean> {
-        let dialogRef: MdDialogRef<ConfirmDialogComponent>;
+    public warnDialog(config: MatDialogConfig): Observable<boolean> {
+        let dialogRef: MatDialogRef<ConfirmDialogComponent>;
 
         dialogRef = this.dialog.open(ConfirmDialogComponent, config);
         return dialogRef.afterClosed();

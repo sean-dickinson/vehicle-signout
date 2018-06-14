@@ -1,19 +1,26 @@
 import { Component, OnInit, Inject, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
-import { MdDialogRef } from '@angular/material';
-import {MD_DIALOG_DATA} from '@angular/material';
-import { FirebaseListObservable } from 'angularfire2/database';
-import { vehicleInUse, timeTravelCheck } from '../vehicle-in-use.directive';
+import { MatDialogRef, ErrorStateMatcher } from '@angular/material';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import { vehicleInUse, timeTravelCheck, overlapCheck } from '../vehicle-in-use.directive';
 import { SignoutDataService } from '../signout-data.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return !!(control.parent.invalid || control.invalid)
+  }
+}
+
 @Component({
   selector: 'add-signout-dialog',
   templateUrl: './add-signout-dialog.component.html',
   styleUrls: ['./add-signout-dialog.component.css']
 })
 export class AddSignoutDialogComponent {
- vehicleNames: FirebaseListObservable<any[]>;
- signOuts: FirebaseListObservable<any[]>;
+ vehicleNames: Observable<any[]>;
+ signOuts: Observable<any[]>;
  signList: any[];
  tabIndex: number;
  canSave: boolean;
@@ -24,7 +31,8 @@ export class AddSignoutDialogComponent {
  currentDate: Date;
  errorDict: any;
  key: string;
- constructor(@Inject(MD_DIALOG_DATA) public data: any,
+ matcher: ErrorStateMatcher;
+ constructor(@Inject(MAT_DIALOG_DATA) public data: any,
              private sds: SignoutDataService,
              private fb: FormBuilder) {
    this.vehicleNames = this.sds.getVehicleNames();
@@ -42,11 +50,11 @@ export class AddSignoutDialogComponent {
   this.returnGroup = this.fb.group({
     date: new FormControl(later, [Validators.required]),
     time: new FormControl(this.getTimeString(later), [Validators.required])
-    }, {validator: timeTravelCheck(this.departGroup), asyncValidator: vehicleInUse(this.signOuts)});
+    }, {validator: timeTravelCheck(this.departGroup), asyncValidator: Validators.composeAsync([vehicleInUse(this.signOuts), overlapCheck(this.departGroup,this.signOuts)])});
   this.signOutForm = this.fb.group({
     vehicle: new FormControl(data.currentVehicle, [Validators.required]),
     purpose: new FormControl(data.purpose),
-    departing: [this.departGroup],
+    departing: new FormControl(this.departGroup),
     returning: new FormControl(this.returnGroup)
     });
     
@@ -63,7 +71,7 @@ export class AddSignoutDialogComponent {
     this.departGroup.valueChanges.subscribe((val)=>{
       this.returnGroup.updateValueAndValidity();
     });
-    
+    this.matcher = new MyErrorStateMatcher();
   }
 
   enableSave(change:SimpleChange){
@@ -71,6 +79,7 @@ export class AddSignoutDialogComponent {
   }
   
   save(){
+   
     this.sds.saveSignout(this.signOutForm.controls['vehicle'].value, 
                          this.signOutForm.controls['purpose'].value,
                          this.getDateString(this.departGroup),
@@ -89,9 +98,7 @@ export class AddSignoutDialogComponent {
       }
     }
 
-  errorGroupMatcher(control: FormControl, form: FormGroupDirective | NgForm): boolean{
-    return control.parent.invalid || control.invalid;
-  }
+  
   getErrMessage(key:string){
     let errObj = this.signOutForm.controls[key].errors;
     if(errObj){
@@ -112,8 +119,8 @@ export class AddSignoutDialogComponent {
   }
 
   getTimeString(date:Date){
-    let hours = date.getHours() >= 9 ? `${date.getHours()}` : `0${date.getHours()}`;
-    let minutes = date.getMinutes() >= 9 ? `${date.getMinutes()}` : `0${date.getMinutes()}`;
+    let hours = date.getHours() > 9 ? `${date.getHours()}` : `0${date.getHours()}`;
+    let minutes = date.getMinutes() > 9 ? `${date.getMinutes()}` : `0${date.getMinutes()}`;
     return `${hours}:${minutes}`;
   }
 

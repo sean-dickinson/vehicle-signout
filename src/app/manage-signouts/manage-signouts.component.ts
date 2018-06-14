@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2/database';
 import { SignoutDataService } from '../signout-data.service';
 import { DialogService } from '../dialog.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'manage-signouts',
@@ -9,7 +9,7 @@ import { DialogService } from '../dialog.service';
   styleUrls: ['./manage-signouts.component.css']
 })
 export class ManageSignoutsComponent implements OnInit {
-  userSignouts: FirebaseListObservable<any[]>;
+  userSignouts: Observable<any[]>;
   constructor(public sds:SignoutDataService, public ds:DialogService) {
    
     this.userSignouts = this.sds.getUserSignouts();

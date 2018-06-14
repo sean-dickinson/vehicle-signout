@@ -6,16 +6,16 @@ html, body {
   height: 100vh;
 }
 
-md-sidenav-container{
+mat-sidenav-container{
   height: calc(100vh - 64px)
 }
 
 
-md-sidenav{
+mat-sidenav{
     width: 200px;
 }
 
-md-card{
+mat-card{
     margin: 2.5em;
     max-height: 80vh;
     overflow-y: auto;
@@ -46,7 +46,7 @@ md-card{
   outline:none;
 }
 
-a.active-list-link md-icon, a.active-list-link span {
+a.active-list-link mat-icon, a.active-list-link span {
   color: #009688
 }
 
@@ -56,15 +56,15 @@ a.active-list-link md-icon, a.active-list-link span {
 
 
 @media(max-width:600px){
-  md-card{
+  mat-card{
     margin: 0;
   }
 
-  md-dialog-container{
+  mat-dialog-container{
     margin: 0 auto;
   }
 
-  md-sidenav-container{
+  mat-sidenav-container{
   height: calc(100vh - 54px)
   }
 

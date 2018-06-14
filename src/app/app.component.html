@@ -1,33 +1,33 @@
-<md-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-around center">
-  <button (click)="sidenav.toggle()" md-icon-button><md-icon>menu</md-icon></button>
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-around center">
+  <button (click)="sidenav.toggle()" mat-icon-button><mat-icon>menu</mat-icon></button>
   <span fxFlexOffset="5px" fxFlex="85">Vehicle Signouts</span>
-  <button (click)="logout()" fxFlex="10" md-button *ngIf="(user | async)">Logout</button>
-  <button (click)="login()" fxFlex="10" md-button *ngIf="!(user | async)">Login</button>
-</md-toolbar>
-<md-sidenav-container>
-  <md-sidenav #sidenav [mode]="mode" [opened]="opened">
-    <md-nav-list>
-      <h3 md-subheader>Choose a vehicle</h3>
-      <md-divider></md-divider>
+  <button (click)="logout()" fxFlex="10" mat-button *ngIf="(user | async)">Logout</button>
+  <button (click)="login()" fxFlex="10" mat-button *ngIf="!(user | async)">Login</button>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav [mode]="mode" [opened]="opened">
+    <mat-nav-list>
+      <h3 mat-subheader>Choose a vehicle</h3>
+      <mat-divider></mat-divider>
       <ng-container *ngFor="let name of vehicleNames | async">
-        <a md-list-item fxLayout="row" fxLayoutAlign="start center" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/vehicle',getEncoded(name.$key)]" routerLinkActive="active-list-link">
+        <a mat-list-item fxLayout="row" fxLayoutAlign="start center" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/vehicle',getEncoded(name.$key)]" routerLinkActive="active-list-link">
           <ng-container [ngSwitch]="getIcon(name.$key)">
-            <md-icon *ngSwitchCase="0">directions_bus</md-icon>
-            <md-icon *ngSwitchCase="1">airport_shuttle</md-icon>
-            <md-icon *ngSwitchCase="2">directions_car</md-icon>
+            <mat-icon *ngSwitchCase="0">directions_bus</mat-icon>
+            <mat-icon *ngSwitchCase="1">airport_shuttle</mat-icon>
+            <mat-icon *ngSwitchCase="2">directions_car</mat-icon>
           </ng-container>
           <span fxFlex fxFlexOffset="10px">{{name.$key}}</span>
         </a>
       </ng-container>
-      <md-divider></md-divider>
-      <a md-list-item fxLayout="row" fxLayoutAlign="start center" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/mysignouts']" routerLinkActive="active-list-link">
-        <md-icon>event_note</md-icon>
+      <mat-divider></mat-divider>
+      <a mat-list-item fxLayout="row" fxLayoutAlign="start center" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/mysignouts']" routerLinkActive="active-list-link">
+        <mat-icon>event_note</mat-icon>
         <span fxFlex fxFlexOffset="10px">My Signouts</span>
       </a>
-    </md-nav-list>
-  </md-sidenav>
+    </mat-nav-list>
+  </mat-sidenav>
   <section class="main-content">
     <router-outlet>
     </router-outlet>
   </section>
-</md-sidenav-container>
+</mat-sidenav-container>

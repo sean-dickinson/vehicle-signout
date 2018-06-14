@@ -7,11 +7,11 @@ h3.mat-subheader{
 }
 
 @media(max-width:600px){
-  md-card{
+  mat-card{
     margin: 0;
   }
 
-  md-list-item span{
+  mat-list-item span{
       font-size: 14px;
   }
 }

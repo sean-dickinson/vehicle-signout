@@ -3,7 +3,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable, BehaviorSubject} from "rxjs";
-import { map, switchMap, tap } from 'rxjs/operators'
+import { map, switchMap } from 'rxjs/operators'
 
 @Injectable()
 export class SignoutDataService {
@@ -11,15 +11,16 @@ export class SignoutDataService {
   constructor(private db:AngularFireDatabase, private auth: AngularFireAuth) { }
 
   getSignouts(vehicle:string, currentTime:BehaviorSubject<string>): Observable<any[]>{
-   return this.db.list(`/vehicles/${vehicle}/`, ref => ref.orderByChild('departing').startAt(currentTime.value))
-    .snapshotChanges()
-      .pipe(
-        map(actions => actions.map(action=>
-          ({$key: action.payload.key, ...action.payload.val()})
-         )
-        )
-      );
-
+  return currentTime.pipe(
+    switchMap(time => 
+      this.db.list(`/vehicles/${vehicle}`, ref => ref.orderByChild('departing').startAt(time))
+        .snapshotChanges()
+    ),
+    map(actions => actions.map(action=>
+      ({$key: action.payload.key, ...action.payload.val()})
+     )
+    )
+  )
   }
 
   getLastSignout(vehicle:string, $currentTime:BehaviorSubject<string>):Observable<any[]>{
@@ -50,8 +51,7 @@ export class SignoutDataService {
       map(actions => actions.map(action=>
         ({$key: action.payload.key, ...action.payload.val()})
        )
-      ),
-      tap(list => console.log(list))
+      )
     );
   }
 

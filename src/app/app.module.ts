@@ -18,7 +18,6 @@ import { SignoutDataService } from './signout-data.service';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth-guard.service';
 import { WindowRefService } from './window-ref.service';
-import 'hammerjs';
 import { SelectVehicleComponent } from './select-vehicle/select-vehicle.component';
 import { ManageSignoutsComponent } from './manage-signouts/manage-signouts.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';

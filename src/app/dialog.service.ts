@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { AddSignoutDialogComponent } from './add-signout-dialog/add-signout-dialog.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Injectable } from '@angular/core';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SignoutDataService } from '../signout-data.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { AddSignoutDialogComponent } from '../add-signout-dialog/add-signout-dialog.component';
 import { DialogService } from '../dialog.service';
 import { Observable, BehaviorSubject, Subscription, timer } from 'rxjs';

@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
-import { MatDialogRef, ErrorStateMatcher } from '@angular/material';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { vehicleInUse, timeTravelCheck, overlapCheck } from '../vehicle-in-use.directive';
 import { SignoutDataService } from '../signout-data.service';
 import { Subscription, Observable } from 'rxjs';

@@ -11,11 +11,11 @@ export class AppComponent {
   vehicleNames: Observable<any[]>;
   mode: string;
   opened: boolean;
-  user: any;
+
   constructor(public sds:SignoutDataService,
   private router: Router,
   private route: ActivatedRoute){
-    this.user = sds.getAuth();
+
     this.vehicleNames = sds.getVehicleNames();
 
   }
@@ -38,17 +38,17 @@ export class AppComponent {
     return 2;
   }
 
-  login(){
-    this.sds.login().then((success)=>{
-      this.router.navigateByUrl('');
-    });
-  }
+  // login(){
+  //   this.sds.login().then((success)=>{
+  //     this.router.navigateByUrl('');
+  //   });
+  // }
 
-  logout(){
-    this.sds.logout().then((success)=>{
-      this.router.navigateByUrl('login');
-    });
-  }
+  // logout(){
+  //   this.sds.logout().then((success)=>{
+  //     this.router.navigateByUrl('login');
+  //   });
+  // }
    
 
 }

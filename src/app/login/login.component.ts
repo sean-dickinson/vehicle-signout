@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SignoutDataService } from '../signout-data.service';
 import { Router } from '@angular/router';
+import { UserService } from 'app/user.service';
 
 @Component({
   selector: 'login',
@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 user: any;
-  constructor(private sds:SignoutDataService, private router:Router) {
-    this.user = sds.getAuth();
+  constructor(private us:UserService, private router:Router) {
+    this.user = us.getUser();
    }
 
   ngOnInit() {

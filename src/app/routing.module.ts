@@ -4,13 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { SignoutListComponent } from './signout-list/signout-list.component';
 import { SelectVehicleComponent } from './select-vehicle/select-vehicle.component';
 import { ManageSignoutsComponent } from './manage-signouts/manage-signouts.component';
-import { AuthGuard } from './auth-guard.service';
 import { LoginComponent } from './login/login.component';
 
 const routes:Routes = [
-  {path: '', component: SelectVehicleComponent, canActivate: [AuthGuard]},
-  {path: 'vehicle/:name', component: SignoutListComponent, canActivate: [AuthGuard]},
-  {path:'mysignouts', component: ManageSignoutsComponent, canActivate: [AuthGuard]},
+  {path: '', component: SelectVehicleComponent},
+  {path: 'vehicle/:name', component: SignoutListComponent},
+  {path:'mysignouts', component: ManageSignoutsComponent},
   {path: 'login', component: LoginComponent}
 ];
 

@@ -38,7 +38,6 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
     RoutingModule,
     VehicleMaterialModule,
     AngularFireModule.initializeApp(environment.firebase),

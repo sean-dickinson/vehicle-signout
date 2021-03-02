@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective, Ng
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { vehicleInUse, timeTravelCheck, overlapCheck } from '../vehicle-in-use.directive';
-import { SignoutDataService } from '../signout-data.service';
+import { vehicleInUse, timeTravelCheck, overlapCheck } from '../../vehicle-in-use.directive';
+import { SignoutDataService } from '../../signout-data.service';
 import { Subscription, Observable } from 'rxjs';
 
 

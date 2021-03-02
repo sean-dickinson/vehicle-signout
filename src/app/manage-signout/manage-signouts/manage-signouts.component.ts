@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SignoutDataService } from '../signout-data.service';
-import { DialogService } from '../dialog.service';
+import { SignoutDataService } from '../../signout-data.service';
+import { DialogService } from '../../dialog.service';
 import { Observable } from 'rxjs';
 
 @Component({

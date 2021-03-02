@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { SignoutListComponent } from './signout-list/signout-list.component';
+import { SignoutListComponent } from './signout/signout-list/signout-list.component';
 import { SelectVehicleComponent } from './select-vehicle/select-vehicle.component';
-import { ManageSignoutsComponent } from './manage-signouts/manage-signouts.component';
+import { ManageSignoutsComponent } from './manage-signout/manage-signouts/manage-signouts.component';
 import { LoginComponent } from './login/login.component';
 
 const routes:Routes = [

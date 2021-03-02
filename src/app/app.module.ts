@@ -10,12 +10,14 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { SignoutListComponent } from './signout-list/signout-list.component';
-import { AddSignoutDialogComponent } from './add-signout-dialog/add-signout-dialog.component';
+import { SignoutListComponent } from './signout/signout-list/signout-list.component';
+import { AddSignoutDialogComponent } from './signout/add-signout-dialog/add-signout-dialog.component';
 import { LoginComponent } from './login/login.component';
 import { SelectVehicleComponent } from './select-vehicle/select-vehicle.component';
-import { ManageSignoutsComponent } from './manage-signouts/manage-signouts.component';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ManageSignoutsComponent } from './manage-signout/manage-signouts/manage-signouts.component';
+import { ConfirmDialogComponent } from './manage-signout/confirm-dialog/confirm-dialog.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     LoginComponent,
     SelectVehicleComponent,
     ManageSignoutsComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    SidebarComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

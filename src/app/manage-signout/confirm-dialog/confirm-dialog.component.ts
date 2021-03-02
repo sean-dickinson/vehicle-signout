@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { SignoutDataService } from "../signout-data.service";
+import { SignoutDataService } from "../../signout-data.service";
 
 
 @Component({

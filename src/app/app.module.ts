@@ -16,8 +16,8 @@ import { LoginComponent } from './login/login.component';
 import { SelectVehicleComponent } from './select-vehicle/select-vehicle.component';
 import { ManageSignoutsComponent } from './manage-signout/manage-signouts/manage-signouts.component';
 import { ConfirmDialogComponent } from './manage-signout/confirm-dialog/confirm-dialog.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavListComponent } from './nav-list/nav-list.component';
+import { UriEncodedPipe } from './uri-encoded.pipe';
 
 @NgModule({
   declarations: [
@@ -28,8 +28,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     SelectVehicleComponent,
     ManageSignoutsComponent,
     ConfirmDialogComponent,
-    SidebarComponent,
-    NavbarComponent
+    NavListComponent,
+    UriEncodedPipe,
   ],
   imports: [
     BrowserModule,

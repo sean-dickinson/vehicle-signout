@@ -1,30 +1,14 @@
 <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-around center">
   <button (click)="sidenav.toggle()" mat-icon-button><mat-icon>menu</mat-icon></button>
   <span fxFlexOffset="5px" fxFlex="85">Vehicle Signouts</span>
-  <button (click)="logout()" fxFlex="10" mat-button *ngIf="(user | async)">Logout</button>
-  <button (click)="login()" fxFlex="10" mat-button *ngIf="!(user | async)">Login</button>
+  <ng-container *ngIf="user$ | async; let user">
+    <button (click)="logout()" fxFlex="10" mat-button *ngIf="user">Logout</button>
+    <button (click)="login()" fxFlex="10" mat-button *ngIf="!user">Login</button>
+  </ng-container>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav #sidenav [mode]="mode" [opened]="opened">
-    <mat-nav-list>
-      <h3 mat-subheader>Choose a vehicle</h3>
-      <mat-divider></mat-divider>
-      <ng-container *ngFor="let name of vehicleNames | async">
-        <a mat-list-item fxLayout="row" fxLayoutAlign="start center" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/vehicle',getEncoded(name.$key)]" routerLinkActive="active-list-link">
-          <ng-container [ngSwitch]="getIcon(name.$key)">
-            <mat-icon *ngSwitchCase="0">directions_bus</mat-icon>
-            <mat-icon *ngSwitchCase="1">airport_shuttle</mat-icon>
-            <mat-icon *ngSwitchCase="2">directions_car</mat-icon>
-          </ng-container>
-          <span fxFlex fxFlexOffset="10px">{{name.$key}}</span>
-        </a>
-      </ng-container>
-      <mat-divider></mat-divider>
-      <a mat-list-item fxLayout="row" fxLayoutAlign="start center" (click)="mode == 'over' ? sidenav.close(): null" [routerLink]="['/mysignouts']" routerLinkActive="active-list-link">
-        <mat-icon>event_note</mat-icon>
-        <span fxFlex fxFlexOffset="10px">My Signouts</span>
-      </a>
-    </mat-nav-list>
+   <nav-list [user]="user$ | async"></nav-list>
   </mat-sidenav>
   <section class="main-content">
     <router-outlet>

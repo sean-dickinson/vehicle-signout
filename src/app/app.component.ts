@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { SignoutDataService } from './signout-data.service';
 import { Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
+import { UserService } from './user.service';
+import { VehicleUser } from './vehicle-user';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,44 +13,24 @@ export class AppComponent {
   vehicleNames: Observable<any[]>;
   mode: string;
   opened: boolean;
+  user$: Observable<VehicleUser>;
 
-  constructor(public sds:SignoutDataService,
-  private router: Router,
-  private route: ActivatedRoute){
-
-    this.vehicleNames = sds.getVehicleNames();
-
+  constructor(public us:UserService, public auth: AngularFireAuth){
+    this.user$ = this.us.getUser();
   }
 
-  getEncoded(path:string):string{
-    return path.replace(' ', '-');
+  login(){
+    this.auth.signInWithPopup(new firebase.auth.EmailAuthProvider()).then(userCredential => {
+      const uid = userCredential.user.uid;
+      this.us.setUser(uid);
+    });
   }
 
-  getDecoded(path:string):string{
-    return path.replace('-', ' ');
+  logout(){
+    this.auth.signOut().then(() => {
+      this.us.logoutUser();
+    })
   }
-
-  getIcon(key:string):number{
-    if(key.indexOf('Bus') == 0){
-      return 0
-    }
-    if(key.indexOf('Van') > 0){
-      return 1;
-    }
-    return 2;
-  }
-
-  // login(){
-  //   this.sds.login().then((success)=>{
-  //     this.router.navigateByUrl('');
-  //   });
-  // }
-
-  // logout(){
-  //   this.sds.logout().then((success)=>{
-  //     this.router.navigateByUrl('login');
-  //   });
-  // }
    
 
 }

@@ -3,7 +3,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { RoutingModule } from './routing.module';
 import { VehicleMaterialModule } from './vehicle-material/vehicle-material.module';
 import { AngularFireModule } from '@angular/fire';
@@ -17,7 +16,6 @@ import { DialogService } from './dialog.service';
 import { SignoutDataService } from './signout-data.service';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth-guard.service';
-import { WindowRefService } from './window-ref.service';
 import { SelectVehicleComponent } from './select-vehicle/select-vehicle.component';
 import { ManageSignoutsComponent } from './manage-signouts/manage-signouts.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
@@ -44,7 +42,6 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
-  providers: [DialogService, SignoutDataService, AuthGuard, WindowRefService],
   entryComponents: [AddSignoutDialogComponent, ConfirmDialogComponent],
   bootstrap: [AppComponent]
 })

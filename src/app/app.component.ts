@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SignoutDataService } from './signout-data.service';
-import { WindowRefService } from './window-ref.service';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-root',
@@ -10,27 +9,14 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   vehicleNames: Observable<any[]>;
-  private _window: Window;
   mode: string;
   opened: boolean;
   user: any;
   constructor(public sds:SignoutDataService,
   private router: Router,
-  private route: ActivatedRoute,
-  private windowRef:WindowRefService){
+  private route: ActivatedRoute){
     this.user = sds.getAuth();
     this.vehicleNames = sds.getVehicleNames();
-    this._window = windowRef.nativeWindow;
-    
-    let width = this._window.innerWidth;
-    if(width < 768){
-      this.mode = 'over';
-      this.opened = false;
-    }
-    else{
-      this.mode = 'side';
-      this.opened = true;
-    }
 
   }
 

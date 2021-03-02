@@ -1,12 +1,28 @@
 import { TestBed } from '@angular/core/testing';
-import {VehicleUser} from './vehicle-user';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { mockAngularFireDatabase } from './helpers/angular-fire-mocks-helper';
 import { UserService } from './user.service';
+import { VehicleUser } from './vehicle-user';
+
+const testUser: VehicleUser = {
+  uid: '1234',
+  displayName: 'Test User',
+  email: 'test@email.com',
+  isActive: true,
+  isAdmin: false
+}
 
 describe('UserService', () => {
   let service: UserService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        {provide: AngularFireDatabase, useValue: mockAngularFireDatabase({ 
+          ...testUser
+        })}
+      ]
+    });
     service = TestBed.inject(UserService);
   });
 
@@ -19,12 +35,14 @@ describe('UserService', () => {
   });
 
   // todo mock the database call
-  // it('should correctly set the user', () => {
+  it('should correctly set the user', (done: DoneFn) => {
    
-  //   service.setUser(user);
-  //   const serviceUser = service.getUser().getValue();
-  //   expect(serviceUser).toEqual(user);
-  // });
+    service.setUser('1234').then(() => {
+      const serviceUser = service.getUser().getValue();
+      expect(serviceUser).toEqual(testUser);
+      done();
+    })
+  });
 
   it('should set user to null on logout', () => {
  

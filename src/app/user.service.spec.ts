@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { mockAngularFireDatabase } from './helpers/angular-fire-mocks-helper';
+import { mockAngularFireDatabase } from './testing-helpers/angular-fire-mocks-helper';
 import { UserService } from './user.service';
-import { VehicleUser } from './vehicle-user';
+import { VehicleUser } from './models/vehicle-user';
 
 const testUser: VehicleUser = {
   uid: '1234',
@@ -34,7 +34,6 @@ describe('UserService', () => {
     expect(service.getUser().getValue()).toBeNull();
   });
 
-  // todo mock the database call
   it('should correctly set the user', (done: DoneFn) => {
    
     service.setUser('1234').then(() => {

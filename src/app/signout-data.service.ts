@@ -1,100 +1,63 @@
-import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
-import firebase from 'firebase/app';
-import { Observable, BehaviorSubject, of } from "rxjs";
-import { map, switchMap } from 'rxjs/operators'
-import { UserService } from './user.service';
+import { Injectable } from "@angular/core";
+import { AngularFireDatabase } from "@angular/fire/database";
+import { Observable, BehaviorSubject, of, Subject } from "rxjs";
+import { map, switchMap } from "rxjs/operators";
+import { Vehicle } from "./models/vehicle";
+import { VehicleSignout } from "./models/vehicle-signout";
+import { VehicleUser } from "./models/vehicle-user";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class SignoutDataService {
+  constructor(private db: AngularFireDatabase) {}
 
-  constructor(private db: AngularFireDatabase, private us: UserService) { }
-
-  getSignouts(vehicle: string, currentTime: BehaviorSubject<string>): Observable<any[]> {
-    // return currentTime.pipe(
-    //   switchMap(time =>
-    //     this.db.list(`/vehicles/${vehicle}`, ref => ref.orderByChild('departing').startAt(time))
-    //       .snapshotChanges()
-    //   ),
-    //   map(actions => actions.map(action =>
-    //     ({ $key: action.payload.key, ...action.payload.val() })
-    //   )
-    //   )
-    // )
-    return of([])
+  getSignoutsByVehicle(
+    vehicleID: string,
+    currentTime$: Subject<string>
+  ): Observable<VehicleSignout[]> {
+    return currentTime$.pipe(
+      switchMap((time) =>
+        this.db
+          .list(`/vehicleSignouts/${vehicleID}`, (ref) =>
+            ref.orderByChild("departing").startAt(time)
+          )
+          .valueChanges()
+      )
+    ) as Observable<VehicleSignout[]>;
   }
 
-  getLastSignout(vehicle: string, $currentTime: BehaviorSubject<string>): Observable<any[]> {
-    // return $currentTime.pipe(
-    //   switchMap(
-    //     currentTime => this.db.list(`/vehicles/${vehicle}/`, ref => ref.orderByChild('departing').endAt(currentTime).limitToLast(1)).valueChanges()
-    //   )
-    // )
-    return of([])
-
+  getLastSignout(
+    vehicleID: string,
+    currentTime$: Subject<string>
+  ): Observable<VehicleSignout> {
+    return currentTime$.pipe(
+      switchMap(
+        time => this.db.list(`/vehicleSignouts/${vehicleID}/`, ref => ref.orderByChild('departing').endAt(time).limitToLast(1)).valueChanges()
+      ),
+      map(list => list[0])
+    ) as Observable<VehicleSignout>;
   }
 
-  getAllSignouts(vehicle: string, datestring: string): Observable<any[]> {
-    // return this.db.list(`/vehicles/${vehicle}/`, ref => ref.orderByChild('returning').startAt(datestring)).snapshotChanges()
-    //   .pipe(
-    //     map(actions => actions.map(action =>
-    //       ({ $key: action.payload.key, ...action.payload.val() })
-    //     )
-    //     )
-    //   );
-    return of([])
-  }
-  getUserSignouts(): Observable<any[]> {
-    // let date = new Date();
-    // date.setTime(date.getTime() - 1000 * 60 * 10);
-    // let dayString = date.toISOString();
-    // let name = this.auth.auth.currentUser.displayName;
-    // return this.db.list(`/users/${name}/`, ref => ref.orderByChild('returning').startAt(dayString)).snapshotChanges()
-    //   .pipe(
-    //     map(actions => actions.map(action =>
-    //       ({ $key: action.payload.key, ...action.payload.val() })
-    //     )
-    //     )
-    //   );
-    return of([])
+  getSignoutsByUser(user$: Observable<VehicleUser>): Observable<VehicleSignout[]> {
+    return user$.pipe(
+      switchMap(user => this.db.list(`/userSignouts/${user.uid}/`, ref => ref.orderByChild('startTime')).valueChanges())
+    ) as Observable<VehicleSignout[]>;
   }
 
-  getVehicleNames(): Observable<any[]> {
-    // return this.db.list('/vehicleNames/').snapshotChanges()
-    //   .pipe(
-    //     map(actions => actions.map(action =>
-    //       ({ $key: action.payload.key, ...action.payload.val() })
-    //     )
-    //     )
-    //   );
-    return of([])
+
+  saveSignout(signout: VehicleSignout): Promise<void> {
+    const updates = {};
+    updates[`vehicleSignouts/${signout.vehicleID}/${signout.uid}`] = signout;
+    updates[`userSignouts/${signout.userID}/${signout.uid}`] = signout;
+    return this.db.object('/').update(updates);
   }
 
-  saveSignout(vehicle: string, purpose: string, departing: string, returning: string, key: string) {
-    // let now = new Date();
-    // let obj: any = {};
-    // obj.departing = departing;
-    // obj.returning = returning;
-    // obj.purpose = purpose;
-    // obj.name = this.auth.auth.currentUser.displayName;
-    // if (key) {
-    //   this.db.object(`/vehicles/${vehicle}/${key}/`).update(obj);
-    //   this.db.object(`/users/${obj.name}/${key}`).update(obj);
-    // }
-    // else {
-    //   let test = this.db.list(`/vehicles/${vehicle}/`).push(obj);
-    //   obj.vehicle = vehicle;
-    //   this.db.object(`/users/${obj.name}/${test.key}`).update(obj);
-    // }
-  }
-
-  deleteSignout(key: string, vehicle: string, name: string) {
-    // let updates: any = {};
-    // updates[`/vehicles/${vehicle}/${key}/`] = null;
-    // updates[`/users/${name}/${key}/`] = null;
-    // this.db.object('/').update(updates);
+  deleteSignout(signout: VehicleSignout): Promise<void> {
+    const updates = {};
+    updates[`vehicleSignouts/${signout.vehicleID}/${signout.uid}`] = null;
+    updates[`userSignouts/${signout.userID}/${signout.uid}`] = null;
+    return this.db.object('/').update(updates);
   }
 
   tempRemove(vehicle: string, key: string) {

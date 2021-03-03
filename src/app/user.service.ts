@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { VehicleUser } from './vehicle-user';
+import { VehicleUser } from './models/vehicle-user';
 import { BehaviorSubject } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 @Injectable({

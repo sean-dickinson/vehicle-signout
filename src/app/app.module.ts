@@ -12,11 +12,11 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { SignoutListComponent } from './signout/signout-list/signout-list.component';
 import { AddSignoutDialogComponent } from './signout/add-signout-dialog/add-signout-dialog.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './core/login/login.component';
 import { SelectVehicleComponent } from './select-vehicle/select-vehicle.component';
 import { ManageSignoutsComponent } from './manage-signout/manage-signouts/manage-signouts.component';
 import { ConfirmDialogComponent } from './manage-signout/confirm-dialog/confirm-dialog.component';
-import { NavListComponent } from './nav-list/nav-list.component';
+import { NavListComponent } from './core/nav-list/nav-list.component';
 import { UriEncodedPipe } from './uri-encoded.pipe';
 
 @NgModule({

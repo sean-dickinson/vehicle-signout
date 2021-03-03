@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import { UserService } from './user.service';
-import { VehicleUser } from './vehicle-user';
+import { VehicleUser } from './models/vehicle-user';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SignoutListComponent } from './signout/signout-list/signout-list.component';
 import { SelectVehicleComponent } from './select-vehicle/select-vehicle.component';
 import { ManageSignoutsComponent } from './manage-signout/manage-signouts/manage-signouts.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './core/login/login.component';
 
 const routes:Routes = [
   {path: '', component: SelectVehicleComponent},

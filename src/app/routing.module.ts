@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { SignoutListComponent } from './signout/signout-list/signout-list.component';
+import { SignoutListComponent } from './signout-view/signout-list/signout-list.component';
 import { SelectVehicleComponent } from './core/select-vehicle/select-vehicle.component';
 import { LoginComponent } from './core/login/login.component';
 

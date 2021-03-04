@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "@angular/fire/database";
 import { Observable, BehaviorSubject, of, Subject } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
-import { Vehicle } from "./models/vehicle";
 import { VehicleSignout } from "./models/vehicle-signout";
 import { VehicleUser } from "./models/vehicle-user";
 
@@ -60,7 +59,4 @@ export class SignoutDataService {
     return this.db.object('/').update(updates);
   }
 
-  tempRemove(vehicle: string, key: string) {
-    this.db.object(`/vehicles/${vehicle}/${key}`).remove();
-  }
 }

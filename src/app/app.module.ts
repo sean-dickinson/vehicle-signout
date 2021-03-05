@@ -7,7 +7,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { SignoutListComponent } from './signout-view/signout-list/signout-list.component';
 import { AddSignoutDialogComponent } from './signout-view/add-signout-dialog/add-signout-dialog.component';
 import { LoginComponent } from './core/login/login.component';
 import { SelectVehicleComponent } from './core/select-vehicle/select-vehicle.component';
@@ -20,7 +19,6 @@ import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
-    SignoutListComponent,
     AddSignoutDialogComponent,
     LoginComponent,
     SelectVehicleComponent,

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'app/shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { SignoutListComponent } from './signout-list/signout-list.component';
 import { ViewSignoutsByVehicleComponent } from './view-signouts-by-vehicle/view-signouts-by-vehicle.component';
 import { VehicleSignoutCardComponent } from './vehicle-signout-card/vehicle-signout-card.component';
+import { SignoutViewRoutingModule } from './signout-view-routing.module';
 
 
 
@@ -16,6 +17,7 @@ import { VehicleSignoutCardComponent } from './vehicle-signout-card/vehicle-sign
   imports: [
     CommonModule,
     SharedModule,
+    SignoutViewRoutingModule
   ]
 })
 export class SignoutViewModule { }

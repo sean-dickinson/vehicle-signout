@@ -17,7 +17,7 @@ export class ConfirmDialogComponent implements OnInit {
   }
 
   confirm(){
-    this.sds.deleteSignout(this.data.key, this.data.vehicle, this.data.name);
+    // this.sds.deleteSignout(this.data.key, this.data.vehicle, this.data.name);
   }
 
 }

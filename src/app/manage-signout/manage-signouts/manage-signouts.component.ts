@@ -12,33 +12,33 @@ export class ManageSignoutsComponent implements OnInit {
   userSignouts: Observable<any[]>;
   constructor(public sds:SignoutDataService, public ds:DialogService) {
    
-    this.userSignouts = this.sds.getUserSignouts();
+    // this.userSignouts = this.sds.getUserSignouts();
    }
 
   ngOnInit() {
   }
 
-  edit(signout:any){
-    this.sds.tempRemove(signout.vehicle, signout.$key);
-    let config = { 
-      data: {
-        departTime: new Date(signout.departing),
-        returnTime: new Date(signout.returning),
-        currentVehicle: signout.vehicle,
-        purpose: signout.purpose,
-        key: signout.$key
-       }
-    };
-    this.ds.newSignout(config);
-  }
+  // edit(signout:any){
+  //   this.sds.tempRemove(signout.vehicle, signout.$key);
+  //   let config = { 
+  //     data: {
+  //       departTime: new Date(signout.departing),
+  //       returnTime: new Date(signout.returning),
+  //       currentVehicle: signout.vehicle,
+  //       purpose: signout.purpose,
+  //       key: signout.$key
+  //      }
+  //   };
+  //   this.ds.newSignout(config);
+  // }
 
-  delete(signout:any){
-    let config:any = {};
-    config.data = {};
-    config.data.key = signout.$key;
-    config.data.vehicle = signout.vehicle;
-    config.data.name = signout.name;
-    this.ds.warnDialog(config);
-  }
+  // delete(signout:any){
+  //   let config:any = {};
+  //   config.data = {};
+  //   config.data.key = signout.$key;
+  //   config.data.vehicle = signout.vehicle;
+  //   config.data.name = signout.name;
+  //   this.ds.warnDialog(config);
+  // }
 
 }

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AngularFireDatabase } from "@angular/fire/database";
+import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable, of } from "rxjs";
 import { Vehicle } from "./models/vehicle";
 
@@ -7,17 +7,21 @@ import { Vehicle } from "./models/vehicle";
   providedIn: "root",
 })
 export class VehicleService {
-  constructor(private rtdb: AngularFireDatabase) {}
+  constructor(private af: AngularFirestore) {}
 
   getActiveVehicles(): Observable<Vehicle[]> {
-    return this.rtdb
-      .list("/vehicles", (ref) => ref.orderByChild("isActive").equalTo(true))
+    return this.af
+      .collection("vehicles", (ref) => ref.where("isActive", '==', true))
       .valueChanges() as Observable<Vehicle[]>;
   }
 
   getAllVehicles(): Observable<Vehicle[]> {
-    return this.rtdb
-      .list('vehicles')
+    return this.af
+      .collection('vehicles')
       .valueChanges() as Observable<Vehicle[]>;
+  }
+
+  getVehicleByID(id: string): Observable<Vehicle>{
+    return this.af.doc(`vehicles/${id}`).valueChanges() as Observable<Vehicle>;
   }
 }

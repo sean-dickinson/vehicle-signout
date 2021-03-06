@@ -2,7 +2,7 @@
     <h3 mat-subheader>Choose a vehicle</h3>
     <mat-divider></mat-divider>
     <ng-container *ngFor="let vehicle of vehicles">
-      <a mat-list-item fxLayout="row" fxLayoutAlign="start center" [routerLink]="['/vehicle',vehicle.name | uriEncoded]" routerLinkActive="active-list-link">
+      <a mat-list-item fxLayout="row" fxLayoutAlign="start center" [routerLink]="['/vehicle',vehicle.uid]" routerLinkActive="active-list-link">
           <mat-icon>{{vehicle.icon}}</mat-icon>
         <span fxFlex fxFlexOffset="10px">{{vehicle.name}}</span>
       </a>

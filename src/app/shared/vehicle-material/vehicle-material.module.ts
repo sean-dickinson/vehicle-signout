@@ -13,6 +13,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTableModule
   ],
   exports: [
     MatSidenavModule,
@@ -44,7 +46,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTableModule
   ],
   declarations: []
 })

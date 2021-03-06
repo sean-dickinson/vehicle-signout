@@ -5,6 +5,7 @@ import { SignoutListComponent } from './signout-list/signout-list.component';
 import { ViewSignoutsByVehicleComponent } from './view-signouts-by-vehicle/view-signouts-by-vehicle.component';
 import { VehicleSignoutCardComponent } from './vehicle-signout-card/vehicle-signout-card.component';
 import { SignoutViewRoutingModule } from './signout-view-routing.module';
+import { LastSignoutComponent } from './last-signout/last-signout.component';
 
 
 
@@ -12,7 +13,8 @@ import { SignoutViewRoutingModule } from './signout-view-routing.module';
   declarations: [
     SignoutListComponent,
     ViewSignoutsByVehicleComponent,
-    VehicleSignoutCardComponent
+    VehicleSignoutCardComponent,
+    LastSignoutComponent
   ],
   imports: [
     CommonModule,

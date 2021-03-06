@@ -1,1 +1,9 @@
-<p>vehicle-signout-card works!</p>
+<mat-card>
+    <mat-card-title fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon *ngIf="isCurrentlyOut()">warning</mat-icon>
+        <span fxFlexFill fxFlexOffset="2px">{{vehicle?.name}}</span>
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="lastSignout" >
+        <last-signout [signout]="lastSignout" [isCurrent]="isCurrentlyOut()"></last-signout>
+      </mat-card-subtitle>
+</mat-card>

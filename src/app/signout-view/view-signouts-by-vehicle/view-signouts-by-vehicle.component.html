@@ -1,1 +1,7 @@
-<p>view-signouts-by-vehicle works!</p>
+<vehicle-signout-card 
+[signouts]="signouts$ | async" 
+[vehicle]="vehicle$ | async" 
+[lastSignout]="lastSignout$ | async"
+[currentTime]="currentTime$ | async"
+>
+</vehicle-signout-card>

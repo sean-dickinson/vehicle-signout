@@ -1,50 +1,31 @@
-<mat-card>
-  <mat-card-title fxLayout="row" fxLayoutAlign="start center">
-    <ng-container *ngFor="let last of lastSignout | async">
-    <mat-icon color="accent" *ngIf="last?.returning > currentTime.value">warning</mat-icon>
-    </ng-container>
-    <span fxFlexFill fxFlexOffset="2px">{{name}}</span>
-  </mat-card-title>
-   <ng-container *ngFor="let last of lastSignout | async"> 
-  <mat-card-subtitle *ngIf="last?.name" >
-    <span *ngIf="last?.returning > currentTime.value; else lastBlock">
-       Currently signed out by {{last?.name}} 
-      <ng-container *ngIf="last?.purpose"> for {{last?.purpose | lowercase}}</ng-container>
-      and will be returned at {{last?.returning | date: 'short'}}
-      </span>
-    <ng-template #lastBlock>Last signed out by {{last?.name}} 
-      <ng-container *ngIf="last?.purpose"> for {{last?.purpose | lowercase}}</ng-container>
-      and returned at {{last?.returning | date: 'short'}}
-    </ng-template>
-  </mat-card-subtitle>
-</ng-container>
-  <mat-card-content>
-    <mat-list>
-      <mat-list-item>
-        <h3 mat-subheader style="width: 100%" fxLayout="row">
-          <span fxFlex="25">Name</span>
-          <span fxFlex="25">Purpose</span>
-          <span fxFlex="25">Departing</span>
-          <span fxFlex="25">Returning</span>
-        </h3>
-      </mat-list-item>
-      <ng-container *ngIf="(signouts | async)?.length > 0; else noBlock">
-        <ng-container *ngFor="let signout of signouts | async">
-          <mat-list-item fxLayout="row">
-            <span fxFlex="25">{{signout?.name}}</span>
-            <span fxFlex="25">{{signout?.purpose}}</span>
-            <span fxFlex="25">{{signout?.departing | date :'short'}}</span>
-            <span fxFlex="25">{{signout?.returning | date :'short'}}</span>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-        </ng-container>
-      </ng-container>
-      <ng-template #noBlock>
-        <div fxLayout="row" fxLayoutAlign="center center">
-          <h3 style="text-align: center" fxFlex="50">No Upcoming Signouts</h3>
-        </div>
-      </ng-template>
-    </mat-list>
-  </mat-card-content>
-</mat-card>
-<button matTooltip="New Signout" [matTooltipPosition]="'above'" (click)="openDialog()" class="fab" mat-fab><mat-icon>directions_car</mat-icon></button>
+<mat-table [dataSource]="dataSource">
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="userName">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let signout"> {{signout.userName}} </td>
+  </ng-container>
+
+   <!-- Purpose Column -->
+   <ng-container matColumnDef="reason">
+    <th mat-header-cell *matHeaderCellDef> Purpose </th>
+    <td mat-cell *matCellDef="let signout"> {{signout.reason}} </td>
+  </ng-container>
+
+  <!-- Departing Column -->
+  <ng-container matColumnDef="startTime">
+    <th mat-header-cell *matHeaderCellDef> Departing </th>
+    <td mat-cell *matCellDef="let signout"> {{signout.startTime | date : 'short'}} </td>
+  </ng-container>
+
+  <!-- Returning Column -->
+  <ng-container matColumnDef="endTime">
+    <th mat-header-cell *matHeaderCellDef> Returning </th>
+    <td mat-cell *matCellDef="let signout"> {{signout.endTime | date : 'short'}} </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+
+</mat-table>

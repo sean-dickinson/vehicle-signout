@@ -1,6 +1,6 @@
-<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-around center">
+<mat-toolbar color="primary">
   <button (click)="sidenav.toggle()" mat-icon-button><mat-icon>menu</mat-icon></button>
-  <span fxFlexOffset="5px" fxFlex="85">Vehicle Signouts</span>
+  <a routerLink="/" class="app-title-link">Vehicle Signouts</a>
   <ng-container *ngIf="user$ | async; let user">
     <button (click)="logout()" fxFlex="10" mat-button *ngIf="user">Logout</button>
     <button (click)="login()" fxFlex="10" mat-button *ngIf="!user">Login</button>

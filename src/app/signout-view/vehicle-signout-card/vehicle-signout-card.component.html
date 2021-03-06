@@ -3,7 +3,16 @@
         <mat-icon *ngIf="isCurrentlyOut()">warning</mat-icon>
         <span fxFlexFill fxFlexOffset="2px">{{vehicle?.name}}</span>
     </mat-card-title>
-    <mat-card-subtitle *ngIf="lastSignout" >
+    <mat-card-subtitle *ngIf="lastSignout">
         <last-signout [signout]="lastSignout" [isCurrent]="isCurrentlyOut()"></last-signout>
-      </mat-card-subtitle>
+    </mat-card-subtitle>
+    <mat-card-content>
+        <signout-list *ngIf="signouts?.length > 0; else noSignouts" [signouts]="signouts"></signout-list>
+        <ng-template #noSignouts>
+            <div style="padding:1em" fxLayout="row" fxLayoutAlign="center center">
+                <h2 class="mat-h2">No Signouts Scheduled</h2>
+            </div>
+        </ng-template>
+
+    </mat-card-content>
 </mat-card>

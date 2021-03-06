@@ -1,7 +1,14 @@
-<vehicle-signout-card 
-[signouts]="signouts$ | async" 
-[vehicle]="vehicle$ | async" 
-[lastSignout]="lastSignout$ | async"
-[currentTime]="currentTime$ | async"
->
-</vehicle-signout-card>
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+    <vehicle-signout-card 
+    fxFlex="80"
+    fxFlex.sm="100"
+    [signouts]="signouts$ | async" 
+    [vehicle]="vehicle$ | async" 
+    [lastSignout]="lastSignout$ | async"
+    [currentTime]="currentTime$ | async"
+    >
+    </vehicle-signout-card>
+</div>
+<button mat-fab class="fab">
+    <mat-icon>directions_car</mat-icon>
+</button>

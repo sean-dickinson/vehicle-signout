@@ -1,5 +1,5 @@
 // Credit to phreakhead: https://stackoverflow.com/questions/38042941/how-to-mock-angularfire-2-service-in-unit-test
-import { AngularFireDatabase } from "@angular/fire/database";
+import { AngularFirestore } from "@angular/fire/firestore";
 
 import { of } from "rxjs";
 
@@ -11,23 +11,23 @@ export const AngularFireAuthMock = jasmine
   .and.returnValue(Promise.resolve({ uid: "1234" }));
 
 /**
- * Mocks an AngularFireDatabase that always returns the given data for any path.
+ * Mocks an AngularFirestore that always returns the given data for any path.
  */
-export function mockAngularFireDatabase(data): AngularFireDatabase {
+export function mockAngularFirestore(data): AngularFirestore {
   return {
-    object: (path: string): any => {
+    collection: (path: string, fn: Function): any => {
       return {
         valueChanges() {
           return of(data);
         },
       };
     },
-    list: (path: string, fn: Function): any => {
+    doc: (path: string, fn: Function): any => {
       return {
         valueChanges() {
           return of(data);
         },
       };
     },
-  } as AngularFireDatabase;
+  } as AngularFirestore;
 }

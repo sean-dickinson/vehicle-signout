@@ -8,11 +8,11 @@
       </a>
     </ng-container>
     <mat-divider></mat-divider>
-    <a mat-list-item fxLayout="row" fxLayoutAlign="start center" routerLink="/mysignouts" routerLinkActive="active-list-link">
+    <a mat-list-item fxLayout="row" fxLayoutAlign="start center" routerLink="/my-signouts" routerLinkActive="active-list-link">
       <mat-icon>event_note</mat-icon>
       <span fxFlex fxFlexOffset="10px">My Signouts</span>
     </a>
-    <a mat-list-item fxLayout="row" fxLayoutAlign="start center" routerLink="/admin" routerLinkActive="active-list-link">
+    <a *ngIf="user?.isAdmin" mat-list-item fxLayout="row" fxLayoutAlign="start center" routerLink="/admin" routerLinkActive="active-list-link">
       <mat-icon>admin</mat-icon>
       <span fxFlex fxFlexOffset="10px">Admin</span>
     </a>

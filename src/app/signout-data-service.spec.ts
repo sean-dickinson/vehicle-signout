@@ -1,9 +1,9 @@
 import { TestBed } from "@angular/core/testing";
-import { AngularFireDatabase } from "@angular/fire/database";
+import { AngularFirestore } from "@angular/fire/firestore";
 import { Subject } from "rxjs";
 import { VehicleSignout } from "./models/vehicle-signout";
 import { SignoutDataService } from "./signout-data.service";
-import { mockAngularFireDatabase } from "./testing-helpers/angular-fire-mocks-helper";
+import { mockAngularFirestore } from "./testing-helpers/angular-fire-mocks-helper";
 
 const signoutData: VehicleSignout[] = [
     {   vehicleID: 'vehicleID',
@@ -23,7 +23,7 @@ describe('SignoutDataService', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
         providers: [
-          {provide: AngularFireDatabase, useValue: mockAngularFireDatabase([
+          {provide: AngularFirestore, useValue: mockAngularFirestore([
 
               ...signoutData
           ] 

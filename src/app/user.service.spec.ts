@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { mockAngularFireDatabase } from './testing-helpers/angular-fire-mocks-helper';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { mockAngularFirestore} from './testing-helpers/angular-fire-mocks-helper';
 import { UserService } from './user.service';
 import { VehicleUser } from './models/vehicle-user';
 
@@ -18,7 +18,7 @@ describe('UserService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        {provide: AngularFireDatabase, useValue: mockAngularFireDatabase({ 
+        {provide: AngularFirestore, useValue: mockAngularFirestore({ 
           ...testUser
         })}
       ]

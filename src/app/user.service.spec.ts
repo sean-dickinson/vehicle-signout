@@ -4,6 +4,7 @@ import { mockAngularFirestore} from './testing-helpers/angular-fire-mocks-helper
 import { UserService } from './user.service';
 import { VehicleUser } from './models/vehicle-user';
 
+
 const testUser: VehicleUser = {
   uid: '1234',
   displayName: 'Test User',
@@ -30,24 +31,29 @@ describe('UserService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should start with a null user', () => {
-    expect(service.getUser().getValue()).toBeNull();
+  it('should not have a user value initially', (done: DoneFn) => {
+    service.getUser().pipe().subscribe((val) => {
+      expect(val).toBeNull();
+      done();
+    } )
   });
 
   it('should correctly set the user', (done: DoneFn) => {
    
     service.setUser('1234').then(() => {
-      const serviceUser = service.getUser().getValue();
-      expect(serviceUser).toEqual(testUser);
-      done();
+      service.getUser().subscribe(serviceUser =>{
+        expect(serviceUser).toEqual(testUser);
+        done();
+      });
     })
   });
 
-  it('should set user to null on logout', () => {
- 
+  it('should set user to null on logout', (done: DoneFn) => {
     service.logoutUser();
-    const serviceUser = service.getUser().getValue();
-    expect(serviceUser).toBeNull();
+    service.getUser().subscribe(serviceUser => {
+      expect(serviceUser).toBeNull();
+      done();
+    })
   })
 
 });

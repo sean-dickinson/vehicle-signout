@@ -13,6 +13,7 @@ export const AngularFireAuthMock = jasmine
 /**
  * Mocks an AngularFirestore that always returns the given data for any path.
  */
+
 export function mockAngularFirestore(data): AngularFirestore {
   return {
     collection: (path: string, fn: Function): any => {
@@ -27,7 +28,14 @@ export function mockAngularFirestore(data): AngularFirestore {
         valueChanges() {
           return of(data);
         },
-      };
-    },
+        collection(path: string, fn: Function) {
+          return {
+            valueChanges() {
+              return of(data);
+            }
+          };
+      }
+    };
+  },
   } as AngularFirestore;
 }

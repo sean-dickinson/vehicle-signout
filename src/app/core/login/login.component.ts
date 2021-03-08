@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import firebase from "firebase/app";
 import { UserService } from "../../user.service";
 
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit{
   constructor(
     private us: UserService,
     private auth: AngularFireAuth,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(){
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit{
       this.passwordControl.value,
     ).then((userCred) => {
       this.us.setUser(userCred.user.uid);
+      this.router.navigate(['']);
     }).catch(err => this.handleErr(err));
   }
 

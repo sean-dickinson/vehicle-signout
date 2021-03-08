@@ -1,33 +1,86 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import firebase from 'firebase/app';
-import { UserService } from '../../user.service';
+import { Component, OnInit } from "@angular/core";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
+import firebase from "firebase/app";
+import { UserService } from "../../user.service";
 
 @Component({
-  selector: 'login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+  loginForm: FormGroup;
+  constructor(
+    private us: UserService,
+    private auth: AngularFireAuth,
+    private fb: FormBuilder
+  ) { }
 
-  constructor(private us:UserService, private auth: AngularFireAuth) {
-   
-   }
-
-  
-
-  login() {
-    this.auth
-      .signInWithPopup(new firebase.auth.EmailAuthProvider())
-      .then((userCredential) => {
-        const uid = userCredential.user.uid;
-        this.us.setUser(uid);
-      });
-  }
-
-  logout() {
-    this.auth.signOut().then(() => {
-      this.us.logoutUser();
+  ngOnInit(){
+    this.loginForm = this.fb.group({
+      email: this.fb.control("", [Validators.required, Validators.email]),
+      password: this.fb.control("", Validators.required),
     });
   }
+
+  get emailControl(){
+    return this.loginForm.get('email');
+  }
+
+  get passwordControl(){
+    return this.loginForm.get('password');
+  }
+
+  onSubmit() {
+    this.login(
+      this.emailControl.value,
+      this.passwordControl.value,
+    ).then((userCred) => {
+      this.us.setUser(userCred.user.uid);
+    }).catch(err => this.handleErr(err));
+  }
+
+  login(
+    email: string,
+    password: string
+  ): Promise<firebase.auth.UserCredential> {
+    return this.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  handleErr(err): void {
+    const code = err.code;
+    switch(code){
+      case 'auth/invalid-email':
+        this.loginForm.get('email').setErrors({email: true});
+        break;
+      case 'auth/user-disabled':
+        this.loginForm.get('email').setErrors({userDisabled: true});
+        break;
+      case 'auth/user-not-found':
+        this.loginForm.get('email').setErrors({userNotFound: true});
+        break;
+      case 'auth/wrong-password':
+        this.loginForm.get('password').setErrors({invalidPassword: true});
+        break;
+    }
+  }
+
+  getErrorMessage(errors: ValidationErrors){
+    for(const error of Object.keys(errors)){
+      switch(error){
+        case 'email':
+          return 'Invalid Email';
+        case 'userDisabled':
+          return 'User account disabled';
+        case 'userNotFound':
+          return 'User not found';
+        case 'invalidPassword':
+          return 'Invalid password';
+        case 'required':
+          return 'This field is required'
+      }
+    }
+  }
+
 }

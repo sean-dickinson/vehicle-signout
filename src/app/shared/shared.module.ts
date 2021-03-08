@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VehicleMaterialModule } from './vehicle-material/vehicle-material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
@@ -12,11 +12,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CommonModule,
     VehicleMaterialModule,
     FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule
   ],
   exports: [
     VehicleMaterialModule,
     FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule
   ]
 })

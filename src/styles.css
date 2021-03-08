@@ -22,6 +22,10 @@ mat-card{
     overflow-x:hidden;
 }
 
+.small-card {
+  width: min(90vw, 600px);
+}
+
 .mat-toolbar-layout{
   width:100%;
 }

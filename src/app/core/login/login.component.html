@@ -1,4 +1,17 @@
 <mat-card class="pushedDown">
   <mat-card-title>Login</mat-card-title>
-  <mat-card-content>Please login to signout a vehicle</mat-card-content>
+  <mat-card-content>
+    <div>Please login to signout a vehicle</div>
+    <form class="loginForm">
+      <mat-form-field class="padded-control">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name="" id="">
+      </mat-form-field>
+      <mat-form-field class="padded-control">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" name="" id="">
+      </mat-form-field>
+    </form>
+    <button mat-button (click)="login()">Login</button>
+  </mat-card-content>
 </mat-card>

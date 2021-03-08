@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
 import { UserService } from '../../user.service';
 
 @Component({
@@ -7,15 +8,26 @@ import { UserService } from '../../user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-user: any;
-  constructor(private us:UserService, private router:Router) {
-    this.user = us.getUser();
+export class LoginComponent {
+
+  constructor(private us:UserService, private auth: AngularFireAuth) {
+   
    }
 
-  ngOnInit() {
-    if(this.user){
-        this.router.navigateByUrl('');
-      }
+  
+
+  login() {
+    this.auth
+      .signInWithPopup(new firebase.auth.EmailAuthProvider())
+      .then((userCredential) => {
+        const uid = userCredential.user.uid;
+        this.us.setUser(uid);
+      });
+  }
+
+  logout() {
+    this.auth.signOut().then(() => {
+      this.us.logoutUser();
+    });
   }
 }

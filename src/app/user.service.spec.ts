@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { mockAngularFirestore} from './testing-helpers/angular-fire-mocks-helper';
+import { mockAngularFirestore} from '../testing-helpers/angular-fire-mocks-helper';
 import { UserService } from './user.service';
 import { VehicleUser } from './models/vehicle-user';
 

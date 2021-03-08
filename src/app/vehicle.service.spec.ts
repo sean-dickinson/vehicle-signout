@@ -1,18 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Vehicle } from './models/vehicle';
-import { mockAngularFirestore} from './testing-helpers/angular-fire-mocks-helper';
-
+import { testVehicles } from 'testing-helpers/test-vehicle-data';
+import { mockAngularFirestore} from '../testing-helpers/angular-fire-mocks-helper';
 import { VehicleService } from './vehicle.service';
 
-const testVehicles: Vehicle[] = [
-  {
-    uid: 'uid',
-    name: 'White Van',
-    icon: 'airport_shuttle',
-    isActive: true
-  }
-];
+
 
 describe('VehicleService', () => {
   let service: VehicleService;

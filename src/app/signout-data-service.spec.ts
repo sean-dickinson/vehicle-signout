@@ -1,21 +1,10 @@
 import { TestBed } from "@angular/core/testing";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Subject } from "rxjs";
-import { VehicleSignout } from "./models/vehicle-signout";
 import { SignoutDataService } from "./signout-data.service";
-import { mockAngularFirestore } from "./testing-helpers/angular-fire-mocks-helper";
+import { mockAngularFirestore } from "../testing-helpers/angular-fire-mocks-helper";
+import { signoutData } from "testing-helpers/test-signout-data";
 
-const signoutData: VehicleSignout[] = [
-    {   vehicleID: 'vehicleID',
-        vehicleName: 'Van',
-        uid: '12345',
-        userID: 'userID',
-        userName: 'Test User',
-        startTime: '2020-01-01T08:00.000Z',
-        endTime: '2020-01-01T10:00.000Z',
-        reason: 'Doing something fun'
-    }
-];
 
 describe('SignoutDataService', () => {
     let service: SignoutDataService;

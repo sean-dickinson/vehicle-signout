@@ -6,6 +6,8 @@ import { ViewSignoutsByVehicleComponent } from './view-signouts-by-vehicle/view-
 import { VehicleSignoutCardComponent } from './vehicle-signout-card/vehicle-signout-card.component';
 import { SignoutViewRoutingModule } from './signout-view-routing.module';
 import { LastSignoutComponent } from './last-signout/last-signout.component';
+import { AddSignoutDialogComponent } from './add-signout-dialog/add-signout-dialog.component';
+import { AddSignoutStepperComponent } from './add-signout-stepper/add-signout-stepper.component';
 
 
 
@@ -14,7 +16,9 @@ import { LastSignoutComponent } from './last-signout/last-signout.component';
     SignoutListComponent,
     ViewSignoutsByVehicleComponent,
     VehicleSignoutCardComponent,
-    LastSignoutComponent
+    LastSignoutComponent,
+    AddSignoutDialogComponent,
+    AddSignoutStepperComponent
   ],
   imports: [
     CommonModule,

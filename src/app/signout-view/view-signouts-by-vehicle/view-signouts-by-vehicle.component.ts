@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { Vehicle } from "app/models/vehicle";
 import { VehicleSignout } from "app/models/vehicle-signout";
@@ -7,6 +8,7 @@ import { TimeService } from "app/time.service";
 import { VehicleService } from "app/vehicle.service";
 import { Observable, ReplaySubject, Subject } from "rxjs";
 import { map, switchMap, tap } from "rxjs/operators";
+import { AddSignoutDialogComponent } from "../add-signout-dialog/add-signout-dialog.component";
 
 @Component({
   selector: "view-signouts-by-vehicle",
@@ -23,7 +25,8 @@ export class ViewSignoutsByVehicleComponent implements OnInit {
     private route: ActivatedRoute,
     private sds: SignoutDataService,
     private vs: VehicleService,
-    private ts: TimeService
+    private ts: TimeService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -49,5 +52,9 @@ export class ViewSignoutsByVehicleComponent implements OnInit {
       .subscribe((id) => {
         this.vehicleID$.next(id);
       });
+  }
+
+  openDialog(){
+    this.dialog.open(AddSignoutDialogComponent);
   }
 }

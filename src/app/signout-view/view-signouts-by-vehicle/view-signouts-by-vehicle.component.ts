@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { Vehicle } from "app/models/vehicle";
@@ -7,7 +7,7 @@ import { SignoutDataService } from "app/signout-data.service";
 import { TimeService } from "app/time.service";
 import { VehicleService } from "app/vehicle.service";
 import { Observable, ReplaySubject, Subject } from "rxjs";
-import { map, switchMap, tap } from "rxjs/operators";
+import { map, switchMap, takeUntil, tap } from "rxjs/operators";
 import { AddSignoutDialogComponent } from "../add-signout-dialog/add-signout-dialog.component";
 
 @Component({
@@ -15,12 +15,14 @@ import { AddSignoutDialogComponent } from "../add-signout-dialog/add-signout-dia
   templateUrl: "./view-signouts-by-vehicle.component.html",
   styleUrls: ["./view-signouts-by-vehicle.component.css"],
 })
-export class ViewSignoutsByVehicleComponent implements OnInit {
+export class ViewSignoutsByVehicleComponent implements OnInit, OnDestroy {
   vehicleID$: ReplaySubject<string>;
   vehicle$: Observable<Vehicle>;
   signouts$: Observable<VehicleSignout[]>;
   lastSignout$: Observable<VehicleSignout>;
-  currentTime$: Observable<string>; 
+  currentTime$: Observable<string>;
+  currentVehicle: Vehicle;
+  destroy$: Subject<boolean>;
   constructor(
     private route: ActivatedRoute,
     private sds: SignoutDataService,
@@ -30,6 +32,7 @@ export class ViewSignoutsByVehicleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.destroy$ = new Subject<boolean>();
     this.vehicleID$ = new ReplaySubject<string>(1);
     this.currentTime$ = this.ts.getCurrentTime();
 
@@ -52,9 +55,22 @@ export class ViewSignoutsByVehicleComponent implements OnInit {
       .subscribe((id) => {
         this.vehicleID$.next(id);
       });
+
+      this.vehicle$.pipe(takeUntil(this.destroy$)).subscribe(vehicle => {
+        this.currentVehicle = vehicle;
+      });
+  }
+
+  ngOnDestroy(){
+    this.destroy$.next(false);
+    this.destroy$.unsubscribe();
   }
 
   openDialog(){
-    this.dialog.open(AddSignoutDialogComponent);
+    this.dialog.open(AddSignoutDialogComponent, {
+      data: {
+        vehicle: this.currentVehicle
+      }
+    });
   }
 }

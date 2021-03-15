@@ -1,0 +1,7 @@
+.padded-controls mat-form-field {
+    padding: 0 0.5em;
+}
+
+form {
+    margin-top: 1em;
+}

@@ -1,1 +1,58 @@
-<p>add-signout-stepper works!</p>
+<mat-vertical-stepper linear>
+    <mat-step [stepControl]="generalStepGroup" [editable]="true">
+        <form [formGroup]="generalStepGroup">
+            <ng-template matStepLabel>General</ng-template>
+            <div>
+                <mat-form-field>
+                    <mat-label>Which Vehicle?</mat-label>
+                    <mat-select [compareWith]="compareFn" formControlName="vehicleCtrl" placeholder="Select a vehicle"
+                        required>
+                        <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle">{{vehicle.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Reason?</mat-label>
+                    <input formControlName="reasonCtrl" type="text" matInput placeholder="Ex. Mall Run">
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-button matStepperNext>Next Step</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="timeStepGroup" [editable]="true">
+        <form [formGroup]="timeStepGroup">
+            <ng-template matStepLabel>When?</ng-template>
+            <div formGroupName="startParentGroup" class="padded-controls">
+                <mat-form-field>
+                    <mat-label>Departure Date</mat-label>
+                    <input matInput formControlName="startDateCtrl" [matDatepicker]="departPicker">
+                    <mat-datepicker-toggle matSuffix [for]="departPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #departPicker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Departure Time</mat-label>
+                    <input matInput formControlName="startTimeCtrl" type="time">
+                </mat-form-field>
+            </div>
+            <div formGroupName="endParentGroup" class="padded-controls">
+                <mat-form-field>
+                    <mat-label>Return Date</mat-label>
+                    <input matInput formControlName="endDateCtrl" [matDatepicker]="returnPicker">
+                    <mat-datepicker-toggle matSuffix [for]="returnPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #returnPicker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Return Time</mat-label>
+                    <input matInput formControlName="endTimeCtrl" type="time">
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-button matStepperNext>Confirm</button>
+            </div>
+        </form>
+    </mat-step>
+    <!-- TODO: Implement Confirmation Step -->
+</mat-vertical-stepper>

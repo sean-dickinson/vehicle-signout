@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>New Signout</h1>
 <div mat-dialog-content>
-    <add-signout-stepper></add-signout-stepper>
+    <add-signout-stepper [vehicles]="vehicles$ | async" [currentVehicle]="currentVehicle"></add-signout-stepper>
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>

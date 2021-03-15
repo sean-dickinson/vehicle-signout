@@ -6,6 +6,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { vehicleInUse, timeTravelCheck, overlapCheck } from '../../vehicle-in-use.directive';
 import { SignoutDataService } from '../../signout-data.service';
 import { Subscription, Observable } from 'rxjs';
+import { VehicleService } from 'app/vehicle.service';
+import { Vehicle } from 'app/models/vehicle';
 
 @Component({
   selector: 'add-signout-dialog',
@@ -13,8 +15,13 @@ import { Subscription, Observable } from 'rxjs';
   styleUrls: ['./add-signout-dialog.component.css']
 })
 export class AddSignoutDialogComponent {
- 
- constructor() {}
+  vehicles$: Observable<Vehicle[]>;
+  currentVehicle: Vehicle;
+ constructor(@Inject(MAT_DIALOG_DATA) public data, private vs: VehicleService) {
+   this.vehicles$ = this.vs.getActiveVehicles();
+   this.currentVehicle = this.data.vehicle;
+
+ }
   //  this.vehicleNames = this.sds.getVehicleNames();
   //  this.tabIndex = 0;
   //  this.canSave = false;

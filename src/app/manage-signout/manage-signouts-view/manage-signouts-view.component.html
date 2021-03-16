@@ -1,0 +1,8 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+  <manage-signouts-card 
+    fxFlex="80" 
+    fxFlex.sm="100"
+    [signouts]="signouts$ | async"
+    [user]="user$ | async"
+    ></manage-signouts-card>
+</div>

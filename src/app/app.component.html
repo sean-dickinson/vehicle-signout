@@ -1,10 +1,6 @@
 <mat-toolbar color="primary">
   <button (click)="sidenav.toggle()" mat-icon-button><mat-icon>menu</mat-icon></button>
   <a routerLink="/" class="app-title-link">Vehicle Signouts</a>
-  <ng-container *ngIf="user$ | async; let user">
-    <button (click)="logout()" fxFlex="10" mat-button *ngIf="user">Logout</button>
-    <button (click)="login()" fxFlex="10" mat-button *ngIf="!user">Login</button>
-  </ng-container>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav #sidenav [mode]="mode" [opened]="opened">

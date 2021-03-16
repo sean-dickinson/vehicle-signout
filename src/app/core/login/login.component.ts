@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit{
       this.emailControl.value,
       this.passwordControl.value,
     ).then((userCred) => {
-      this.us.setUser(userCred.user.uid);
+      // this.us.setUser(userCred.user.uid);
       this.router.navigate(['']);
     }).catch(err => this.handleErr(err));
   }

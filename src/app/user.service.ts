@@ -1,15 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { VehicleUser } from './models/vehicle-user';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { take } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService implements OnDestroy{
   private _user: ReplaySubject<VehicleUser> = new ReplaySubject<VehicleUser>(1);
-  constructor(private af: AngularFirestore) { 
-    this._user.next(null);
+  private authSub: Subscription;
+  constructor(private af: AngularFirestore, private auth: AngularFireAuth) { 
+    this.authSub = this.auth.user.subscribe(user => {
+      if(user){
+        this.setUser(user.uid);
+      } else {
+        this.logoutUser();
+      }
+    })
   }
 
   getUser(): Observable<VehicleUser> {
@@ -25,5 +33,9 @@ export class UserService {
 
   logoutUser(): void {
     this._user.next(null);
+  }
+
+  ngOnDestroy(){
+    this.authSub.unsubscribe();
   }
 }

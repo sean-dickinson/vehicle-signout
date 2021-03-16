@@ -49,7 +49,7 @@ export class SignoutDataService {
       switchMap((user) =>
         this.af
           .collectionGroup(`signouts`, (ref) =>
-            ref.where('userID', '==', user)
+            ref.where('userID', '==', user.uid)
           )
           .valueChanges()
       )

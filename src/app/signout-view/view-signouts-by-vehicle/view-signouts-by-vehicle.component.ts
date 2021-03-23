@@ -3,12 +3,14 @@ import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { Vehicle } from "app/models/vehicle";
 import { VehicleSignout } from "app/models/vehicle-signout";
+import { VehicleUser } from "app/models/vehicle-user";
 import { SignoutDataService } from "app/signout-data.service";
 import { TimeService } from "app/time.service";
+import { UserService } from "app/user.service";
 import { VehicleService } from "app/vehicle.service";
 import { Observable, ReplaySubject, Subject } from "rxjs";
 import { map, switchMap, takeUntil, tap } from "rxjs/operators";
-import { AddSignoutDialogComponent } from "../add-signout-dialog/add-signout-dialog.component";
+import { AddSignoutDialogComponent } from "../components/add-signout-dialog/add-signout-dialog.component";
 
 @Component({
   selector: "view-signouts-by-vehicle",
@@ -23,11 +25,13 @@ export class ViewSignoutsByVehicleComponent implements OnInit, OnDestroy {
   currentTime$: Observable<string>;
   currentVehicle: Vehicle;
   destroy$: Subject<boolean>;
+  user: VehicleUser;
   constructor(
     private route: ActivatedRoute,
     private sds: SignoutDataService,
     private vs: VehicleService,
     private ts: TimeService,
+    private us: UserService,
     public dialog: MatDialog
   ) {}
 
@@ -59,6 +63,10 @@ export class ViewSignoutsByVehicleComponent implements OnInit, OnDestroy {
       this.vehicle$.pipe(takeUntil(this.destroy$)).subscribe(vehicle => {
         this.currentVehicle = vehicle;
       });
+
+      this.us.getUser().pipe(takeUntil(this.destroy$)).subscribe(user =>{
+        this.user = user;
+      });
   }
 
   ngOnDestroy(){
@@ -69,8 +77,17 @@ export class ViewSignoutsByVehicleComponent implements OnInit, OnDestroy {
   openDialog(){
     this.dialog.open(AddSignoutDialogComponent, {
       data: {
-        vehicle: this.currentVehicle
+        vehicleName: this.currentVehicle.name,
+        vehicleID: this.currentVehicle.uid,
+        userID: this.user.uid,
+        userName: this.user.displayName,
+        uid: this.sds.createSignoutID()
       }
-    });
+    }).afterClosed().subscribe((signout: VehicleSignout) => {
+      if(signout){
+        console.log(signout);
+        this.sds.saveSignout(signout);
+      }
+    })
   }
 }

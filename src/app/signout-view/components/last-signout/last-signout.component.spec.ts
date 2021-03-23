@@ -45,5 +45,5 @@ describe('LastSignoutComponent', () => {
     component.isCurrent = false;
     fixture.detectChanges();
     expect(el.nativeElement.textContent).toContain('Last');
-  })
+  });
 });

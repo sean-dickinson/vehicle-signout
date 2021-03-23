@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { VehicleSignout } from '../../models/vehicle-signout';
+import { VehicleSignout } from '../../../models/vehicle-signout';
 
 @Component({
   selector: 'last-signout',

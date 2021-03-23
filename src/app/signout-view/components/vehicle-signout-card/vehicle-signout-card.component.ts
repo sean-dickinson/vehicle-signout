@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Vehicle } from "../../models/vehicle";
-import { VehicleSignout } from "../../models/vehicle-signout";
+import { Vehicle } from "../../../models/vehicle";
+import { VehicleSignout } from "../../../models/vehicle-signout";
 
 @Component({
   selector: "vehicle-signout-card",

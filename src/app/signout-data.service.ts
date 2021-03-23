@@ -56,6 +56,15 @@ export class SignoutDataService {
     ) as Observable<VehicleSignout[]>;
   }
 
+  saveSignout(signout: VehicleSignout): Promise<void> {
+    const vehicleID = signout.vehicleID;
+    return this.af.doc(`vehicles/${vehicleID}`).collection('signouts').doc(signout.uid).set(signout);
+  }
+
+  createSignoutID(): string {
+    return this.af.createId();
+  }
+
   // saveSignout(signout: VehicleSignout): Promise<void> {
   //   const updates = {};
   //   updates[`vehicleSignouts/${signout.vehicleID}/${signout.uid}`] = signout;

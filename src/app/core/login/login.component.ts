@@ -13,7 +13,6 @@ import { UserService } from "../../user.service";
 export class LoginComponent implements OnInit{
   loginForm: FormGroup;
   constructor(
-    private us: UserService,
     private auth: AngularFireAuth,
     private fb: FormBuilder,
     private router: Router
@@ -39,7 +38,6 @@ export class LoginComponent implements OnInit{
       this.emailControl.value,
       this.passwordControl.value,
     ).then((userCred) => {
-      // this.us.setUser(userCred.user.uid);
       this.router.navigate(['']);
     }).catch(err => this.handleErr(err));
   }

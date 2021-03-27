@@ -1,8 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { mockAngularFirestore} from '../testing-helpers/angular-fire-mocks-helper';
+import { mockAngularFireAuth, mockAngularFirestore} from '../testing-helpers/angular-fire-mocks-helper';
 import { UserService } from './user.service';
 import { VehicleUser } from './models/vehicle-user';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 const testUser: VehicleUser = {
@@ -13,30 +14,29 @@ const testUser: VehicleUser = {
   isAdmin: false
 }
 
+
 describe('UserService', () => {
   let service: UserService;
-
+  let authService: AngularFireAuth;
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         {provide: AngularFirestore, useValue: mockAngularFirestore({ 
           ...testUser
-        })}
+        })},
+        {
+          provide: AngularFireAuth, useValue: mockAngularFireAuth(testUser)
+        }
       ]
     });
     service = TestBed.inject(UserService);
+    authService = TestBed.inject(AngularFireAuth);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should not have a user value initially', (done: DoneFn) => {
-    service.getUser().pipe().subscribe((val) => {
-      expect(val).toBeNull();
-      done();
-    } )
-  });
 
   it('should correctly set the user', (done: DoneFn) => {
    
@@ -48,12 +48,6 @@ describe('UserService', () => {
     })
   });
 
-  it('should set user to null on logout', (done: DoneFn) => {
-    service.logoutUser();
-    service.getUser().subscribe(serviceUser => {
-      expect(serviceUser).toBeNull();
-      done();
-    })
-  })
+  
 
 });

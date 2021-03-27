@@ -11,6 +11,7 @@ export function combineDateTime(date: Date, time: string): Date {
   const minutes = parseInt(time.substr(3, 2), 10);
   resultDate.setHours(hours);
   resultDate.setMinutes(minutes);
+  resultDate.setSeconds(0, 0);
   return resultDate;
 }
 

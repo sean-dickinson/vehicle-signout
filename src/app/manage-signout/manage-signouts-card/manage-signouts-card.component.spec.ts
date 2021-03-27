@@ -1,3 +1,5 @@
+
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ManageSignoutsCardComponent } from './manage-signouts-card.component';
@@ -8,7 +10,8 @@ describe('ManageSignoutsCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ManageSignoutsCardComponent ]
+      declarations: [ ManageSignoutsCardComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });

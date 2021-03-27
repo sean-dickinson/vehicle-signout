@@ -1,4 +1,4 @@
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { signoutData } from 'testing-helpers/test-signout-data';
@@ -11,7 +11,8 @@ describe('VehicleSignoutCardComponent', () => {
   let el: DebugElement;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VehicleSignoutCardComponent ]
+      declarations: [ VehicleSignoutCardComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });

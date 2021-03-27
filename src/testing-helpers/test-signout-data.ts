@@ -2,7 +2,7 @@ import { VehicleSignout } from "app/models/vehicle-signout";
 
 export const signoutData: VehicleSignout[] = [
     {   vehicleID: 'vehicleID',
-        vehicleName: 'Van',
+        vehicleName: 'White Van',
         uid: '1234',
         userID: 'userID',
         userName: 'Test User',

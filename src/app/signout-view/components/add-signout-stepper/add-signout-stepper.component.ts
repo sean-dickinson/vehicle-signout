@@ -14,6 +14,7 @@ import { Vehicle } from "app/models/vehicle";
 import { VehicleSignout } from "app/models/vehicle-signout";
 import {
   combineDateTime,
+  compareByProp,
   compareUID,
   getTimestring,
 } from "app/utilities/functions";
@@ -31,7 +32,7 @@ export class AddSignoutStepperComponent implements OnInit, OnChanges {
   @Input() vehicles: Vehicle[];
   @Input() signout: VehicleSignout;
   @Output() signoutChange = new EventEmitter<VehicleSignout>();
-  compareFn = compareUID;
+  compareFn = compareUID
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -58,7 +59,7 @@ export class AddSignoutStepperComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (this.signout && this.vehicles) {
       let vehicle = this.vehicles.find((v) => v.uid === this.signout.vehicleID);
       this.generalStepGroup.get("vehicleCtrl").setValue(vehicle);
@@ -78,6 +79,7 @@ export class AddSignoutStepperComponent implements OnInit, OnChanges {
       this.init = true;
     }
   }
+
 
   get currentSignout(): VehicleSignout {
    

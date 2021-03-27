@@ -1,9 +1,11 @@
 import { formatDate } from "@angular/common";
-import { SimpleEntity } from "app/models/simple-entity";
 
-export function compareUID(o1: SimpleEntity, o2: SimpleEntity): boolean {
-  return o1.uid === o2.uid;
+
+export function compareByProp(prop1: string, prop2: string): Function{
+  return (o1: any, o2: any) => o1[prop1] === o2[prop2]
 }
+
+export const compareUID = compareByProp('uid','uid');
 
 export function combineDateTime(date: Date, time: string): Date {
   const resultDate = new Date(date);

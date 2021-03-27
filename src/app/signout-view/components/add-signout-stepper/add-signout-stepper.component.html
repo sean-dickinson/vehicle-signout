@@ -1,6 +1,6 @@
 <mat-vertical-stepper linear *ngIf="signout">
   <mat-step [stepControl]="generalStepGroup" [editable]="true">
-    <form [formGroup]="generalStepGroup">
+    <form [formGroup]="generalStepGroup" id="generalStep">
       <ng-template matStepLabel>General</ng-template>
       <div>
         <mat-form-field>

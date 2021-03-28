@@ -20,3 +20,4 @@ export function combineDateTime(date: Date, time: string): Date {
 export function getTimestring(date: Date): string {
     return formatDate(date, 'HH:MM', 'en');
 }
+

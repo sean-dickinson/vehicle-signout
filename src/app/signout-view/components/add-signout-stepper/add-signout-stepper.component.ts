@@ -10,6 +10,7 @@ import {
   SimpleChanges,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material/core";
 import { Vehicle } from "app/models/vehicle";
 import { VehicleSignout } from "app/models/vehicle-signout";
 import {
@@ -18,45 +19,78 @@ import {
   compareUID,
   getTimestring,
 } from "app/utilities/functions";
+import { ReplaySubject, Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { dateRangeValidator, ParentErrorStateMatcher } from "./validation-helpers";
 
 @Component({
   selector: "add-signout-stepper",
   templateUrl: "./add-signout-stepper.component.html",
   styleUrls: ["./add-signout-stepper.component.css"],
 })
-export class AddSignoutStepperComponent implements OnInit, OnChanges {
+export class AddSignoutStepperComponent
+  implements OnInit, OnChanges, OnDestroy {
   generalStepGroup: FormGroup;
   timeStepGroup: FormGroup;
   today: Date;
   init: boolean;
+  maxStartDate$: ReplaySubject<Date>;
+  minEndDate$: ReplaySubject<Date>;
+  destroy$: Subject<boolean>;
   @Input() vehicles: Vehicle[];
   @Input() signout: VehicleSignout;
   @Output() signoutChange = new EventEmitter<VehicleSignout>();
-  compareFn = compareUID
+  compareFn = compareUID;
+  grandParentMatcher: ErrorStateMatcher;
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    // TODO: Implement Validation
+    this.destroy$ = new Subject<boolean>();
+    this.maxStartDate$ = new ReplaySubject<Date>(1);
+    this.minEndDate$ = new ReplaySubject<Date>(1);
+    this.today = new Date();
+    
     this.generalStepGroup = this.fb.group({
-      vehicleCtrl: ['', Validators.required],
+      vehicleCtrl: ["", Validators.required],
       reasonCtrl: [""],
     });
-    this.timeStepGroup = this.fb.group({
-      startParentGroup: this.fb.group({
-        startDateCtrl: ['', Validators.required],
-        startTimeCtrl: [
-         '',
-          Validators.required,
-        ],
-      }),
-      endParentGroup: this.fb.group({
-        endDateCtrl: ['', Validators.required],
-        endTimeCtrl: [
-         '',
-          Validators.required,
-        ],
-      }),
-    });
+    this.timeStepGroup = this.fb.group(
+      {
+        startParentGroup: this.fb.group({
+          startDateCtrl: ["", Validators.required],
+          startTimeCtrl: ["", Validators.required],
+        }),
+        endParentGroup: this.fb.group({
+          endDateCtrl: ["", Validators.required],
+          endTimeCtrl: ["", Validators.required],
+        }),
+      },
+      { validators: dateRangeValidator }
+    );
+
+    this.timeStepGroup
+      .get("startParentGroup")
+      .valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe((controls) => {
+        if (controls) {
+          const minEndDate = combineDateTime(
+            controls.startDateCtrl,
+            controls.startTimeCtrl
+          );
+          this.minEndDate$.next(minEndDate);
+        }
+      });
+
+    this.timeStepGroup
+      .get("endParentGroup.endDateCtrl")
+      .valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe((date) => {
+        if (date) {
+          this.maxStartDate$.next(date);
+        }
+      });
+
+      this.grandParentMatcher = new ParentErrorStateMatcher();
   }
 
   ngOnChanges() {
@@ -80,26 +114,28 @@ export class AddSignoutStepperComponent implements OnInit, OnChanges {
     }
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(false);
+    this.destroy$.unsubscribe();
+  }
 
   get currentSignout(): VehicleSignout {
-   
-      const startTime = combineDateTime(
-        this.timeStepGroup.get("startParentGroup.startDateCtrl").value,
-        this.timeStepGroup.get("startParentGroup.startTimeCtrl").value
-      ).toISOString();
-      const endTime = combineDateTime(
-        this.timeStepGroup.get("endParentGroup.endDateCtrl").value,
-        this.timeStepGroup.get("endParentGroup.endTimeCtrl").value
-      ).toISOString();
-      const vehicle = this.generalStepGroup.get("vehicleCtrl").value;
-      return {
-        ...this.signout,
-        vehicleID: vehicle.uid,
-        vehicleName: vehicle.name,
-        reason: this.generalStepGroup.get("reasonCtrl").value || '',
-        startTime,
-        endTime
-      };
-   
+    const startTime = combineDateTime(
+      this.timeStepGroup.get("startParentGroup.startDateCtrl").value,
+      this.timeStepGroup.get("startParentGroup.startTimeCtrl").value
+    ).toISOString();
+    const endTime = combineDateTime(
+      this.timeStepGroup.get("endParentGroup.endDateCtrl").value,
+      this.timeStepGroup.get("endParentGroup.endTimeCtrl").value
+    ).toISOString();
+    const vehicle = this.generalStepGroup.get("vehicleCtrl").value;
+    return {
+      ...this.signout,
+      vehicleID: vehicle.uid,
+      vehicleName: vehicle.name,
+      reason: this.generalStepGroup.get("reasonCtrl").value || "",
+      startTime,
+      endTime,
+    };
   }
 }

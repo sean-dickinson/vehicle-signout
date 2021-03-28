@@ -40,8 +40,11 @@
         <mat-form-field>
           <mat-label>Departure Date</mat-label>
           <input
+            [min]="today"
+            [max]="maxStartDate$ | async"
             required
             matInput
+            [errorStateMatcher]="grandParentMatcher"
             formControlName="startDateCtrl"
             [matDatepicker]="departPicker"
           />
@@ -56,6 +59,7 @@
           <input
             required
             matInput
+            [errorStateMatcher]="grandParentMatcher"
             formControlName="startTimeCtrl"
             type="time"
           />
@@ -67,7 +71,9 @@
           <input
             required
             matInput
+            [errorStateMatcher]="grandParentMatcher"
             formControlName="endDateCtrl"
+            [min]="minEndDate$ | async"
             [matDatepicker]="returnPicker"
           />
           <mat-datepicker-toggle
@@ -75,10 +81,18 @@
             [for]="returnPicker"
           ></mat-datepicker-toggle>
           <mat-datepicker #returnPicker></mat-datepicker>
+          <mat-error *ngIf="timeStepGroup.hasError('startAfterEnd')">Time Travel not Allowed</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Return Time</mat-label>
-          <input required matInput formControlName="endTimeCtrl" type="time" />
+          <input
+            required
+            matInput
+            [errorStateMatcher]="grandParentMatcher"
+            formControlName="endTimeCtrl"
+            type="time"
+          />
+          <mat-error *ngIf="timeStepGroup.hasError('startAfterEnd')">Time Travel not Allowed</mat-error>
         </mat-form-field>
       </div>
     </form>

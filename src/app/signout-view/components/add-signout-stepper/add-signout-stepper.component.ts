@@ -93,6 +93,7 @@ export class AddSignoutStepperComponent
       this.grandParentMatcher = new ParentErrorStateMatcher();
   }
 
+
   ngOnChanges() {
     if (this.signout && this.vehicles) {
       let vehicle = this.vehicles.find((v) => v.uid === this.signout.vehicleID);
@@ -120,22 +121,27 @@ export class AddSignoutStepperComponent
   }
 
   get currentSignout(): VehicleSignout {
-    const startTime = combineDateTime(
-      this.timeStepGroup.get("startParentGroup.startDateCtrl").value,
-      this.timeStepGroup.get("startParentGroup.startTimeCtrl").value
-    ).toISOString();
-    const endTime = combineDateTime(
-      this.timeStepGroup.get("endParentGroup.endDateCtrl").value,
-      this.timeStepGroup.get("endParentGroup.endTimeCtrl").value
-    ).toISOString();
-    const vehicle = this.generalStepGroup.get("vehicleCtrl").value;
-    return {
-      ...this.signout,
-      vehicleID: vehicle.uid,
-      vehicleName: vehicle.name,
-      reason: this.generalStepGroup.get("reasonCtrl").value || "",
-      startTime,
-      endTime,
-    };
+    let startTime = this.signout.startTime || new Date().toISOString();
+    let endTime = this.signout.endTime || new Date().toISOString();
+    try {
+      startTime = combineDateTime(
+        this.timeStepGroup.get("startParentGroup.startDateCtrl").value,
+        this.timeStepGroup.get("startParentGroup.startTimeCtrl").value
+      ).toISOString();
+      endTime = combineDateTime(
+        this.timeStepGroup.get("endParentGroup.endDateCtrl").value,
+        this.timeStepGroup.get("endParentGroup.endTimeCtrl").value
+      ).toISOString();
+    }  finally {
+      const vehicle = this.generalStepGroup.get("vehicleCtrl").value;
+      return {
+        ...this.signout,
+        vehicleID: vehicle.uid,
+        vehicleName: vehicle.name,
+        reason: this.generalStepGroup.get("reasonCtrl").value || "",
+        startTime,
+        endTime,
+      };
+    }
   }
 }

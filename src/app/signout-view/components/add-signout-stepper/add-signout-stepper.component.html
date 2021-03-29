@@ -81,7 +81,7 @@
             [for]="returnPicker"
           ></mat-datepicker-toggle>
           <mat-datepicker #returnPicker></mat-datepicker>
-          <mat-error *ngIf="timeStepGroup.hasError('startAfterEnd')">Time Travel not Allowed</mat-error>
+          <mat-error *ngIf="timeStepGroup.hasError('startAfterEnd')">Time travel not allowed</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Return Time</mat-label>
@@ -92,11 +92,11 @@
             formControlName="endTimeCtrl"
             type="time"
           />
-          <mat-error *ngIf="timeStepGroup.hasError('startAfterEnd')">Time Travel not Allowed</mat-error>
+          <mat-error *ngIf="timeStepGroup.hasError('startAfterEnd')">Time travel not allowed</mat-error>
         </mat-form-field>
       </div>
     </form>
-    <button mat-button matStepperNext>Next</button>
+    <button mat-button matStepperNext [disabled]="timeStepGroup.invalid">Next Step</button>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Confirmation</ng-template>

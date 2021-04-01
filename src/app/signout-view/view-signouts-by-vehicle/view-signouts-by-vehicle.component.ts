@@ -85,7 +85,6 @@ export class ViewSignoutsByVehicleComponent implements OnInit, OnDestroy {
       }
     }).afterClosed().subscribe((signout: VehicleSignout) => {
       if(signout){
-        console.log(signout);
         this.sds.saveSignout(signout);
       }
     })

@@ -10,6 +10,7 @@ import { VehicleUser } from 'app/models/vehicle-user';
 export class ManageSignoutsCardComponent implements OnInit {
   @Input() signouts: VehicleSignout[];
   @Input() user: VehicleUser;
+  @Input() time: string;
   constructor() { }
 
   ngOnInit(): void {

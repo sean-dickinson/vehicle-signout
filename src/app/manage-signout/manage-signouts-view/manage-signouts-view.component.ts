@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SignoutDataService } from '../../signout-data.service';
-import { DialogService } from '../../dialog.service';
-import { Observable, of } from 'rxjs';
+import { Observable, } from 'rxjs';
 import { VehicleSignout } from 'app/models/vehicle-signout';
 import { UserService } from 'app/user.service';
 import { VehicleUser } from 'app/models/vehicle-user';
-import { signoutData } from 'testing-helpers/test-signout-data';
+import { TimeService } from 'app/time.service';
 
 @Component({
   selector: 'manage-signouts-view',
@@ -15,11 +14,13 @@ import { signoutData } from 'testing-helpers/test-signout-data';
 export class ManageSignoutsViewComponent implements OnInit {
   signouts$: Observable<VehicleSignout[]>;
   user$: Observable<VehicleUser>;
-  constructor(private sds:SignoutDataService, private us: UserService) {}
+  time$: Observable<string>;
+  constructor(private sds:SignoutDataService, private us: UserService, private ts: TimeService) {}
 
   ngOnInit() {
     this.user$ = this.us.getUser();
     this.signouts$ = this.sds.getSignoutsByUser(this.user$);
+    this.time$ = this.ts.getCurrentTime();
     // this.signouts$ = of(signoutData);
   }
 

@@ -1,11 +1,16 @@
 <mat-card>
-    <mat-card-title>{{user?.displayName}}'s Signouts</mat-card-title>
-    <mat-card-content>
-        <signout-list [showActions]="true" [signouts]="signouts" *ngIf="signouts?.length > 0; else noSignouts"></signout-list>
-        <ng-template #noSignouts>
-            <div style="padding:1em" fxLayout="row" fxLayoutAlign="center center">
-                <h2 class="mat-h2">No Signouts to Manage</h2>
-            </div>
-        </ng-template>
-    </mat-card-content>
+  <mat-card-title>{{ user?.displayName }}'s Signouts</mat-card-title>
+  <mat-card-content>
+    <signout-list
+      [showActions]="true"
+      [time]="time"
+      [signouts]="signouts"
+      *ngIf="signouts?.length > 0; else noSignouts"
+    ></signout-list>
+    <ng-template #noSignouts>
+      <div style="padding: 1em" fxLayou t="row" fxLayoutAlign="center center">
+        <h2 class="mat-h2">No Signouts to Manage</h2>
+      </div>
+    </ng-template>
+  </mat-card-content>
 </mat-card>

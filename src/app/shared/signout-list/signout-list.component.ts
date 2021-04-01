@@ -17,6 +17,7 @@ import { VehicleSignout } from "app/models/vehicle-signout";
 export class SignoutListComponent implements OnChanges {
   @Input() signouts: VehicleSignout[];
   @Input() showActions: boolean;
+  @Input() time: string;
   @Output() edit = new EventEmitter<VehicleSignout>();
   @Output() remove = new EventEmitter<VehicleSignout>();
   dataSource = new MatTableDataSource<VehicleSignout>();
@@ -24,17 +25,14 @@ export class SignoutListComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (
-      changes.signouts &&
-      changes.signouts.currentValue !== changes.signouts.previousValue
-    ) {
+    if (changes.signouts) {
       this.dataSource.data = this.signouts;
     }
   }
 
   get displayedColumns(): string[] {
     return this.showActions
-      ? [...this.defaultColumns, "actions"]
+      ? ['vehicleName',...this.defaultColumns, "actions"]
       : ["userName", ...this.defaultColumns];
   }
 }

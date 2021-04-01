@@ -30,13 +30,14 @@ export class SignoutDataService {
     currentTime$: Observable<string>
   ): Observable<VehicleSignout> {
     return currentTime$.pipe(
-      switchMap((time) =>
-        this.af
+      switchMap((time) =>{
+        return this.af
           .doc(`vehicles/${vehicleID}`)
           .collection("signouts", (ref) =>
-            ref.where("endTime", "<=", time).orderBy('endTime').limitToLast(1)
+            ref.where("startTime", "<=", time).orderBy('startTime').limitToLast(1)
           )
           .valueChanges()
+      }
       ),
       map((list) => list[0])
     ) as Observable<VehicleSignout>;

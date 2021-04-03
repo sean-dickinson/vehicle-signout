@@ -1,4 +1,4 @@
-import { VehicleSignout } from "app/models/vehicle-signout";
+import { VehicleSignout } from 'app/models/vehicle-signout';
 
 export const signoutData: VehicleSignout[] = [
     {   vehicleID: 'vehicleID',

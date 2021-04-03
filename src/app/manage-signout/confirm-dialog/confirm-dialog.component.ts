@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { SignoutDataService } from "../../signout-data.service";
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SignoutDataService } from '../../signout-data.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class ConfirmDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-  confirm(){
+  confirm() {
     // this.sds.deleteSignout(this.data.key, this.data.vehicle, this.data.name);
   }
 

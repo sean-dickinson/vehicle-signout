@@ -7,12 +7,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService implements OnDestroy{
+export class UserService implements OnDestroy {
   private _user: ReplaySubject<VehicleUser> = new ReplaySubject<VehicleUser>(1);
   private authSub: Subscription;
-  constructor(private af: AngularFirestore, private auth: AngularFireAuth) { 
+  constructor(private af: AngularFirestore, private auth: AngularFireAuth) {
     this.authSub = this.auth.user.subscribe(user => {
-      if(user){
+      if (user) {
         this.setUser(user.uid);
       } else {
         this.logoutUser();
@@ -24,7 +24,7 @@ export class UserService implements OnDestroy{
     return this._user;
   }
 
-  setUser(uid: string): Promise<void>{
+  setUser(uid: string): Promise<void> {
     return this.af.doc(`/users/${uid}`).valueChanges().pipe(take(1)).toPromise()
       .then((user: VehicleUser) => {
         this._user.next(user);
@@ -35,7 +35,7 @@ export class UserService implements OnDestroy{
     this._user.next(null);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.authSub.unsubscribe();
   }
 }

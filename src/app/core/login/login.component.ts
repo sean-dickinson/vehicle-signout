@@ -1,16 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { AngularFireAuth } from "@angular/fire/auth";
-import { FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import firebase from "firebase/app";
-import { UserService } from "../../user.service";
+import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import firebase from 'firebase/app';
+import { UserService } from '../../user.service';
 
 @Component({
-  selector: "login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  selector: 'login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   constructor(
     private auth: AngularFireAuth,
@@ -18,18 +18,18 @@ export class LoginComponent implements OnInit{
     private router: Router
   ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.loginForm = this.fb.group({
-      email: this.fb.control("", [Validators.required, Validators.email]),
-      password: this.fb.control("", Validators.required),
+      email: this.fb.control('', [Validators.required, Validators.email]),
+      password: this.fb.control('', Validators.required),
     });
   }
 
-  get emailControl(){
+  get emailControl() {
     return this.loginForm.get('email');
   }
 
-  get passwordControl(){
+  get passwordControl() {
     return this.loginForm.get('password');
   }
 
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit{
 
   handleErr(err): void {
     const code = err.code;
-    switch(code){
+    switch (code) {
       case 'auth/invalid-email':
         this.loginForm.get('email').setErrors({email: true});
         break;
@@ -67,9 +67,9 @@ export class LoginComponent implements OnInit{
     }
   }
 
-  getErrorMessage(errors: ValidationErrors){
-    for(const error of Object.keys(errors)){
-      switch(error){
+  getErrorMessage(errors: ValidationErrors) {
+    for (const error of Object.keys(errors)) {
+      switch (error) {
         case 'email':
           return 'Invalid Email';
         case 'userDisabled':

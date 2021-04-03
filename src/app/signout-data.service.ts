@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { AngularFirestore } from "@angular/fire/firestore";
-import { AbstractControl, AsyncValidatorFn } from "@angular/forms";
-import { Observable, of } from "rxjs";
-import { map, switchMap, take } from "rxjs/operators";
-import { VehicleSignout } from "./models/vehicle-signout";
-import { VehicleUser } from "./models/vehicle-user";
-import { combineDateTime } from "./utilities/functions";
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AbstractControl, AsyncValidatorFn } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
+import { VehicleSignout } from './models/vehicle-signout';
+import { VehicleUser } from './models/vehicle-user';
+import { combineDateTime } from './utilities/functions';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class SignoutDataService {
   constructor(private af: AngularFirestore) {}
@@ -21,7 +21,7 @@ export class SignoutDataService {
       switchMap((time) =>
         this.af
           .doc(`vehicles/${vehicleID}`)
-          .collection("signouts", (ref) => ref.where("endTime", ">=", time))
+          .collection('signouts', (ref) => ref.where('endTime', '>=', time))
           .valueChanges()
       )
     ) as Observable<VehicleSignout[]>;
@@ -35,10 +35,10 @@ export class SignoutDataService {
       switchMap((time) => {
         return this.af
           .doc(`vehicles/${vehicleID}`)
-          .collection("signouts", (ref) =>
+          .collection('signouts', (ref) =>
             ref
-              .where("endTime", "<=", time)
-              .orderBy("endTime")
+              .where('endTime', '<=', time)
+              .orderBy('endTime')
               .limitToLast(1)
           )
           .valueChanges();
@@ -54,7 +54,7 @@ export class SignoutDataService {
       switchMap((user) =>
         this.af
           .collectionGroup(`signouts`, (ref) =>
-            ref.where("userID", "==", user.uid)
+            ref.where('userID', '==', user.uid)
           )
           .valueChanges()
       )
@@ -65,7 +65,7 @@ export class SignoutDataService {
     const vehicleID = signout.vehicleID;
     return this.af
       .doc(`vehicles/${vehicleID}`)
-      .collection("signouts")
+      .collection('signouts')
       .doc(signout.uid)
       .set(signout);
   }
@@ -77,11 +77,11 @@ export class SignoutDataService {
   signoutConflict(signout: VehicleSignout): AsyncValidatorFn {
     return (ctrl: AbstractControl) => {
       const startTime = combineDateTime(
-        ctrl.get("startParentGroup.startDateCtrl").value,
-        ctrl.get("startParentGroup.startTimeCtrl").value).toISOString();
+        ctrl.get('startParentGroup.startDateCtrl').value,
+        ctrl.get('startParentGroup.startTimeCtrl').value).toISOString();
       const endTime = combineDateTime(
-        ctrl.get("endParentGroup.endDateCtrl").value,
-        ctrl.get("endParentGroup.endTimeCtrl").value).toISOString();
+        ctrl.get('endParentGroup.endDateCtrl').value,
+        ctrl.get('endParentGroup.endTimeCtrl').value).toISOString();
       const currentSignout = {...signout, startTime, endTime}
       const startTime$ = of(currentSignout.startTime);
       return this.getSignoutsByVehicle(currentSignout.vehicleID, startTime$).pipe(

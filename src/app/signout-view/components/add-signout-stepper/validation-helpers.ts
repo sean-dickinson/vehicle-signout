@@ -6,24 +6,24 @@ import {
   NgForm,
   ValidationErrors,
   ValidatorFn,
-} from "@angular/forms";
-import { ErrorStateMatcher } from "@angular/material/core";
-import { combineDateTime } from "app/utilities/functions";
-import { Observable, of } from "rxjs";
+} from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { combineDateTime } from 'app/utilities/functions';
+import { Observable, of } from 'rxjs';
 
 export const dateRangeValidator: ValidatorFn = (
   control: AbstractControl
 ): { [key: string]: any } | null => {
-  const startGroup = control.get("startParentGroup");
-  const endGroup = control.get("endParentGroup");
+  const startGroup = control.get('startParentGroup');
+  const endGroup = control.get('endParentGroup');
 
   const startDate = combineDateTime(
-    startGroup.get("startDateCtrl").value,
-    startGroup.get("startTimeCtrl").value
+    startGroup.get('startDateCtrl').value,
+    startGroup.get('startTimeCtrl').value
   );
   const endDate = combineDateTime(
-    endGroup.get("endDateCtrl").value,
-    endGroup.get("endTimeCtrl").value
+    endGroup.get('endDateCtrl').value,
+    endGroup.get('endTimeCtrl').value
   );
   if (startDate >= endDate) {
     return {
@@ -43,6 +43,6 @@ export class ParentErrorStateMatcher implements ErrorStateMatcher {
     form: FormGroupDirective | NgForm | null
   ): boolean {
     return form.invalid;
-   
+
   }
 }

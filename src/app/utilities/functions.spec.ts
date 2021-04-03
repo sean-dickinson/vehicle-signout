@@ -13,11 +13,11 @@ describe('helper functions', () => {
 
     describe('combineDateTime function', () => {
         it('should correctly combine a date and a time', () => {
-            const date = new Date(2020,1,2);
+            const date = new Date(2020, 1, 2);
             const time = '13:30';
             const combined = combineDateTime(date, time);
 
-            const sameDate = new Date(2020,1,2,13,30,0,0);
+            const sameDate = new Date(2020, 1, 2, 13, 30, 0, 0);
 
             expect(combined.toISOString()).toEqual(sameDate.toISOString());
 

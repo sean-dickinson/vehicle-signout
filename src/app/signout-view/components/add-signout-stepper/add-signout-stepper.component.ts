@@ -1,4 +1,4 @@
-import { formatDate } from "@angular/common";
+import { formatDate } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -8,34 +8,34 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-} from "@angular/core";
+} from '@angular/core';
 import {
   AsyncValidatorFn,
   FormBuilder,
   FormGroup,
   Validators,
-} from "@angular/forms";
-import { ErrorStateMatcher } from "@angular/material/core";
-import { Vehicle } from "app/models/vehicle";
-import { VehicleSignout } from "app/models/vehicle-signout";
-import { SignoutDataService } from "app/signout-data.service";
+} from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { Vehicle } from 'app/models/vehicle';
+import { VehicleSignout } from 'app/models/vehicle-signout';
+import { SignoutDataService } from 'app/signout-data.service';
 import {
   combineDateTime,
   compareByProp,
   compareUID,
   getTimestring,
-} from "app/utilities/functions";
-import { ReplaySubject, Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+} from 'app/utilities/functions';
+import { ReplaySubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import {
   dateRangeValidator,
   ParentErrorStateMatcher,
-} from "./validation-helpers";
+} from './validation-helpers';
 
 @Component({
-  selector: "add-signout-stepper",
-  templateUrl: "./add-signout-stepper.component.html",
-  styleUrls: ["./add-signout-stepper.component.css"],
+  selector: 'add-signout-stepper',
+  templateUrl: './add-signout-stepper.component.html',
+  styleUrls: ['./add-signout-stepper.component.css'],
 })
 export class AddSignoutStepperComponent
   implements OnInit, OnChanges, OnDestroy {
@@ -61,18 +61,18 @@ export class AddSignoutStepperComponent
     this.today = new Date();
 
     this.generalStepGroup = this.fb.group({
-      vehicleCtrl: ["", Validators.required],
-      reasonCtrl: [""],
+      vehicleCtrl: ['', Validators.required],
+      reasonCtrl: [''],
     });
     this.timeStepGroup = this.fb.group(
       {
         startParentGroup: this.fb.group({
-          startDateCtrl: ["", Validators.required],
-          startTimeCtrl: ["", Validators.required],
+          startDateCtrl: ['', Validators.required],
+          startTimeCtrl: ['', Validators.required],
         }),
         endParentGroup: this.fb.group({
-          endDateCtrl: ["", Validators.required],
-          endTimeCtrl: ["", Validators.required],
+          endDateCtrl: ['', Validators.required],
+          endTimeCtrl: ['', Validators.required],
         }),
       },
       {
@@ -81,7 +81,7 @@ export class AddSignoutStepperComponent
     );
 
     this.timeStepGroup
-      .get("startParentGroup")
+      .get('startParentGroup')
       .valueChanges.pipe(takeUntil(this.destroy$))
       .subscribe((controls) => {
         if (controls) {
@@ -94,7 +94,7 @@ export class AddSignoutStepperComponent
       });
 
     this.timeStepGroup
-      .get("endParentGroup.endDateCtrl")
+      .get('endParentGroup.endDateCtrl')
       .valueChanges.pipe(takeUntil(this.destroy$))
       .subscribe((date) => {
         if (date) {
@@ -103,7 +103,7 @@ export class AddSignoutStepperComponent
       });
 
     this.generalStepGroup
-      .get("vehicleCtrl")
+      .get('vehicleCtrl')
       .valueChanges.pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.conflictValidator = this.sds.signoutConflict(this.signout);
@@ -116,9 +116,9 @@ export class AddSignoutStepperComponent
 
   ngOnChanges() {
     if (this.signout && this.vehicles) {
-      let vehicle = this.vehicles.find((v) => v.uid === this.signout.vehicleID);
-      this.generalStepGroup.get("vehicleCtrl").setValue(vehicle);
-      this.generalStepGroup.get("reasonCtrl").setValue(this.signout.reason);
+      const vehicle = this.vehicles.find((v) => v.uid === this.signout.vehicleID);
+      this.generalStepGroup.get('vehicleCtrl').setValue(vehicle);
+      this.generalStepGroup.get('reasonCtrl').setValue(this.signout.reason);
       const start = new Date(this.signout.startTime);
       const end = new Date(this.signout.endTime);
       this.timeStepGroup.setValue({
@@ -145,20 +145,20 @@ export class AddSignoutStepperComponent
     let endTime = this.signout.endTime || new Date().toISOString();
     try {
       startTime = combineDateTime(
-        this.timeStepGroup.get("startParentGroup.startDateCtrl").value,
-        this.timeStepGroup.get("startParentGroup.startTimeCtrl").value
+        this.timeStepGroup.get('startParentGroup.startDateCtrl').value,
+        this.timeStepGroup.get('startParentGroup.startTimeCtrl').value
       ).toISOString();
       endTime = combineDateTime(
-        this.timeStepGroup.get("endParentGroup.endDateCtrl").value,
-        this.timeStepGroup.get("endParentGroup.endTimeCtrl").value
+        this.timeStepGroup.get('endParentGroup.endDateCtrl').value,
+        this.timeStepGroup.get('endParentGroup.endTimeCtrl').value
       ).toISOString();
     } finally {
-      const vehicle = this.generalStepGroup.get("vehicleCtrl").value;
+      const vehicle = this.generalStepGroup.get('vehicleCtrl').value;
       return {
         ...this.signout,
         vehicleID: vehicle.uid,
         vehicleName: vehicle.name,
-        reason: this.generalStepGroup.get("reasonCtrl").value || "",
+        reason: this.generalStepGroup.get('reasonCtrl').value || '',
         startTime,
         endTime,
       };

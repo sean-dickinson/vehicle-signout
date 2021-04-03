@@ -1,16 +1,16 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject } from '@angular/core';
 
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { Observable } from "rxjs";
-import { VehicleService } from "app/vehicle.service";
-import { Vehicle } from "app/models/vehicle";
-import { VehicleSignout } from "app/models/vehicle-signout";
+import { Observable } from 'rxjs';
+import { VehicleService } from 'app/vehicle.service';
+import { Vehicle } from 'app/models/vehicle';
+import { VehicleSignout } from 'app/models/vehicle-signout';
 
 @Component({
-  selector: "add-signout-dialog",
-  templateUrl: "./add-signout-dialog.component.html",
-  styleUrls: ["./add-signout-dialog.component.css"],
+  selector: 'add-signout-dialog',
+  templateUrl: './add-signout-dialog.component.html',
+  styleUrls: ['./add-signout-dialog.component.css'],
 })
 export class AddSignoutDialogComponent {
   vehicles$: Observable<Vehicle[]>;

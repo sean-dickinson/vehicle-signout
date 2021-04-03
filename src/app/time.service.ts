@@ -10,7 +10,7 @@ export class TimeService {
     this._time$.next(new Date().toISOString());
    }
 
-  getCurrentTime(): Observable<string>{
+  getCurrentTime(): Observable<string> {
     return this._time$;
   }
 }

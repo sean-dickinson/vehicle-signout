@@ -21,7 +21,7 @@ describe('UserService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        {provide: AngularFirestore, useValue: mockAngularFirestore({ 
+        {provide: AngularFirestore, useValue: mockAngularFirestore({
           ...testUser
         })},
         {
@@ -39,15 +39,15 @@ describe('UserService', () => {
 
 
   it('should correctly set the user', (done: DoneFn) => {
-   
+
     service.setUser('1234').then(() => {
-      service.getUser().subscribe(serviceUser =>{
+      service.getUser().subscribe(serviceUser => {
         expect(serviceUser).toEqual(testUser);
         done();
       });
     })
   });
 
-  
+
 
 });

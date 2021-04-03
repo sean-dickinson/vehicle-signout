@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
-import { AngularFirestore } from "@angular/fire/firestore";
-import { Observable, of } from "rxjs";
-import { Vehicle } from "./models/vehicle";
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable, of } from 'rxjs';
+import { Vehicle } from './models/vehicle';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class VehicleService {
   constructor(private af: AngularFirestore) {}
 
   getActiveVehicles(): Observable<Vehicle[]> {
     return this.af
-      .collection("vehicles", (ref) => ref.where("isActive", '==', true))
+      .collection('vehicles', (ref) => ref.where('isActive', '==', true))
       .valueChanges() as Observable<Vehicle[]>;
   }
 
@@ -21,7 +21,7 @@ export class VehicleService {
       .valueChanges() as Observable<Vehicle[]>;
   }
 
-  getVehicleByID(id: string): Observable<Vehicle>{
+  getVehicleByID(id: string): Observable<Vehicle> {
     return this.af.doc(`vehicles/${id}`).valueChanges() as Observable<Vehicle>;
   }
 }

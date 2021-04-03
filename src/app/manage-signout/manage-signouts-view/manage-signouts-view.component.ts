@@ -15,7 +15,7 @@ export class ManageSignoutsViewComponent implements OnInit {
   signouts$: Observable<VehicleSignout[]>;
   user$: Observable<VehicleUser>;
   time$: Observable<string>;
-  constructor(private sds:SignoutDataService, private us: UserService, private ts: TimeService) {}
+  constructor(private sds: SignoutDataService, private us: UserService, private ts: TimeService) {}
 
   ngOnInit() {
     this.user$ = this.us.getUser();

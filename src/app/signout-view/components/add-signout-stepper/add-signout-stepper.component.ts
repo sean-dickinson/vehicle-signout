@@ -9,10 +9,16 @@ import {
   Output,
   SimpleChanges,
 } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  AsyncValidatorFn,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { Vehicle } from "app/models/vehicle";
 import { VehicleSignout } from "app/models/vehicle-signout";
+import { SignoutDataService } from "app/signout-data.service";
 import {
   combineDateTime,
   compareByProp,
@@ -21,7 +27,10 @@ import {
 } from "app/utilities/functions";
 import { ReplaySubject, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-import { dateRangeValidator, ParentErrorStateMatcher } from "./validation-helpers";
+import {
+  dateRangeValidator,
+  ParentErrorStateMatcher,
+} from "./validation-helpers";
 
 @Component({
   selector: "add-signout-stepper",
@@ -41,15 +50,16 @@ export class AddSignoutStepperComponent
   @Input() signout: VehicleSignout;
   @Output() signoutChange = new EventEmitter<VehicleSignout>();
   compareFn = compareUID;
+  conflictValidator: AsyncValidatorFn;
   grandParentMatcher: ErrorStateMatcher;
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private sds: SignoutDataService) {}
 
   ngOnInit(): void {
     this.destroy$ = new Subject<boolean>();
     this.maxStartDate$ = new ReplaySubject<Date>(1);
     this.minEndDate$ = new ReplaySubject<Date>(1);
     this.today = new Date();
-    
+
     this.generalStepGroup = this.fb.group({
       vehicleCtrl: ["", Validators.required],
       reasonCtrl: [""],
@@ -65,7 +75,9 @@ export class AddSignoutStepperComponent
           endTimeCtrl: ["", Validators.required],
         }),
       },
-      { validators: dateRangeValidator }
+      {
+        validators: dateRangeValidator,
+      }
     );
 
     this.timeStepGroup
@@ -90,9 +102,17 @@ export class AddSignoutStepperComponent
         }
       });
 
-      this.grandParentMatcher = new ParentErrorStateMatcher();
-  }
+    this.generalStepGroup
+      .get("vehicleCtrl")
+      .valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.conflictValidator = this.sds.signoutConflict(this.signout);
+        this.timeStepGroup.setAsyncValidators(this.conflictValidator);
+        this.timeStepGroup.updateValueAndValidity();
+      });
 
+    this.grandParentMatcher = new ParentErrorStateMatcher();
+  }
 
   ngOnChanges() {
     if (this.signout && this.vehicles) {
@@ -132,7 +152,7 @@ export class AddSignoutStepperComponent
         this.timeStepGroup.get("endParentGroup.endDateCtrl").value,
         this.timeStepGroup.get("endParentGroup.endTimeCtrl").value
       ).toISOString();
-    }  finally {
+    } finally {
       const vehicle = this.generalStepGroup.get("vehicleCtrl").value;
       return {
         ...this.signout,

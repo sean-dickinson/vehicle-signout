@@ -82,6 +82,7 @@
           ></mat-datepicker-toggle>
           <mat-datepicker #returnPicker></mat-datepicker>
           <mat-error *ngIf="timeStepGroup.hasError('startAfterEnd')">Time travel not allowed</mat-error>
+          <mat-error *ngIf="timeStepGroup.hasError('signoutConflict')">Vehicle in Use</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Return Time</mat-label>
@@ -93,6 +94,7 @@
             type="time"
           />
           <mat-error *ngIf="timeStepGroup.hasError('startAfterEnd')">Time travel not allowed</mat-error>
+          <mat-error *ngIf="timeStepGroup.hasError('signoutConflict')">Vehicle in Use</mat-error>
         </mat-form-field>
       </div>
     </form>

@@ -28,15 +28,15 @@ describe('VehicleSignoutCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('isCurrentlyOut method should work as expected', () => {
-    component.lastSignout = signoutData[0];
+  it('currentSignoutID method should work as expected', () => {
+    component.signouts = signoutData;
     component.currentTime = signoutData[0].startTime;
     fixture.detectChanges();
-    expect(component.isCurrentlyOut()).toBeTrue();
+    expect(component.currentSignoutID).toBe(signoutData[0].uid);
   });
 
   it('should show an icon if it is currently out', () => {
-    component.lastSignout = signoutData[0];
+    component.signouts = signoutData;
     component.currentTime = signoutData[0].startTime;
     fixture.detectChanges();
     const iconElement = el.query(By.css('mat-icon'));

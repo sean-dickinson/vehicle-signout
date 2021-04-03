@@ -1,7 +1,7 @@
 <span>
     <ng-container *ngIf="signout">
 
-        {{isCurrent ? 'Currently' : 'Last'}} signed out by {{signout.userName}}
+       Last signed out by {{signout.userName}}
         <ng-container *ngIf="signout.reason">
             for {{signout.reason | lowercase}}
         </ng-container>

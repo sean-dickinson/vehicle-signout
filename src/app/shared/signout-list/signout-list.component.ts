@@ -18,6 +18,7 @@ export class SignoutListComponent implements OnChanges {
   @Input() signouts: VehicleSignout[];
   @Input() showActions: boolean;
   @Input() time: string;
+  @Input() currentSignoutID: string;
   @Output() edit = new EventEmitter<VehicleSignout>();
   @Output() remove = new EventEmitter<VehicleSignout>();
   dataSource = new MatTableDataSource<VehicleSignout>();

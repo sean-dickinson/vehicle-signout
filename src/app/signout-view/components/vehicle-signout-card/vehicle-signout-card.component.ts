@@ -16,10 +16,12 @@ export class VehicleSignoutCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  isCurrentlyOut(): boolean {
-    if (this.lastSignout && this.currentTime) {
-      return this.lastSignout.endTime > this.currentTime;
-    }
-    return false;
+  get currentSignoutID(): string {
+    if(this.signouts){
+     const currentSignout = this.signouts.find(s => this.currentTime >= s.startTime && this.currentTime <= s.endTime);
+    return currentSignout ? currentSignout.uid : null;
+   }
+   return null;
+  
   }
 }

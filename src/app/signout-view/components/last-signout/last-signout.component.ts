@@ -8,7 +8,6 @@ import { VehicleSignout } from '../../../models/vehicle-signout';
 })
 export class LastSignoutComponent implements OnInit {
   @Input() signout: VehicleSignout;
-  @Input() isCurrent: boolean;
   constructor() { }
 
   ngOnInit(): void {

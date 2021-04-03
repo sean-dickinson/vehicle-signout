@@ -37,14 +37,4 @@ describe('LastSignoutComponent', () => {
     expect(el.nativeElement.textContent).toContain(signoutData[0].userName)
   });
 
-  it('should use the correct verb for a current signout', () => {
-    component.signout = signoutData[0];
-    component.isCurrent = true;
-    fixture.detectChanges();
-    expect(el.nativeElement.textContent).toContain('Currently');
-    
-    component.isCurrent = false;
-    fixture.detectChanges();
-    expect(el.nativeElement.textContent).toContain('Last');
-  });
 });

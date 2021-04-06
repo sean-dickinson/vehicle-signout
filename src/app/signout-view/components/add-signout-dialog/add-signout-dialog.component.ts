@@ -26,9 +26,9 @@ export class AddSignoutDialogComponent {
     const startTime = new Date();
     const endTime = new Date(startTime.getTime() + 60 * 60 * 1000);
     this.signout = {
-      ...data,
       startTime,
       endTime,
+      ...data,
     };
   }
 

@@ -37,7 +37,7 @@
       <button [disabled]="signout.endTime < time" (click)="this.edit.emit(signout)" mat-icon-button>
         <mat-icon>edit</mat-icon>
       </button> 
-      <button (click)="this.remove.emit(signout)" mat-icon-button>
+      <button [disabled]="signout.endTime < time" (click)="this.remove.emit(signout)" mat-icon-button>
         <mat-icon>delete</mat-icon>
       </button> 
     </td>

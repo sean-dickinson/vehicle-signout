@@ -1,9 +1,22 @@
-<div class="container" fxLayout="row" fxLayoutAlign="center center">
+<div class="container" fxLayout="row wrap" fxLayoutAlign="center center">
   <manage-signouts-card 
     fxFlex="80" 
     fxFlex.sm="100"
-    [signouts]="signouts$ | async"
+    type="Current"
+    [signouts]="currentSignouts$ | async"
     [user]="user$ | async"
     [time]="time$ | async"
+    (edit)="editSignout($event)"
+    (remove)="removeSignout($event)"
+    ></manage-signouts-card>
+  <manage-signouts-card 
+    fxFlex="80" 
+    fxFlex.sm="100"
+    type="Past"
+    [signouts]="pastSignouts$ | async"
+    [user]="user$ | async"
+    [time]="time$ | async"
+    (edit)="editSignout($event)"
+    (remove)="removeSignout($event)"
     ></manage-signouts-card>
 </div>

@@ -3,6 +3,6 @@
   Are you sure you would like to delete this signout?
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
-    <button fxFlex mat-button mat-dialog-close>Cancel</button>
-    <button (click)="confirm()" fxFlex mat-button mat-dialog-close>Delete</button>
+    <button fxFlex mat-button [mat-dialog-close]="false">Cancel</button>
+    <button fxFlex mat-button [mat-dialog-close]="true">Delete</button>
 </mat-dialog-actions>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { VehicleSignout } from 'app/models/vehicle-signout';
 import { VehicleUser } from 'app/models/vehicle-user';
 
@@ -9,11 +9,15 @@ import { VehicleUser } from 'app/models/vehicle-user';
 })
 export class ManageSignoutsCardComponent implements OnInit {
   @Input() signouts: VehicleSignout[];
+  @Input() type: string;
   @Input() user: VehicleUser;
   @Input() time: string;
+  @Output() edit = new EventEmitter<VehicleSignout>();
+  @Output() remove = new EventEmitter<VehicleSignout>();
   constructor() { }
 
   ngOnInit(): void {
   }
+
 
 }

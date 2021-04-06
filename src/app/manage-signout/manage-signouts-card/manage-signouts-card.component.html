@@ -1,11 +1,14 @@
 <mat-card>
-  <mat-card-title>{{ user?.displayName }}'s Signouts</mat-card-title>
+  <mat-card-title>{{ user?.displayName }}'s {{type}} Signouts</mat-card-title>
   <mat-card-content>
     <signout-list
-      [showActions]="true"
+      [showActions]="type === 'Current'"
       [time]="time"
       [signouts]="signouts"
+      (edit)="edit.emit($event)"
+      (remove)="remove.emit($event)"
       *ngIf="signouts?.length > 0; else noSignouts"
+
     ></signout-list>
     <ng-template #noSignouts>
       <div style="padding: 1em" fxLayou t="row" fxLayoutAlign="center center">

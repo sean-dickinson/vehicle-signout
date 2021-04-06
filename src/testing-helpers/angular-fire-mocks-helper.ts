@@ -1,9 +1,8 @@
 // Credit to phreakhead: https://stackoverflow.com/questions/38042941/how-to-mock-angularfire-2-service-in-unit-test
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { BehaviorSubject } from 'rxjs';
 
-import { of, ReplaySubject, Subject } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+import { of } from 'rxjs';
 
 /**
  * Mocks the Firebase auth by automatically logging in.

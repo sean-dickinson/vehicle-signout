@@ -15,6 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatTooltipModule,
     MatTableModule,
     MatStepperModule,
+    MatMenuModule
   ],
   exports: [
     MatSidenavModule,
@@ -50,7 +52,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatNativeDateModule,
     MatTooltipModule,
     MatTableModule,
-    MatStepperModule
+    MatStepperModule,
+    MatMenuModule
   ],
   declarations: []
 })

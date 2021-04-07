@@ -31,8 +31,8 @@ export class UserService implements OnDestroy {
       });
   }
 
-  logoutUser(): void {
-    this._user.next(null);
+  logoutUser(): Promise<void> {
+    return this.auth.signOut();
   }
 
   ngOnDestroy() {

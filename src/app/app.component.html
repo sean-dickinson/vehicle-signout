@@ -1,10 +1,14 @@
-<mat-toolbar color="primary">
-  <button (click)="sidenav.toggle()" mat-icon-button><mat-icon>menu</mat-icon></button>
-  <a routerLink="/" class="app-title-link">Vehicle Signouts</a>
+<mat-toolbar color="primary" fxLayout="row">
+  <button fxFlex="nogrow" (click)="sidenav.toggle()" mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  <a fxFlex="nogrow" routerLink="/" class="app-title-link">Vehicle Signouts</a>
+  <div fxFlex="1 1"></div>
+  <app-account-dropdown fxFlex="nogrow" [user]="user$ | async" (logout)="onLogout()"></app-account-dropdown>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav #sidenav [mode]="mode" [opened]="opened">
-   <nav-list [user]="user$ | async" [vehicles]="vehicles$ | async"></nav-list>
+    <nav-list [user]="user$ | async" [vehicles]="vehicles$ | async"></nav-list>
   </mat-sidenav>
   <section class="main-content">
     <router-outlet>

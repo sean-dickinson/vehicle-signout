@@ -37,7 +37,7 @@ describe("ManageSignoutsCardComponent", () => {
       time: signoutData[0].startTime
     });
 
-    expect(spectator.query('signout-list')).toBeTruthy()
+    expect(spectator.query('app-signout-list')).toBeTruthy()
   });
 
   it('should render message when no signouts are present', () => {

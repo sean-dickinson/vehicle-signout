@@ -49,6 +49,6 @@ describe("VehicleSignoutCardComponent", () => {
 
   it("should show signout list if signouts are given", () => {
     spectator.setInput({ signouts: signoutData });
-    expect(spectator.query("signout-list")).toBeTruthy();
+    expect(spectator.query("app-signout-list")).toBeTruthy();
   });
 });

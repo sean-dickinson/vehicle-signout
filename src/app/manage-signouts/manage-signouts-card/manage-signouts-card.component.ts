@@ -3,7 +3,7 @@ import { VehicleSignout } from 'app/models/vehicle-signout';
 import { VehicleUser } from 'app/models/vehicle-user';
 
 @Component({
-  selector: 'manage-signouts-card',
+  selector: 'app-manage-signouts-card',
   templateUrl: './manage-signouts-card.component.html',
   styleUrls: ['./manage-signouts-card.component.css']
 })

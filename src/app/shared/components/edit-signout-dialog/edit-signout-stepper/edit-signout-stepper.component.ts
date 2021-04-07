@@ -33,7 +33,7 @@ import {
 } from './validation-helpers';
 
 @Component({
-  selector: 'edit-signout-stepper',
+  selector: 'app-edit-signout-stepper',
   templateUrl: './edit-signout-stepper.component.html',
   styleUrls: ['./edit-signout-stepper.component.css'],
 })

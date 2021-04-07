@@ -3,7 +3,7 @@ import { Vehicle } from '../../../models/vehicle';
 import { VehicleSignout } from '../../../models/vehicle-signout';
 
 @Component({
-  selector: 'vehicle-signout-card',
+  selector: 'app-vehicle-signout-card',
   templateUrl: './vehicle-signout-card.component.html',
   styleUrls: ['./vehicle-signout-card.component.css'],
 })

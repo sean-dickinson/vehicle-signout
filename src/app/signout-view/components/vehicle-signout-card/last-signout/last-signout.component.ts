@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { VehicleSignout } from '../../../../models/vehicle-signout';
 
 @Component({
-  selector: 'last-signout',
+  selector: 'app-last-signout',
   templateUrl: './last-signout.component.html',
   styleUrls: ['./last-signout.component.css']
 })

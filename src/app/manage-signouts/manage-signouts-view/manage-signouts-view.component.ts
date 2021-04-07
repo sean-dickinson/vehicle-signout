@@ -10,7 +10,7 @@ import { ConfirmDialogComponent } from "../confirm-dialog/confirm-dialog.compone
 import { EditSignoutDialogComponent } from "app/shared/components/edit-signout-dialog/edit-signout-dialog.component";
 
 @Component({
-  selector: "manage-signouts-view",
+  selector: "app-manage-signouts-view",
   templateUrl: "./manage-signouts-view.component.html",
   styleUrls: ["./manage-signouts-view.component.css"],
 })

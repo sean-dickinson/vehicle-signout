@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>New Signout</h1>
 <div mat-dialog-content>
-  <edit-signout-stepper 
+  <app-edit-signout-stepper 
     [signout]="signout"
     [vehicles]="vehicles$ | async"
     (signoutChange)="saveSignout($event)"
-    ></edit-signout-stepper>
+    ></app-edit-signout-stepper>
 </div>

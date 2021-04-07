@@ -8,8 +8,8 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { combineDateTime } from 'app/utilities/functions';
-import { Observable, of } from 'rxjs';
+import { combineDateTime } from 'app/utilities/helper-functions';
+
 
 export const dateRangeValidator: ValidatorFn = (
   control: AbstractControl

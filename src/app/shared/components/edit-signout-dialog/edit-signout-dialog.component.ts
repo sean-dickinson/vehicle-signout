@@ -8,7 +8,7 @@ import { Vehicle } from 'app/models/vehicle';
 import { VehicleSignout } from 'app/models/vehicle-signout';
 
 @Component({
-  selector: 'edit-signout-dialog',
+  selector: 'app-edit-signout-dialog',
   templateUrl: './edit-signout-dialog.component.html',
   styleUrls: ['./edit-signout-dialog.component.css'],
 })

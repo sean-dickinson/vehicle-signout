@@ -13,7 +13,7 @@ import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { EditSignoutDialogComponent } from '../../shared/components/edit-signout-dialog/edit-signout-dialog.component';
 
 @Component({
-  selector: 'view-signouts-by-vehicle',
+  selector: 'app-view-signouts-by-vehicle',
   templateUrl: './view-signouts-by-vehicle.component.html',
   styleUrls: ['./view-signouts-by-vehicle.component.css'],
 })

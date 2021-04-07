@@ -8,12 +8,12 @@ import {
   Spectator,
 } from "@ngneat/spectator";
 import { MockComponent } from "ng-mocks";
-import { RouterLinkDirectiveStub } from "testing-helpers/router-link-stub";
-import { testActiveUser } from "testing-helpers/test-user-data";
+import { RouterLinkDirectiveStub } from "testing-helpers/stubs/router-link-stub";
+import { testActiveUser } from "testing-helpers/testing-data/test-user-data";
 import { testVehicles } from "testing-helpers/testing-data/test-vehicle-data";
 import { NavListComponent } from "./nav-list.component";
 
-fdescribe("NavListComponent", () => {
+describe("NavListComponent", () => {
   let spectator: Spectator<NavListComponent>;
   const createComponent = createComponentFactory({
     component: NavListComponent,

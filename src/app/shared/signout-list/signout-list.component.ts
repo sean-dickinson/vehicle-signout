@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { VehicleSignout } from 'app/models/vehicle-signout';
 
 @Component({
-  selector: 'signout-list',
+  selector: 'app-signout-list',
   templateUrl: './signout-list.component.html',
   styleUrls: ['./signout-list.component.css'],
 })

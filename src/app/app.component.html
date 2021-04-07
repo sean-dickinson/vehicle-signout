@@ -8,7 +8,7 @@
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav #sidenav [mode]="mode" [opened]="opened">
-    <nav-list [user]="user$ | async" [vehicles]="vehicles$ | async"></nav-list>
+    <app-nav-list [user]="user$ | async" [vehicles]="vehicles$ | async"></app-nav-list>
   </mat-sidenav>
   <section class="main-content">
     <router-outlet>

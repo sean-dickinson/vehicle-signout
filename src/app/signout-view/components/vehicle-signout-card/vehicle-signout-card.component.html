@@ -4,10 +4,10 @@
         <span fxFlexFill fxFlexOffset="2px">{{vehicle?.name}}</span>
     </mat-card-title>
     <mat-card-subtitle *ngIf="lastSignout">
-        <last-signout [signout]="lastSignout"></last-signout>
+        <app-last-signout [signout]="lastSignout"></app-last-signout>
     </mat-card-subtitle>
     <mat-card-content>
-        <signout-list *ngIf="signouts?.length > 0; else noSignouts" [signouts]="signouts" [currentSignoutID]="currentSignoutID"></signout-list>
+        <app-signout-list *ngIf="signouts?.length > 0; else noSignouts" [signouts]="signouts" [currentSignoutID]="currentSignoutID"></app-signout-list>
         <ng-template #noSignouts>
             <div style="padding:1em" fxLayout="row" fxLayoutAlign="center center">
                 <h2 class="mat-h2">No Signouts Scheduled</h2>

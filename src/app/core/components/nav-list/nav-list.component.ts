@@ -3,7 +3,7 @@ import { Vehicle } from '../../../models/vehicle';
 import { VehicleUser } from '../../../models/vehicle-user';
 
 @Component({
-  selector: 'nav-list',
+  selector: 'app-nav-list',
   templateUrl: './nav-list.component.html',
   styleUrls: ['./nav-list.component.css']
 })

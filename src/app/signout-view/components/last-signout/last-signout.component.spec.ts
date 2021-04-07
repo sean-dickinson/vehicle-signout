@@ -1,40 +1,21 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import {signoutData} from 'testing-helpers/test-signout-data';
+import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { LastSignoutComponent } from './last-signout.component';
 
 describe('LastSignoutComponent', () => {
-  let component: LastSignoutComponent;
-  let fixture: ComponentFixture<LastSignoutComponent>;
-  let el: DebugElement;
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ LastSignoutComponent ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
-  });
+  let spectator: Spectator<LastSignoutComponent>;
+  const createComponent = createComponentFactory(LastSignoutComponent);
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LastSignoutComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-    el = fixture.debugElement.query(By.css('span'));
-  });
+  beforeEach(() => spectator = createComponent());
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 
   it('should render nothing if no signout', () => {
-    expect(el.nativeElement.textContent).toEqual('');
+    expect(spectator.query('span').textContent.trim()).toBe('');
   });
 
   it('should correctly render the signout', () => {
-    component.signout = signoutData[0];
-    fixture.detectChanges();
-    expect(el.nativeElement.textContent).toContain(signoutData[0].userName)
+    spectator.setInput({signout: signoutData[0]});
+    expect(spectator.query('span').textContent).toContain(signoutData[0].userName)
   });
 
 });

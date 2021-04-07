@@ -1,4 +1,4 @@
-import { compareUID, combineDateTime} from './functions';
+import { compareUID, combineDateTime} from './helper-functions';
 
 describe('helper functions', () => {
     describe('compareUID function', () => {

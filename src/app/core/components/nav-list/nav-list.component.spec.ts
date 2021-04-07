@@ -10,7 +10,7 @@ import {
 import { MockComponent } from "ng-mocks";
 import { RouterLinkDirectiveStub } from "testing-helpers/router-link-stub";
 import { testActiveUser } from "testing-helpers/test-user-data";
-import { testVehicles } from "testing-helpers/test-vehicle-data";
+import { testVehicles } from "testing-helpers/testing-data/test-vehicle-data";
 import { NavListComponent } from "./nav-list.component";
 
 fdescribe("NavListComponent", () => {

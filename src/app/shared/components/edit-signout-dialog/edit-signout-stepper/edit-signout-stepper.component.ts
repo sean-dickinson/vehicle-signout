@@ -24,7 +24,7 @@ import {
   compareByProp,
   compareUID,
   getTimestring,
-} from 'app/utilities/functions';
+} from 'app/utilities/helper-functions';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {
@@ -33,11 +33,11 @@ import {
 } from './validation-helpers';
 
 @Component({
-  selector: 'add-signout-stepper',
-  templateUrl: './add-signout-stepper.component.html',
-  styleUrls: ['./add-signout-stepper.component.css'],
+  selector: 'edit-signout-stepper',
+  templateUrl: './edit-signout-stepper.component.html',
+  styleUrls: ['./edit-signout-stepper.component.css'],
 })
-export class AddSignoutStepperComponent
+export class EditSignoutStepperComponent
   implements OnInit, OnChanges, OnDestroy {
   generalStepGroup: FormGroup;
   timeStepGroup: FormGroup;

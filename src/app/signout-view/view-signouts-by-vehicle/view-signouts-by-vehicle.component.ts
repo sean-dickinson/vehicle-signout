@@ -10,7 +10,7 @@ import { UserService } from 'app/user.service';
 import { VehicleService } from 'app/vehicle.service';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { AddSignoutDialogComponent } from '../components/add-signout-dialog/add-signout-dialog.component';
+import { EditSignoutDialogComponent } from '../../shared/components/edit-signout-dialog/edit-signout-dialog.component';
 
 @Component({
   selector: 'view-signouts-by-vehicle',
@@ -75,7 +75,7 @@ export class ViewSignoutsByVehicleComponent implements OnInit, OnDestroy {
   }
 
   openDialog() {
-    this.dialog.open(AddSignoutDialogComponent, {
+    this.dialog.open(EditSignoutDialogComponent, {
       data: {
         vehicleName: this.currentVehicle.name,
         vehicleID: this.currentVehicle.uid,

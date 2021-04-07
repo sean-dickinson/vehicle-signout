@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Vehicle } from '../../models/vehicle';
-import { VehicleUser } from '../../models/vehicle-user';
+import { Vehicle } from '../../../models/vehicle';
+import { VehicleUser } from '../../../models/vehicle-user';
 
 @Component({
   selector: 'nav-list',

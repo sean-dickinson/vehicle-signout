@@ -8,10 +8,10 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { environment } from "../environments/environment";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./core/login/login.component";
-import { SelectVehicleComponent } from "./core/select-vehicle/select-vehicle.component";
-import { NavListComponent } from "./core/nav-list/nav-list.component";
+import { SelectVehicleComponent } from "./core/components/select-vehicle/select-vehicle.component";
+import { NavListComponent } from "./core/components/nav-list/nav-list.component";
 import { SharedModule } from "./shared/shared.module";
-import { AccountDropdownComponent } from "./core/account-dropdown/account-dropdown.component";
+import { AccountDropdownComponent } from "./core/components/account-dropdown/account-dropdown.component";
 
 @NgModule({
   declarations: [

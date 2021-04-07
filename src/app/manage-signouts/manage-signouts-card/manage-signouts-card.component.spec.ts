@@ -2,8 +2,8 @@ import { MatCard, MatCardContent, MatCardTitle } from "@angular/material/card";
 import { createComponentFactory, Spectator } from "@ngneat/spectator";
 import { SignoutListComponent } from "app/shared/signout-list/signout-list.component";
 import { MockComponent } from "ng-mocks";
-import { signoutData } from "testing-helpers/test-signout-data";
-import { testActiveUser } from "testing-helpers/test-user-data";
+import { signoutData } from "testing-helpers/testing-data/test-signout-data";
+import { testActiveUser } from "testing-helpers/testing-data/test-user-data";
 
 import { ManageSignoutsCardComponent } from "./manage-signouts-card.component";
 

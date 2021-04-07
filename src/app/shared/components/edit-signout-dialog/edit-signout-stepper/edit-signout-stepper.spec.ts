@@ -2,30 +2,30 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { signoutData } from 'testing-helpers/test-signout-data';
-import { testVehicles } from 'testing-helpers/test-vehicle-data';
+import { signoutData } from 'testing-helpers/testing-data/test-signout-data';
+import { testVehicles } from 'testing-helpers/testing-data/test-vehicle-data';
 
 import { HarnessLoader } from '@angular/cdk/testing';
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 
 
-import { AddSignoutStepperComponent } from './add-signout-stepper.component';
+import { EditSignoutStepperComponent } from './edit-signout-stepper.component';
 
 
 describe('AddSignoutStepperComponent', () => {
   let loader: HarnessLoader;
-  let component: AddSignoutStepperComponent;
-  let fixture: ComponentFixture<AddSignoutStepperComponent>;
+  let component: EditSignoutStepperComponent;
+  let fixture: ComponentFixture<EditSignoutStepperComponent>;
   let el: DebugElement;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddSignoutStepperComponent],
+      declarations: [EditSignoutStepperComponent],
       providers: [FormBuilder],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddSignoutStepperComponent);
+    fixture = TestBed.createComponent(EditSignoutStepperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     el = fixture.debugElement;

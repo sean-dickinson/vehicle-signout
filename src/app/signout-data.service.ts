@@ -5,7 +5,7 @@ import { combineLatest, Observable, of } from "rxjs";
 import { map, switchMap, take, tap } from "rxjs/operators";
 import { VehicleSignout } from "./models/vehicle-signout";
 import { VehicleUser } from "./models/vehicle-user";
-import { combineDateTime } from "./utilities/functions";
+import { combineDateTime } from "./utilities/helper-functions";
 
 @Injectable({
   providedIn: "root",

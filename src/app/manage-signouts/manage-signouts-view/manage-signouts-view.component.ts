@@ -7,7 +7,7 @@ import { VehicleUser } from "app/models/vehicle-user";
 import { TimeService } from "app/time.service";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "../confirm-dialog/confirm-dialog.component";
-import { AddSignoutDialogComponent } from "app/signout-view/components/add-signout-dialog/add-signout-dialog.component";
+import { EditSignoutDialogComponent } from "app/shared/components/edit-signout-dialog/edit-signout-dialog.component";
 
 @Component({
   selector: "manage-signouts-view",
@@ -34,7 +34,7 @@ export class ManageSignoutsViewComponent implements OnInit {
   }
 
   editSignout(signout: VehicleSignout) {
-    this.dialog.open(AddSignoutDialogComponent, {
+    this.dialog.open(EditSignoutDialogComponent, {
       data: {
         ...signout
       }

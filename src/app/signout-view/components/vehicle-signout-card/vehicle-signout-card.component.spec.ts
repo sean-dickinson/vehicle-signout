@@ -1,9 +1,9 @@
 import { Spectator, createComponentFactory } from "@ngneat/spectator";
-import { signoutData } from "testing-helpers/test-signout-data";
+import { signoutData } from "testing-helpers/testing-data/test-signout-data";
 import { MockComponent } from "ng-mocks";
 import { VehicleSignoutCardComponent } from "./vehicle-signout-card.component";
 import { MatIcon } from "@angular/material/icon";
-import { LastSignoutComponent } from "../last-signout/last-signout.component";
+import { LastSignoutComponent } from "./last-signout/last-signout.component";
 import { MatCard, MatCardContent, MatCardTitle, MatCardSubtitle } from "@angular/material/card";
 import { SignoutListComponent } from "app/shared/signout-list/signout-list.component";
 

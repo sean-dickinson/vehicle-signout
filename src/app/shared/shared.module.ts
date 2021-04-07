@@ -4,15 +4,15 @@ import { VehicleMaterialModule } from './vehicle-material/vehicle-material.modul
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SignoutListComponent } from './signout-list/signout-list.component';
-import { AddSignoutDialogComponent } from 'app/signout-view/components/add-signout-dialog/add-signout-dialog.component';
-import { AddSignoutStepperComponent } from 'app/signout-view/components/add-signout-stepper/add-signout-stepper.component';
+import { EditSignoutDialogComponent } from 'app/shared/components/edit-signout-dialog/edit-signout-dialog.component';
+import { EditSignoutStepperComponent } from 'app/shared/components/edit-signout-dialog/edit-signout-stepper/edit-signout-stepper.component';
 
 
 @NgModule({
   declarations: [
     SignoutListComponent,
-    AddSignoutDialogComponent,
-    AddSignoutStepperComponent
+    EditSignoutDialogComponent,
+    EditSignoutStepperComponent
   ],
   imports: [
     CommonModule,
@@ -27,8 +27,8 @@ import { AddSignoutStepperComponent } from 'app/signout-view/components/add-sign
     ReactiveFormsModule,
     FlexLayoutModule,
     SignoutListComponent,
-    AddSignoutDialogComponent,
-    AddSignoutStepperComponent
+    EditSignoutDialogComponent,
+    EditSignoutStepperComponent
   ]
 })
 export class SharedModule { }

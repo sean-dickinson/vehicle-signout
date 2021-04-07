@@ -8,11 +8,11 @@ import { Vehicle } from 'app/models/vehicle';
 import { VehicleSignout } from 'app/models/vehicle-signout';
 
 @Component({
-  selector: 'add-signout-dialog',
-  templateUrl: './add-signout-dialog.component.html',
-  styleUrls: ['./add-signout-dialog.component.css'],
+  selector: 'edit-signout-dialog',
+  templateUrl: './edit-signout-dialog.component.html',
+  styleUrls: ['./edit-signout-dialog.component.css'],
 })
-export class AddSignoutDialogComponent {
+export class EditSignoutDialogComponent {
   vehicles$: Observable<Vehicle[]>;
   currentVehicle: Vehicle;
   validSignout: boolean;
@@ -20,7 +20,7 @@ export class AddSignoutDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     private vs: VehicleService,
-    public dialogRef: MatDialogRef<AddSignoutDialogComponent>
+    public dialogRef: MatDialogRef<EditSignoutDialogComponent>
   ) {
     this.vehicles$ = this.vs.getActiveVehicles();
     const startTime = new Date();

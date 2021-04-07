@@ -1,4 +1,4 @@
-import {signoutData} from 'testing-helpers/test-signout-data';
+import {signoutData} from 'testing-helpers/testing-data/test-signout-data';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { LastSignoutComponent } from './last-signout.component';
 

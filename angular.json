@@ -122,7 +122,7 @@
   "defaultProject": "vehicle-signout",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "",
+      "prefix": "app",
       "styleext": "css"
     },
     "@schematics/angular:directive": {

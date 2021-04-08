@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  --toolbarHeight: 64px;
+}
+
 
 html, body {
   margin: 0;
@@ -7,7 +11,7 @@ html, body {
 }
 
 mat-sidenav-container{
-  height: calc(100vh - 64px)
+  height: calc(100vh - var(--toolbarHeight))
 }
 
 
@@ -15,36 +19,26 @@ mat-sidenav{
     width: 200px;
 }
 
-mat-card{
-    margin: 2.5em;
-    max-height: 80vh;
-    overflow-y: auto;
-    overflow-x:hidden;
+.full-height {
+  min-height: calc(100vh - var(--toolbarHeight));
 }
 
-.small-card {
-  width: min(90vw, 600px);
+mat-card {
+  width: min(90%, 600px);
+  margin: 0 auto;
 }
 
-.mat-toolbar-layout{
-  width:100%;
+.container {
+  padding: 1em
 }
 
-.mat-list-item-content{
-  width: 100%;
-}
+
 
 .fab{
-  position:fixed !important;
   bottom: 3em;
   right: 5em;
 }
 
-.mat-nav-list a{
-  height:inherit;
-  width: inherit;
-  line-height: 3;
-}
 
 .mat-nav-list a:focus{
   outline:none;
@@ -54,22 +48,17 @@ a.active-list-link mat-icon, a.active-list-link span {
   color: #009688
 }
 
-.mat-list .mat-subheader, .mat-nav-list .mat-subheader{
-  font-size: 16px !important;
-}
 
 
 @media(max-width:600px){
-  mat-card{
-    margin: 0;
+
+
+  html {
+    --toolbarHeight: 56px;
   }
 
-  mat-dialog-container{
-    margin: 0 auto;
-  }
-
-  mat-sidenav-container{
-  height: calc(100vh - 54px)
+  .container {
+    padding: 1em 0.5em;
   }
 
   .fab{

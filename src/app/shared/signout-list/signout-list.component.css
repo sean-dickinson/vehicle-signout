@@ -1,20 +1,3 @@
-h3.mat-subheader{
-      padding: 16px 0;
-  }
-
-.warn{
-  color:#FFC107;
-}
-
-@media(max-width:600px){
-  mat-card{
-    margin: 0;
-  }
-
-  mat-list-item span{
-      font-size: 14px;
-  }
-}
 
 .currentSignout{
   background: rgba(255, 193, 7, 0.5);

@@ -14,9 +14,14 @@ export class ManageSignoutsCardComponent implements OnInit {
   @Input() time: string;
   @Output() edit = new EventEmitter<VehicleSignout>();
   @Output() remove = new EventEmitter<VehicleSignout>();
+  currentColumns = ['reason', 'startTime', 'endTime', 'actions']
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  get columns(): string[] {
+    return this.type === 'Current' ? this.currentColumns : [];
   }
 
 

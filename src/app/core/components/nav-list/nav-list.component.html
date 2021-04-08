@@ -1,19 +1,40 @@
 <mat-nav-list>
-    <h3 mat-subheader>Choose a vehicle</h3>
-    <mat-divider></mat-divider>
-    <ng-container *ngFor="let vehicle of vehicles">
-      <a mat-list-item fxLayout="row" fxLayoutAlign="start center" [routerLink]="['/vehicle',vehicle.uid]" routerLinkActive="active-list-link">
-          <mat-icon>{{vehicle.icon}}</mat-icon>
-        <span fxFlex fxFlexOffset="10px">{{vehicle.name}}</span>
-      </a>
-    </ng-container>
-    <mat-divider></mat-divider>
-    <a mat-list-item fxLayout="row" fxLayoutAlign="start center" routerLink="/my-signouts" routerLinkActive="active-list-link">
+  <h3 mat-subheader>Choose a vehicle</h3>
+  <mat-divider></mat-divider>
+  <mat-list-item *ngFor="let vehicle of vehicles">
+    <a
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      [routerLink]="['/vehicle', vehicle.uid]"
+      routerLinkActive="active-list-link"
+    >
+    
+      <mat-icon>{{ vehicle.icon }}</mat-icon>
+      <span fxFlex fxFlexOffset="10px">{{ vehicle.name }}</span>
+
+    </a>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>
+    <a
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      routerLink="/my-signouts"
+      routerLinkActive="active-list-link"
+    >
       <mat-icon>event_note</mat-icon>
       <span fxFlex fxFlexOffset="10px">My Signouts</span>
     </a>
-    <a *ngIf="user?.isAdmin" mat-list-item fxLayout="row" fxLayoutAlign="start center" routerLink="/admin" routerLinkActive="active-list-link">
+  </mat-list-item>
+  <mat-list-item *ngIf="user?.isAdmin">
+    <a
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      routerLink="/admin"
+      routerLinkActive="active-list-link"
+    >
       <mat-icon>admin</mat-icon>
       <span fxFlex fxFlexOffset="10px">Admin</span>
     </a>
+  </mat-list-item>
 </mat-nav-list>

@@ -1,14 +1,12 @@
-<div class="container" fxLayout="row" fxLayoutAlign="center center">
-    <vehicle-signout-card 
-    fxFlex="80"
-    fxFlex.sm="100"
+<div class="container" >
+    <app-vehicle-signout-card 
     [signouts]="signouts$ | async" 
     [vehicle]="vehicle$ | async" 
     [lastSignout]="lastSignout$ | async"
     [currentTime]="currentTime$ | async"
     >
-    </vehicle-signout-card>
+    </app-vehicle-signout-card>
 </div>
-<button (click)="openDialog()" mat-fab class="fab">
+<button style="position: fixed;" (click)="openDialog()" mat-fab class="fab">
     <mat-icon>directions_car</mat-icon>
 </button>

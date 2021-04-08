@@ -7,7 +7,7 @@
   <app-account-dropdown fxFlex="nogrow" [user]="user$ | async" (logout)="onLogout()"></app-account-dropdown>
 </mat-toolbar>
 <mat-sidenav-container>
-  <mat-sidenav #sidenav [mode]="mode" [opened]="opened">
+  <mat-sidenav #sidenav [mode]="mode" [(opened)]="opened">
     <app-nav-list [user]="user$ | async" [vehicles]="vehicles$ | async"></app-nav-list>
   </mat-sidenav>
   <section class="main-content">

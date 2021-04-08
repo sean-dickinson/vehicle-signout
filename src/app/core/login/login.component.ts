@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
-import { UserService } from '../../user.service';
+
 
 @Component({
   selector: 'app-login',
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     this.login(
       this.emailControl.value,
       this.passwordControl.value,
-    ).then((userCred) => {
+    ).then(() => {
       this.router.navigate(['']);
     }).catch(err => this.handleErr(err));
   }

@@ -1,8 +1,8 @@
 <mat-card>
-  <mat-card-title>{{ user?.displayName }}'s {{type}} Signouts</mat-card-title>
+  <mat-card-title>My {{type}} Signouts</mat-card-title>
   <mat-card-content>
     <app-signout-list
-      [showActions]="type === 'Current'"
+      [columns]="columns"
       [time]="time"
       [signouts]="signouts"
       (edit)="edit.emit($event)"

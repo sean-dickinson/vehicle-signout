@@ -1,18 +1,22 @@
 <mat-card>
-    <mat-card-title fxLayout="row" fxLayoutAlign="start center">
-        <mat-icon *ngIf="currentSignoutID">warning</mat-icon>
-        <span fxFlexFill fxFlexOffset="2px">{{vehicle?.name}}</span>
-    </mat-card-title>
-    <mat-card-subtitle *ngIf="lastSignout">
-        <app-last-signout [signout]="lastSignout"></app-last-signout>
-    </mat-card-subtitle>
-    <mat-card-content>
-        <app-signout-list *ngIf="signouts?.length > 0; else noSignouts" [signouts]="signouts" [currentSignoutID]="currentSignoutID"></app-signout-list>
-        <ng-template #noSignouts>
-            <div style="padding:1em" fxLayout="row" fxLayoutAlign="center center">
-                <h2 class="mat-h2">No Signouts Scheduled</h2>
-            </div>
-        </ng-template>
-
-    </mat-card-content>
+  <mat-card-title fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon *ngIf="currentSignoutID">warning</mat-icon>
+    <span fxFlexFill fxFlexOffset="2px">{{ vehicle?.name }}</span>
+  </mat-card-title>
+  <mat-card-subtitle *ngIf="lastSignout">
+    <app-last-signout [signout]="lastSignout"></app-last-signout>
+  </mat-card-subtitle>
+  <mat-card-content>
+    <app-signout-list
+      *ngIf="signouts?.length > 0; else noSignouts"
+      [columns]="columns"
+      [signouts]="signouts"
+      [currentSignoutID]="currentSignoutID"
+    ></app-signout-list>
+    <ng-template #noSignouts>
+      <div style="padding: 1em" fxLayout="row" fxLayoutAlign="center center">
+        <h2 class="mat-h2">No Signouts Scheduled</h2>
+      </div>
+    </ng-template>
+  </mat-card-content>
 </mat-card>

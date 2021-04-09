@@ -12,6 +12,7 @@ export class VehicleSignoutCardComponent implements OnInit {
   @Input() signouts: VehicleSignout[];
   @Input() lastSignout: VehicleSignout;
   @Input() currentTime: string;
+  columns = ["userName", "reason", "startTime", "endTime"];
   constructor() {}
 
   ngOnInit(): void {}

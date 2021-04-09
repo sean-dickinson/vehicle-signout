@@ -6,13 +6,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SignoutListComponent } from './signout-list/signout-list.component';
 import { EditSignoutDialogComponent } from 'app/shared/components/edit-signout-dialog/edit-signout-dialog.component';
 import { EditSignoutStepperComponent } from 'app/shared/components/edit-signout-dialog/edit-signout-stepper/edit-signout-stepper.component';
+import { SimpleDialogComponent } from './components/simple-dialog/simple-dialog.component';
 
 
 @NgModule({
   declarations: [
     SignoutListComponent,
     EditSignoutDialogComponent,
-    EditSignoutStepperComponent
+    EditSignoutStepperComponent,
+    SimpleDialogComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { EditSignoutStepperComponent } from 'app/shared/components/edit-signout-
     FlexLayoutModule,
     SignoutListComponent,
     EditSignoutDialogComponent,
-    EditSignoutStepperComponent
+    EditSignoutStepperComponent,
+    SimpleDialogComponent
   ]
 })
 export class SharedModule { }

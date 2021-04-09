@@ -7,8 +7,10 @@ import {
   SimpleChanges,
   EventEmitter,
 } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { MatTableDataSource } from "@angular/material/table";
 import { VehicleSignout } from "app/models/vehicle-signout";
+import { SimpleDialogComponent } from "../components/simple-dialog/simple-dialog.component";
 
 @Component({
   selector: "app-signout-list",
@@ -24,7 +26,7 @@ export class SignoutListComponent implements OnChanges {
   @Output() remove = new EventEmitter<VehicleSignout>();
   dataSource = new MatTableDataSource<VehicleSignout>();
   defaultColumns: string[] = ["reason", "startTime", "endTime"];
-  constructor(public bp: BreakpointObserver) {}
+  constructor(public bp: BreakpointObserver, public dialog: MatDialog) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.signouts) {
@@ -38,7 +40,17 @@ export class SignoutListComponent implements OnChanges {
       : this.defaultColumns;
   }
 
+  get isMobile(): boolean {
+    return this.bp.isMatched(Breakpoints.HandsetPortrait)
+  }
+
   get dateFormat(): string {
-    return this.bp.isMatched(Breakpoints.HandsetPortrait) ? 'shortDate' : 'short'
+    return this.isMobile ? 'shortDate' : 'short'
+  }
+
+  showPurpose(signout: VehicleSignout){
+    this.dialog.open(SimpleDialogComponent, {
+      data: signout.reason
+    })
   }
 }

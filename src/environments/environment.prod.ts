@@ -1,11 +1,13 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: 'AIzaSyBuI486DxKkiF7VFe-I7SyyaRBpYNtjtx4',
-    authDomain: 'oakwood-vehicles-signout.firebaseapp.com',
-    databaseURL: 'https://oakwood-vehicles-signout.firebaseio.com',
-    projectId: 'oakwood-vehicles-signout',
-    storageBucket: 'oakwood-vehicles-signout.appspot.com',
-    messagingSenderId: '289511816613'
-  }
+    apiKey: 'AIzaSyAWT96pRMkBYALeOETEVNEvu_s1rfOSfqA',
+    authDomain: 'vehicle-signout.firebaseapp.com',
+    databaseURL: 'https://vehicle-signout.firebaseio.com',
+    projectId: 'vehicle-signout',
+    storageBucket: 'vehicle-signout.appspot.com',
+    messagingSenderId: '1055450032142',
+    appId: '1:1055450032142:web:995153fdb53df9c59a745f',
+    measurementId: 'G-DFZMVYCC5R',
+  },
 };

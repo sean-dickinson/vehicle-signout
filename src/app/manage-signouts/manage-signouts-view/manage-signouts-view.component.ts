@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { SignoutDataService } from "../../signout-data.service";
+import { SignoutDataService } from "app/core/services/signout-data.service";
 import { Observable } from "rxjs";
 import { VehicleSignout } from "app/models/vehicle-signout";
-import { UserService } from "app/user.service";
+import { UserService } from "app/core/services/user.service";
 import { VehicleUser } from "app/models/vehicle-user";
-import { TimeService } from "app/time.service";
+import { TimeService } from "app/core/services/time.service";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "../confirm-dialog/confirm-dialog.component";
 import { EditSignoutDialogComponent } from "app/shared/components/edit-signout-dialog/edit-signout-dialog.component";

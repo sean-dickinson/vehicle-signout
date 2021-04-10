@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Observable } from 'rxjs';
-import { VehicleService } from 'app/vehicle.service';
+import { VehicleService } from 'app/core/services/vehicle.service';
 import { Vehicle } from 'app/models/vehicle';
 import { VehicleSignout } from 'app/models/vehicle-signout';
 
@@ -23,7 +23,7 @@ export class EditSignoutDialogComponent {
     public dialogRef: MatDialogRef<EditSignoutDialogComponent>
   ) {
     this.vehicles$ = this.vs.getActiveVehicles();
-    const startTime = new Date();
+    const startTime = new Date(data.startTime);
     const endTime = new Date(startTime.getTime() + 60 * 60 * 1000);
     this.signout = {
       startTime,

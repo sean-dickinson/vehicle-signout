@@ -2,10 +2,10 @@ import { Injectable } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AbstractControl, AsyncValidatorFn } from "@angular/forms";
 import { combineLatest, Observable, of } from "rxjs";
-import { map, switchMap, take, tap } from "rxjs/operators";
-import { VehicleSignout } from "./models/vehicle-signout";
-import { VehicleUser } from "./models/vehicle-user";
-import { combineDateTime } from "./utilities/helper-functions";
+import { filter, map, switchMap, take, tap } from "rxjs/operators";
+import { VehicleSignout } from "../../models/vehicle-signout";
+import { VehicleUser } from "../../models/vehicle-user";
+import { combineDateTime } from "../../utilities/helper-functions";
 
 @Injectable({
   providedIn: "root",
@@ -17,14 +17,17 @@ export class SignoutDataService {
     vehicleID: string,
     currentTime$: Observable<string>
   ): Observable<VehicleSignout[]> {
-    return currentTime$.pipe(
-      switchMap((time) =>
-        this.af
-          .doc(`vehicles/${vehicleID}`)
-          .collection("signouts", (ref) => ref.where("endTime", ">=", time))
-          .valueChanges()
+    const startTime$ = currentTime$.pipe(take(1));
+    const signouts$ = startTime$.pipe(
+      switchMap(time => this.af
+        .doc(`vehicles/${vehicleID}`)
+        .collection("signouts", (ref) => ref.where("endTime", ">=", time))
+        .valueChanges() as Observable<VehicleSignout[]>
       )
-    ) as Observable<VehicleSignout[]>;
+    );
+    return combineLatest([signouts$, currentTime$]).pipe(
+      map(([signouts, currentTime]) => signouts.filter(s => s.endTime >= currentTime))
+    );
   }
 
   getLastSignout(

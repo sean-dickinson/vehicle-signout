@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { VehicleUser } from './models/vehicle-user';
+import { VehicleUser } from '../../models/vehicle-user';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { take } from 'rxjs/operators';

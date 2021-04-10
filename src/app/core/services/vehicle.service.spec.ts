@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { testVehicles } from 'testing-helpers/testing-data/test-vehicle-data';
-import { mockAngularFirestore} from '../testing-helpers/mocks/angular-fire-mocks';
+import { mockAngularFirestore} from 'testing-helpers/mocks/angular-fire-mocks';
 import { VehicleService } from './vehicle.service';
 
 

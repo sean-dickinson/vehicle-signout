@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subject } from 'rxjs';
 import { SignoutDataService } from './signout-data.service';
-import { mockAngularFirestore } from '../testing-helpers/mocks/angular-fire-mocks';
+import { mockAngularFirestore } from '../../../testing-helpers/mocks/angular-fire-mocks';
 import { signoutData } from 'testing-helpers/testing-data/test-signout-data';
 
 

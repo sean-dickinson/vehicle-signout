@@ -4,12 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Vehicle } from 'app/models/vehicle';
 import { VehicleSignout } from 'app/models/vehicle-signout';
 import { VehicleUser } from 'app/models/vehicle-user';
-import { SignoutDataService } from 'app/signout-data.service';
-import { TimeService } from 'app/time.service';
-import { UserService } from 'app/user.service';
-import { VehicleService } from 'app/vehicle.service';
+import { SignoutDataService } from 'app/core/services/signout-data.service';
+import { TimeService } from 'app/core/services/time.service';
+import { UserService } from 'app/core/services/user.service';
+import { VehicleService } from 'app/core/services/vehicle.service';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { EditSignoutDialogComponent } from '../../shared/components/edit-signout-dialog/edit-signout-dialog.component';
 
 @Component({
@@ -74,7 +74,8 @@ export class ViewSignoutsByVehicleComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
   }
 
-  openDialog() {
+  async openDialog() {
+    const time = await this.ts.getCurrentTime().pipe(take(1)).toPromise()
     this.dialog.open(EditSignoutDialogComponent, {
       data: {
         vehicleName: this.currentVehicle.name,
@@ -82,6 +83,7 @@ export class ViewSignoutsByVehicleComponent implements OnInit, OnDestroy {
         userID: this.user.uid,
         userName: this.user.displayName,
         uid: this.sds.createSignoutID(),
+        startTime: time
       }
     }).afterClosed().subscribe((signout: VehicleSignout) => {
       if (signout) {

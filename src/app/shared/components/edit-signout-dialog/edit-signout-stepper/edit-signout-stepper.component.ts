@@ -18,7 +18,7 @@ import {
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Vehicle } from 'app/models/vehicle';
 import { VehicleSignout } from 'app/models/vehicle-signout';
-import { SignoutDataService } from 'app/signout-data.service';
+import { SignoutDataService } from 'app/core/services/signout-data.service';
 import {
   combineDateTime,
   compareByProp,

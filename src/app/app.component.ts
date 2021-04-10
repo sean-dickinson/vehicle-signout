@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { UserService } from "./user.service";
+import { UserService } from "./core/services/user.service";
 import { VehicleUser } from "./models/vehicle-user";
-import { VehicleService } from "./vehicle.service";
+import { VehicleService } from "./core/services/vehicle.service";
 import { Vehicle } from "./models/vehicle";
 import {
   NavigationEnd,

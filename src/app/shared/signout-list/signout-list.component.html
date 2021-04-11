@@ -1,65 +1,69 @@
-<table mat-table [dataSource]="dataSource" style="width:100%">
-
+<table mat-table [dataSource]="dataSource" style="width: 100%">
   <!-- Name Column -->
   <ng-container matColumnDef="userName">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let signout"> {{signout.userName}} </td>
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let signout">{{ signout.userName }}</td>
   </ng-container>
 
   <!-- Purpose Column -->
   <ng-container matColumnDef="reason">
-    <th mat-header-cell *matHeaderCellDef> Purpose </th>
-    <td mat-cell *matCellDef="let signout"> 
-      <button (click)="showPurpose(signout)" mat-icon-button *ngIf="isMobile && signout.reason; else purpose">
-        <mat-icon>
-          info
-        </mat-icon>
+    <th mat-header-cell *matHeaderCellDef>Purpose</th>
+    <td mat-cell *matCellDef="let signout">
+      <button
+        (click)="showPurpose(signout)"
+        mat-icon-button
+        *ngIf="isMobile && signout.reason; else purpose"
+      >
+        <mat-icon> info </mat-icon>
       </button>
       <ng-template #purpose>
-        {{signout?.reason}}
+        {{ signout?.reason }}
       </ng-template>
-        
     </td>
   </ng-container>
 
   <!-- Vehicle Name Column -->
   <ng-container matColumnDef="vehicleName">
-    <th mat-header-cell *matHeaderCellDef> Vehicle </th>
-    <td mat-cell *matCellDef="let signout"> {{signout.vehicleName}} </td>
+    <th mat-header-cell *matHeaderCellDef>Vehicle</th>
+    <td mat-cell *matCellDef="let signout">{{ signout.vehicleName }}</td>
   </ng-container>
 
-  <!-- Departing Column -->
-  <ng-container matColumnDef="startTime">
-    <th mat-header-cell *matHeaderCellDef> Departing </th>
+  <!-- Timing Column -->
+  <ng-container matColumnDef="timing">
+    <th mat-header-cell *matHeaderCellDef>Timing</th>
     <td mat-cell *matCellDef="let signout">
-      {{signout.startTime | date : dateFormat}}
-    </td>
-  </ng-container>
-
-  <!-- Returning Column -->
-  <ng-container matColumnDef="endTime">
-    <th mat-header-cell *matHeaderCellDef> Returning </th>
-    <td mat-cell *matCellDef="let signout">
-      {{signout.endTime | date : dateFormat}}
+      <app-signout-timing-cell
+        [signout]="signout"
+        [isAlone]="displayedColumns.length === 1"
+      ></app-signout-timing-cell>
     </td>
   </ng-container>
 
   <!-- Actions Column -->
   <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let signout">
-      <button [disabled]="signout.endTime < time" (click)="this.edit.emit(signout)" mat-icon-button>
+      <button
+        [disabled]="signout.endTime < time"
+        (click)="this.edit.emit(signout)"
+        mat-icon-button
+      >
         <mat-icon>edit</mat-icon>
       </button>
-      <button [disabled]="signout.endTime < time" (click)="this.remove.emit(signout)" mat-icon-button>
+      <button
+        [disabled]="signout.endTime < time"
+        (click)="this.remove.emit(signout)"
+        mat-icon-button
+      >
         <mat-icon>delete</mat-icon>
       </button>
     </td>
   </ng-container>
 
-
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-    [ngClass]="{currentSignout: row.uid === currentSignoutID}"></tr>
-
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    [ngClass]="{ currentSignout: row.uid === currentSignoutID }"
+  ></tr>
 </table>

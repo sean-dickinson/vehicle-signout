@@ -25,7 +25,8 @@ export class SignoutListComponent implements OnChanges {
   @Output() edit = new EventEmitter<VehicleSignout>();
   @Output() remove = new EventEmitter<VehicleSignout>();
   dataSource = new MatTableDataSource<VehicleSignout>();
-  defaultColumns: string[] = ["reason", "startTime", "endTime"];
+  defaultColumns: string[] = ["reason", "timing"];
+  hiddenOnMobile: string[] = ['reason', 'vehicleName']
   constructor(public bp: BreakpointObserver, public dialog: MatDialog) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -35,9 +36,18 @@ export class SignoutListComponent implements OnChanges {
   }
 
   get displayedColumns(): string[] {
-    return this.columns && this.columns.length > 0
-      ? this.columns
-      : this.defaultColumns;
+    let displayed: string[];
+    if(this.columns && this.columns.length > 0){
+      displayed = this.columns;
+    } else {
+      displayed = this.defaultColumns
+    }
+
+    if(this.isMobile){
+      displayed = displayed.filter(c => !this.hiddenOnMobile.includes(c))
+    }
+
+    return displayed;
   }
 
   get isMobile(): boolean {
@@ -45,7 +55,7 @@ export class SignoutListComponent implements OnChanges {
   }
 
   get dateFormat(): string {
-    return this.isMobile ? 'shortDate' : 'short'
+    return 'MMM d h:mm a'
   }
 
   showPurpose(signout: VehicleSignout){

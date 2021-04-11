@@ -21,3 +21,7 @@ export function getTimestring(date: Date): string {
     return formatDate(date, 'HH:mm', 'en');
 }
 
+export function getDateString(date: Date): string {
+  return formatDate(date, 'yyyy-MM-dd', 'en');
+}
+

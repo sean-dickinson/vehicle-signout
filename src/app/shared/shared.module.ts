@@ -7,6 +7,7 @@ import { SignoutListComponent } from './signout-list/signout-list.component';
 import { EditSignoutDialogComponent } from 'app/shared/components/edit-signout-dialog/edit-signout-dialog.component';
 import { EditSignoutStepperComponent } from 'app/shared/components/edit-signout-dialog/edit-signout-stepper/edit-signout-stepper.component';
 import { SimpleDialogComponent } from './components/simple-dialog/simple-dialog.component';
+import { SignoutTimingCellComponent } from './signout-list/signout-timing-cell/signout-timing-cell.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { SimpleDialogComponent } from './components/simple-dialog/simple-dialog.
     SignoutListComponent,
     EditSignoutDialogComponent,
     EditSignoutStepperComponent,
-    SimpleDialogComponent
+    SimpleDialogComponent,
+    SignoutTimingCellComponent
   ],
   imports: [
     CommonModule,

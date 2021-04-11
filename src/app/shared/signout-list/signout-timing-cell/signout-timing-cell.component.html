@@ -1,0 +1,15 @@
+<div>
+    <span class="start-date">
+        {{signout.startTime | date : 'MMM d'}},
+    </span>
+    <span class="end-date" *ngIf="!isSingleDay">
+        {{signout.endTime | date : 'MMM d'}},
+    </span>
+    <br *ngIf="!isAlone" fxShow.xs="true" fxHide.gt-xs="true"/>
+    <span class="start-time">
+        {{signout.startTime | date : 'h:mm a'}} -
+    </span>
+    <span class="end-time">
+        {{signout.endTime | date : 'h:mm a'}}
+    </span>
+</div>

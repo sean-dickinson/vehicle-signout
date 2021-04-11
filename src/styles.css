@@ -44,8 +44,12 @@ mat-card {
   outline:none;
 }
 
-a.active-list-link mat-icon, a.active-list-link span {
+a.active-list-link mat-icon, a.active-list-link span, .success {
   color: #009688
+}
+
+.warn {
+  color: #ffc107
 }
 
 

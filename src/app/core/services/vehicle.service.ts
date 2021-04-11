@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { sortByProp } from 'app/utilities/helper-functions';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Vehicle } from '../../models/vehicle';
 
 @Injectable({
@@ -12,12 +14,14 @@ export class VehicleService {
   getActiveVehicles(): Observable<Vehicle[]> {
     return this.af
       .collection('vehicles', (ref) => ref.where('isActive', '==', true))
-      .valueChanges() as Observable<Vehicle[]>;
+      .valueChanges().pipe(
+        map((list: Vehicle[]) => list.sort(sortByProp('name')))
+      ) 
   }
 
   getAllVehicles(): Observable<Vehicle[]> {
     return this.af
-      .collection('vehicles')
+      .collection('vehicles', ref => ref.orderBy('name'))
       .valueChanges() as Observable<Vehicle[]>;
   }
 

@@ -25,3 +25,15 @@ export function getDateString(date: Date): string {
   return formatDate(date, 'yyyy-MM-dd', 'en');
 }
 
+export function sortByProp(prop: string) {
+  return (obj1: any, obj2: any) => {
+    if(obj1[prop] > obj2[prop]){
+      return 1
+    } else if (obj1[prop] < obj2[prop]){
+      return -1
+    } else {
+      return 0
+    }
+  }
+}
+

@@ -12,6 +12,9 @@ import { SelectVehicleComponent } from "./core/components/select-vehicle/select-
 import { NavListComponent } from "./core/components/nav-list/nav-list.component";
 import { SharedModule } from "./shared/shared.module";
 import { AccountDropdownComponent } from "./core/components/account-dropdown/account-dropdown.component";
+import { AvailableVehiclesCardComponent } from './core/components/available-vehicles-card/available-vehicles-card.component';
+import { VehicleStatusTableComponent } from './core/components/available-vehicles-card/vehicle-status-table/vehicle-status-table.component';
+import { VehicleStatusComponent } from './core/components/available-vehicles-card/vehicle-status-table/vehicle-status/vehicle-status.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,9 @@ import { AccountDropdownComponent } from "./core/components/account-dropdown/acc
     SelectVehicleComponent,
     NavListComponent,
     AccountDropdownComponent,
+    AvailableVehiclesCardComponent,
+    VehicleStatusTableComponent,
+    VehicleStatusComponent,
   ],
   imports: [
     BrowserModule,

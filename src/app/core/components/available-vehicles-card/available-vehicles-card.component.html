@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-title>Vehicles</mat-card-title>
+  <mat-card-subtitle>
+    See each vehicle along with its current availability below
+  </mat-card-subtitle>
+  <mat-card-content>
+    <app-vehicle-status-table
+      [vehicles]="vehicles$ | async"
+      [currentSignouts]="currentSignouts$ | async"
+    ></app-vehicle-status-table>
+  </mat-card-content>
+</mat-card>

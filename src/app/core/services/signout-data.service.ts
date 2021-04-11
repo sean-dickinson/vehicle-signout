@@ -30,6 +30,21 @@ export class SignoutDataService {
     );
   }
 
+  getCurrentSignouts(
+    currentTime$: Observable<string>
+  ): Observable<VehicleSignout[]> {
+    const startTime$ = currentTime$.pipe(take(1));
+    const signouts$ = startTime$.pipe(
+      switchMap(time => this.af
+        .collectionGroup("signouts", (ref) => ref.where("endTime", ">=", time))
+        .valueChanges() as Observable<VehicleSignout[]>
+      )
+    );
+    return combineLatest([signouts$, currentTime$]).pipe(
+      map(([signouts, currentTime]) => signouts.filter(s => s.endTime >= currentTime && s.startTime <= currentTime))
+    );
+  }
+
   getLastSignout(
     vehicleID: string,
     currentTime$: Observable<string>
